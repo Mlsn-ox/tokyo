@@ -1,0 +1,229 @@
+@use "class-variables" as *;
+@use "media-queries" as *;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px) rotateZ(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateZ(0);
+  }
+}
+
+body {
+  @include flex(column, start, stretch, nowrap);
+  position: relative;
+  min-height: 100vh;
+  background-image: url(../assets/tokyo-sakura.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  .section {
+    flex: 1;
+  }
+  .petal {
+    position: absolute;
+    top: 0px;
+    width: 15px;
+    height: 15px;
+    background-color: pink;
+    border-radius: 100% 0% 100% 0%;
+    opacity: 0.8;
+    animation: fall linear infinite;
+  }
+}
+
+//HOMEPAGE
+
+.home {
+  background: #ffffffb6;
+  backdrop-filter: blur(10px);
+}
+
+// NAVBAR
+
+.navbar {
+  box-shadow: var(--box-shadow);
+  .container-fluid {
+    .navbar-brand {
+      @include meri(700);
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+    }
+  }
+}
+
+// HEADER
+
+header {
+  @include flex(column, space-between, center, nowrap);
+  .head-content {
+    max-width: 600px;
+    justify-self: center;
+    gap: 2rem;
+    margin-top: 4%;
+    padding: 3rem;
+    background-color: #ffffffaf;
+    @include flex(column, center, center, nowrap);
+    @include meri(500);
+    text-align: center;
+    font-size: 1.3rem;
+    text-shadow: 1px 0 2px #dc3545;
+    img {
+      height: 5rem;
+    }
+  }
+}
+
+// AFFICHAGE INDEX ARTICLES
+
+.article {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInRotate 0.4s ease-out forwards;
+  @for $i from 1 through 30 {
+    &:nth-child(#{$i}) {
+      animation-delay: delayPlus($i);
+    }
+  }
+  box-shadow: var(--box-shadow);
+  padding-top: 0.5rem;
+  cursor: pointer;
+  max-width: 400px;
+  height: 380px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--card-bg);
+  }
+  .article-content {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-shadow: 2px 2px 2px #ffffff;
+    h2 {
+      font-size: 2rem;
+      margin-left: 2rem;
+    }
+    .content {
+      align-self: center;
+      opacity: 0;
+      transform: translateX(-60px);
+      font-size: 1.3rem;
+      width: 110%;
+      padding: 0.8rem 2.5rem;
+      background-color: #ffffffb7;
+      margin: 0;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      overflow: hidden;
+      word-break: break-word;
+      -webkit-line-clamp: 5;
+      line-clamp: 5;
+    }
+  }
+  &:hover {
+    .article-content .content {
+      opacity: 1;
+      transform: none;
+      transition: all 0.4s ease;
+    }
+  }
+}
+
+// BOUTON CATEGORY
+
+.btn-active {
+  border: none;
+  transform: translateY(3px);
+  box-shadow: inset 2px 2px 4px #00000023, inset -4px -4px 6px #0000000a,
+    2px 2px 2px #00000005;
+  &:hover {
+    transform: translateY(2px);
+    box-shadow: inset 2px 2px 4px #0000004d, inset -2px -2px 4px #ffffff4d,
+      0px 0px 2px #00000005;
+    transition: 0.1s;
+  }
+  &:active {
+    transform: translateY(4px);
+    box-shadow: inset 4px 4px 6px #00000080, inset -4px -4px 6px #ffffff80,
+      2px 2px 2px #00000013;
+  }
+}
+
+// PREVIEW POUR LES MINIATURES DU FORM
+
+.preview {
+  img {
+    width: 40%;
+    min-width: 250px;
+  }
+}
+
+// AVATARS FORM
+
+.avatars {
+  &:hover > :not(:hover) {
+    opacity: 0.5;
+    transition: 0.3s;
+  }
+  .img-select {
+    input {
+      display: none;
+      &:checked ~ label {
+        .check {
+          display: block;
+          pointer-events: none;
+          opacity: 1;
+        }
+        .avatar {
+          &:hover {
+            opacity: 1;
+            transition: 0.3s;
+          }
+        }
+      }
+    }
+    label {
+      border-radius: 50%;
+      position: relative;
+      .avatar {
+        width: 70%;
+        border-radius: 50%;
+      }
+      &:hover {
+        transform: scale(1.05);
+        transition: 0.2s;
+      }
+      .check {
+        display: none;
+        position: absolute;
+        width: 60px;
+        top: calc(50% - 30px);
+        left: calc(50% - 30px);
+      }
+    }
+  }
+}
+
+// FOOTER
+
+footer {
+  height: 60px;
+  @include flex(column, center, center, nowrap);
+}
