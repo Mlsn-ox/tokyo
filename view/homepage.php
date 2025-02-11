@@ -1,11 +1,9 @@
-<?php
-include "navbar.php";
+<?php include "navbar.php";
 echo "<pre>";
 print_r($_SESSION);
 echo "</pre>";
 ?>
 <div class="section p-4 col-xxl-7 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
-
     <div class="container p-xl-5 rounded-5 home">
         <h1>Bienvenue chez TokyoSpot !</h1>
         <p>
@@ -83,6 +81,4 @@ echo "</pre>";
     </div> -->
 </div>
 <script defer src="../script/homepage.js"></script>
-<?php
-include "footer.php"
-?>
+<?php include "footer.php" ?>

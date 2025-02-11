@@ -125,6 +125,9 @@
 .categorie {
   font-variant: small-caps;
 }
+.categorie img {
+  height: 16px;
+}
 
 /*
 

@@ -1,19 +1,21 @@
-let html = document.getElementById("articles");
-let form = document.getElementById("filter");
+let html = document.querySelector("#articles");
+let form = document.querySelector("#filter");
 
 const params = new URLSearchParams(window.location.search);
-let categories = params.getAll("category[]"); // Renvoie un tableau
-let order = params.get("order"); // Récupère la valeur de 'order'
+let order = params.get("order"); // Récupère la valeur de order
+let categories = params.getAll("category[]"); // Renvoie un array categories
 
-let loading = false;
 let offset = 6; // Nombre d'articles déjà affichés
 const limit = 6; // Nombre d'articles à charger à chaque fois
+let loading = false;
+
 let ajaxURL = `../controller/fetch_articles.php?offset=${offset}&limit=${limit}`;
 
 // Ajoute les catégories si présent
 if (categories) {
   categories.forEach((category) => {
     ajaxURL += `&category[]=${encodeURIComponent(category)}`;
+    // encodeURIComponent: protection en cas de caractères spéciaux
   });
 }
 
@@ -48,19 +50,18 @@ function loadMoreArticles() {
       } else {
         data.forEach((article) => {
           let articleHTML = `
-                            <a href="read_article.php?id=${article.article_id}" class="article g-md-2 m-2 mb-3" style="background-image: url('../assets/img_articles/${article.article_img}');">
-                                <div class="article-content text-dark">
-                                    <h2>${article.article_title}</h2>
-                                    <div class="content">
-                                        <p class="m-0 categorie">
-                                            <img src="../assets/logo_category/${article.article_category}.svg" alt="Catégorie ${article.article_category}" style="height: 16px;">
-                                            ${article.article_category}
-                                        </p>
-                                        <p>${article.article_content}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        `;
+            <a href="read_article.php?id=${article.article_id}" class="article g-md-2 m-2 mb-3" style="background-image: url('../assets/img_articles/${article.article_img}');">
+                <div class="article-content text-dark">
+                    <h2>${article.article_title}</h2>
+                    <div class="content">
+                        <p class="m-0 categorie">
+                            <img src="../assets/logo_category/${article.article_category}.svg" alt="Catégorie ${article.article_category}" style="height: 16px;">
+                            ${article.article_category}
+                        </p>
+                        <p>${article.article_content}</p>
+                    </div>
+                </div>
+            </a>`;
           html.insertAdjacentHTML("beforeend", articleHTML);
         });
         offset += limit; // Mise à jour de l'offset
