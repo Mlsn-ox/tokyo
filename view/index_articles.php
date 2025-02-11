@@ -3,21 +3,13 @@
 use PhpParser\Node\Stmt\TryCatch;
 
 include "./navbar.php";
+require "../controller/filters.php";
 
 try {
-    $categories = [];
-    $order = $where = $orderBy = "";
-    if (isset($_GET["category"]) && count($_GET["category"]) > 0) { // Récupération catégorie(s) ET tableau non vide
-        $categories = $_GET["category"];
-        $categoString = "'" . implode("','", $categories) . "'"; // Explosion du tableau en string
-        $where = 'WHERE article_category IN(' . $categoString . ')'; // Formation de la requète sql
-    }
-    if (isset($_GET["order"])) { // Récupération order
-        $order = $_GET["order"];
-        $orderBy = ' ORDER BY article_id ' . $order; // Formation de la requète sql
-    }
-    $sql = " SELECT article_id, article_title, article_category, article_content, article_img FROM articles $where $orderBy; ";
-    $stmt = $pdo->query($sql);
+    $limitArt = 6;
+    $sql = "SELECT article_id, article_title, article_category, article_content, article_img FROM articles $where $orderBy LIMIT $limitArt";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
     $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage();
@@ -27,7 +19,7 @@ try {
 <div class="section col-xl-10 col-xxl-9 col-12 p-xl-3 p-md-2 p-1 mx-auto home">
     <h4 class="p-2 text-center">Filtrer les articles</h4>
     <div class="container col-8 mb-5">
-        <form method="GET" class="d-flex flex-column align-items-center">
+        <form method="GET" class="d-flex flex-column align-items-center" id="filter">
             <div class="d-flex justify-content-around my-3">
                 <?php
                 try {
@@ -63,35 +55,39 @@ try {
         </form>
     </div>
 
-    <div class="container mx-auto row justify-content-around flex-wrap">
+    <div class="container mx-auto row justify-content-around flex-wrap" id="articles">
         <?php
-        ob_start();
-        foreach ($articles as $article) {
+        if ($articles) {
+            foreach ($articles as $article) {
         ?>
-            <a href="read_article.php?id=<?= $article['article_id'] ?>"
-                class="article g-md-2 m-2 mb-3"
-                style="background-image: url('../assets/img_articles/<?= $article["article_img"] ?>');">
-                <div class="article-content text-dark">
-                    <h2><?= htmlentities(ucfirst($article["article_title"])) ?></h2>
-                    <div class="content">
-                        <p class="m-0 categorie">
-                            <img src="../assets/logo_category/<?= $article["article_category"] ?>.svg"
-                                alt="Catégorie <?= htmlentities($article["article_category"]) ?>"
-                                style="height: 16px;">
-                            <?= htmlentities($article["article_category"]) ?>
-                        </p>
-                        <p>
-                            <?= htmlentities(ucfirst($article["article_content"])) ?>
-                        </p>
+                <a href="read_article.php?id=<?= $article['article_id'] ?>"
+                    class="article g-md-2 m-2 mb-3"
+                    style="background-image: url('../assets/img_articles/<?= $article["article_img"] ?>');">
+                    <div class="article-content text-dark">
+                        <h2><?= htmlentities(ucfirst($article["article_title"])) ?></h2>
+                        <div class="content">
+                            <p class="m-0 categorie">
+                                <img src="../assets/logo_category/<?= $article["article_category"] ?>.svg"
+                                    alt="Catégorie <?= htmlentities($article["article_category"]) ?>"
+                                    style="height: 16px;">
+                                <?= htmlentities($article["article_category"]) ?>
+                            </p>
+                            <p>
+                                <?= htmlentities(ucfirst($article["article_content"])) ?>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
         <?php
-        }
-        ob_end_flush();
+            }
+        } else {
+            echo "fin";
+        };
         ?>
     </div>
+    <div class="container mx-auto text-center my-3" id="loader"></div>
 </div>
+<script src="../script/index_articles.js"></script>
 <?php
 include "./footer.php";
 ?>

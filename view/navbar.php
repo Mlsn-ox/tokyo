@@ -37,7 +37,7 @@ try {
     <div class="container-fluid">
       <a href="./homepage.php"
         class="navbar-brand">
-        <img src="../assets/ToriiLogo.svg"
+        <img src="../assets/logo_category/ToriiLogo.svg"
           alt="Torii"
           width="64px">
         <span>

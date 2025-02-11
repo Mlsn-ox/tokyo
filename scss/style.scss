@@ -102,7 +102,7 @@ header {
   height: 380px;
   transform: translateY(20px);
   animation: fadeInRotate 0.4s ease-out forwards;
-  @for $i from 1 through 30 {
+  @for $i from 1 through 6 {
     &:nth-child(#{$i}) {
       animation-delay: delayPlus($i);
     }
@@ -151,6 +151,12 @@ header {
       transition: all 0.4s ease;
     }
   }
+}
+
+.loader {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
 }
 
 // READ ARTICLE

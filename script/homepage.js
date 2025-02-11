@@ -1,3 +1,5 @@
+setInterval(createPetal, 500);
+
 function createPetal() {
   const petal = document.createElement("div");
   petal.classList.add("petal");
@@ -17,5 +19,3 @@ function createPetal() {
     petal.remove();
   }, duration * 1000);
 }
-
-setInterval(createPetal, 500);
