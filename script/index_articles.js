@@ -8,7 +8,6 @@ let order = params.get("order"); // Récupère la valeur de 'order'
 let loading = false;
 let offset = 6; // Nombre d'articles déjà affichés
 const limit = 6; // Nombre d'articles à charger à chaque fois
-
 let ajaxURL = `../controller/fetch_articles.php?offset=${offset}&limit=${limit}`;
 
 // Ajoute les catégories si présent
@@ -34,7 +33,7 @@ function handleScroll() {
 
 /**
  * Ajax pour pagination dynamique
- * @return documuent html
+ * @return document html
  */
 function loadMoreArticles() {
   if (loading) return; // Evite les appels multiples si loading = true
@@ -42,6 +41,7 @@ function loadMoreArticles() {
   fetch(ajaxURL)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       if (data.length === 0) {
         loader.textContent = "Fin des articles.";
         window.removeEventListener("scroll", handleScroll); // Désactiver le scroll si plus d'articles
@@ -63,9 +63,8 @@ function loadMoreArticles() {
                         `;
           html.insertAdjacentHTML("beforeend", articleHTML);
         });
-        console.log(offset);
-
         offset += limit; // Mise à jour de l'offset
+        ajaxURL = `../controller/fetch_articles.php?offset=${offset}&limit=${limit}`;
         loading = false;
       }
     })
