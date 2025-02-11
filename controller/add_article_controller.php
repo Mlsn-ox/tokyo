@@ -20,26 +20,30 @@ if (
         mkdir($uploadDir, 0755, true);
     }
     if (move_uploaded_file($tmpName, $uploadDir . $newName)) {
-        $sql = "INSERT INTO articles (
-            article_title, 
-            article_category, 
-            article_content, 
-            article_img,
-            article_author,
-            article_lat,
-            article_lng
-            )
-        VALUES (?,?,?,?,?,?,?)";
-        $stmt = $pdo->prepare($sql);
-        $verif = $stmt->execute([
-            $_POST["title"],
-            $_POST["category"],
-            $_POST["content"],
-            $newName,
-            $_POST["author"],
-            $_POST["lat"],
-            $_POST["lng"]
-        ]);
+        try {
+            $sql = "INSERT INTO articles (
+                article_title, 
+                article_category, 
+                article_content, 
+                article_img,
+                article_author,
+                article_lat,
+                article_lng
+                )
+            VALUES (?,?,?,?,?,?,?)";
+            $stmt = $pdo->prepare($sql);
+            $verif = $stmt->execute([
+                $_POST["title"],
+                $_POST["category"],
+                $_POST["content"],
+                $newName,
+                $_POST["author"],
+                $_POST["lat"],
+                $_POST["lng"]
+            ]);
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+        }
         if ($verif) {
             header("Location: ../view/add_article_form.php?message=Article ajouté&status=success");
         } else {

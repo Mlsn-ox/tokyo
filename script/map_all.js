@@ -18,13 +18,13 @@ function markerAll() {
 
         let marker = L.marker([gpsLat, gpsLng]).addTo(map);
         marker.bindPopup(
-          `<a href="read_article.php?id=${article.article_id}" class="pop-up"><h5>${article.article_title}<h5>
+          `<a href="read_article.php?id=${article.article_id}" class="pop-up">
+            <h5>${article.article_title}<h5>
             <p class="categorie">${article.article_category}<p>
             <p>${article.article_content}<p>
             <img src="../assets/img_articles/${article.article_img}"
                 class="text-center"
-                alt="Photo de l'article"
-                style="width: 120%;">
+                alt="Photo de l'article">
             </a>
             `
         );

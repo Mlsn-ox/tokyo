@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "Merienda";
-  src: url(../assets/Merienda/Merienda-Regular.ttf);
+  src: url(../assets/Merienda-VariableFont_wght.ttf);
 }
 
 :root {
@@ -129,27 +129,6 @@
 
 #map.all {
   height: 68vh;
-}
-
-.pop-up {
-  color: #000;
-  text-decoration: none;
-  display: block;
-  width: 200px;
-  overflow: hidden;
-  h5 {
-    margin: 0;
-  }
-  p {
-    margin: 5px;
-    font-size: 0.7rem;
-  }
-  img {
-    margin-left: -10%;
-  }
-}
-.leaflet-popup-content {
-  margin: 5px 7px !important;
 }
 
 .success {

@@ -1,10 +1,10 @@
 // Tooltip Bootstrap
 document.addEventListener("DOMContentLoaded", function () {
   const tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    document.querySelectorAll('[data-bs-toggle="tooltip"]') // Sélectionne attribut data-bs-toggle="tooltip"
   );
   tooltipTriggerList.forEach(function (input) {
-    var tooltip = new bootstrap.Tooltip(input, { trigger: "manual" });
+    let tooltip = new bootstrap.Tooltip(input, { trigger: "manual" }); // Permet l'affichage du tooltip quand l'utilisateur saisit des données
     input.addEventListener("focus", function () {
       tooltip.show();
     });

@@ -36,7 +36,7 @@ if (
         ]);
     }
     if ($verif) {
-        header("Location: ../view/add_user_form.php?message=Profil ajouté&status=success");
+        header("Location: ../view/login.php?message=Profil ajouté&status=success");
     } else {
         header("Location: ../view/add_user_form.php?message=Erreur serveur&status=error");
     }

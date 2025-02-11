@@ -17,7 +17,7 @@ if (isset($_GET["id"])) {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 ?>
-<div class="section bg-white col-xxl-7 col-md-10 col-12 mx-auto px-5 py-4">
+<div class="section home col-xxl-7 col-md-10 col-12 mx-auto px-5 py-4">
     <div class="container user-container d-flex flex-column align-items-center">
         <div class="container-fluid text-center fade-rotate">
             <img src="../assets/img_profil/<?= $user['user_img'] ?>"

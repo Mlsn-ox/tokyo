@@ -1,5 +1,8 @@
 <?php
-include "navbar.php"
+include "navbar.php";
+echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
 ?>
 <div class="section p-4 col-xxl-7 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
 

@@ -12,6 +12,8 @@
   }
 }
 
+//HOMEPAGE
+
 body {
   @include flex(column, start, stretch, nowrap);
   position: relative;
@@ -36,8 +38,6 @@ body {
   }
 }
 
-//HOMEPAGE
-
 .home {
   background: #ffffffb6;
   backdrop-filter: blur(10px);
@@ -47,11 +47,18 @@ body {
 
 .navbar {
   box-shadow: var(--box-shadow);
+  z-index: 1;
   .container-fluid {
     .navbar-brand {
       @include meri(700);
       font-size: 1.5rem;
       letter-spacing: -1px;
+    }
+  }
+  .page-profil {
+    img {
+      height: 25px;
+      border-radius: 50%;
     }
   }
 }
@@ -88,6 +95,11 @@ header {
   border-radius: 15px;
   overflow: hidden;
   opacity: 0;
+  box-shadow: var(--box-shadow);
+  padding-top: 0.5rem;
+  cursor: pointer;
+  max-width: 400px;
+  height: 380px;
   transform: translateY(20px);
   animation: fadeInRotate 0.4s ease-out forwards;
   @for $i from 1 through 30 {
@@ -95,11 +107,6 @@ header {
       animation-delay: delayPlus($i);
     }
   }
-  box-shadow: var(--box-shadow);
-  padding-top: 0.5rem;
-  cursor: pointer;
-  max-width: 400px;
-  height: 380px;
   &::before {
     content: "";
     position: absolute;
@@ -146,25 +153,40 @@ header {
   }
 }
 
-// BOUTON CATEGORY
+// READ ARTICLE
 
-.btn-active {
-  border: none;
-  transform: translateY(3px);
-  box-shadow: inset 2px 2px 4px #00000023, inset -4px -4px 6px #0000000a,
-    2px 2px 2px #00000005;
-  &:hover {
-    transform: translateY(2px);
-    box-shadow: inset 2px 2px 4px #0000004d, inset -2px -2px 4px #ffffff4d,
-      0px 0px 2px #00000005;
-    transition: 0.1s;
+.read-title {
+  .favorite {
+    height: 40px;
+    .heart {
+      width: 40px;
+      height: 40px;
+    }
   }
-  &:active {
-    transform: translateY(4px);
-    box-shadow: inset 4px 4px 6px #00000080, inset -4px -4px 6px #ffffff80,
-      2px 2px 2px #00000013;
+  h1 {
+    flex: 1;
   }
 }
+
+// BOUTON CATEGORY
+
+// .btn-active {
+//   border: none;
+//   transform: translateY(3px);
+//   box-shadow: inset 2px 2px 4px #00000023, inset -4px -4px 6px #0000000a,
+//     2px 2px 2px #00000005;
+//   &:hover {
+//     transform: translateY(2px);
+//     box-shadow: inset 2px 2px 4px #0000004d, inset -2px -2px 4px #ffffff4d,
+//       0px 0px 2px #00000005;
+//     transition: 0.1s;
+//   }
+//   &:active {
+//     transform: translateY(4px);
+//     box-shadow: inset 4px 4px 6px #00000080, inset -4px -4px 6px #ffffff80,
+//       2px 2px 2px #00000013;
+//   }
+// }
 
 // PREVIEW POUR LES MINIATURES DU FORM
 
@@ -218,6 +240,34 @@ header {
         left: calc(50% - 30px);
       }
     }
+  }
+}
+
+// MAP ALL
+
+.pop-up {
+  color: #1a1a1a !important;
+  text-decoration: none;
+  display: block;
+  width: 200px;
+  overflow: hidden;
+  h5 {
+    margin: 0;
+  }
+  p {
+    margin: 5px;
+    font-size: 0.7rem;
+  }
+  img {
+    border-radius: 15px;
+    width: 100%;
+  }
+}
+.leaflet-popup-content-wrapper {
+  background: #d2d2d2;
+  background: linear-gradient(180deg, #e4e4e4d8 0%, #ffffff 100%);
+  .leaflet-popup-content {
+    margin: 5px 7px !important;
   }
 }
 

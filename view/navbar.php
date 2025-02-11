@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="">
 
@@ -18,10 +19,22 @@
   <title>Blog</title>
 </head>
 
+<?php
+
+use PhpParser\Node\Stmt\TryCatch;
+
+include "../controller/pdo.php";
+try {
+  $sql = "SELECT DISTINCT (article_category) AS category FROM articles ORDER BY article_category ASC;";
+  $stmt = $pdo->query($sql);
+} catch (PDOException $e) {
+  echo "Erreur : " . $e->getMessage();
+}
+?>
+
 <body>
   <nav class="home navbar navbar-expand-lg">
     <div class="container-fluid">
-
       <a href="./homepage.php"
         class="navbar-brand">
         <img src="../assets/ToriiLogo.svg"
@@ -63,30 +76,16 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li>
-                <a class="dropdown-item"
-                  href="index_articles.php?category=gastronomie">
-                  Gastronomie
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item"
-                  href="index_articles.php?category=panorama">
-                  Panorama
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item"
-                  href="index_articles.php?category=loisir">
-                  Activité
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item"
-                  href="index_articles.php?category=shopping">
-                  Shopping
-                </a>
-              </li>
+              <?php
+              while ($cat = $stmt->fetch(PDO::FETCH_ASSOC)) {
+              ?>
+                <li>
+                  <a class="dropdown-item"
+                    href="index_articles.php?category[]=<?= $cat["category"] ?>">
+                    <?= ucfirst($cat["category"]) ?>
+                  </a>
+                </li>
+              <?php }; ?>
             </ul>
           </li>
           <li class="nav-item">
@@ -100,18 +99,34 @@
               Créer un article
             </a>
           </li>
-          <li class="nav-item">
-            <a href="./add_user_form.php"
-              class="nav-link">
-              S'inscrire
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="./login.php"
-              class="nav-link">
-              Se connecter
-            </a>
-          </li>
+          <?php if (!isset($_SESSION['name'])) { ?>
+            <li class="nav-item">
+              <a href="./add_user_form.php"
+                class="nav-link">
+                S'inscrire
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"
+                href="./login.php">
+                Connexion
+              </a>
+            </li>
+          <?php } else { ?>
+            <li class="nav-item">
+              <a class="nav-link page-profil"
+                href="./read_user.php?id=<?= $_SESSION['id'] ?>">
+                <img src="../assets/img_profil/<?= $_SESSION['img'] ?>" alt="Photo de profil">
+                Mon profil
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"
+                href="../controller/logout_controller.php">
+                Se déconnecter
+              </a>
+            </li>
+          <?php } ?>
         </ul>
       </div>
     </div>

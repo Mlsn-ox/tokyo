@@ -2,7 +2,7 @@
 include "navbar.php"
 ?>
 
-<div class="section bg-white col-xxl-7 col-md-9 col-12 mx-auto p-4">
+<div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-4">
     <div class="container">
 
         <h1 class="m-0">Ajouter un article</h1>
@@ -22,7 +22,6 @@ include "navbar.php"
             </div>
 
             <select class="form-select mb-3 category"
-                aria-label="Default select example"
                 name="category">
                 <option selected>Choix de la catégorie</option>
                 <option value="panorama">Panorama</option>
