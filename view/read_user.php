@@ -9,7 +9,7 @@
                         ELSE 0 
                     END AS is_subscribed
                     FROM users
-                    LEFT JOIN articles ON users.user_id = articles.article_author
+                    LEFT JOIN articles ON users.user_id = articles.user_ide
                     LEFT JOIN newsletters ON users.user_mail = newsletters.newsletter_mail
                     WHERE users.user_id = $id";
         $stmt = $pdo->query($sql);
