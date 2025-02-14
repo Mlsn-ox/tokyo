@@ -1,15 +1,25 @@
 @font-face {
-  font-family: "Noto";
-  src: url(../assets/);
+  font-family: "Quick";
+  src: url(../assets/fonts/Quicksand-VariableFont_wght.ttf);
 }
 
 @font-face {
   font-family: "Merienda";
-  src: url(../assets/Merienda-VariableFont_wght.ttf);
+  src: url(../assets/fonts/Merienda-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: "Playpen";
+  src: url(../assets/fonts/PlaypenSans-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: "Digits";
+  src: url(../assets/fonts/digital-7.ttf);
 }
 
 :root {
-  --font-family: "Muli", sans-serif;
+  --font-family: "Atemic", sans-serif;
   --card-bg: #ffffff56;
   --shadow-color: #ffffff1a;
   --box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
@@ -28,6 +38,16 @@
 
 @mixin meri($weight) {
   font-family: "Merienda";
+  font-weight: $weight;
+}
+
+@mixin play($weight) {
+  font-family: "Playpen";
+  font-weight: $weight;
+}
+
+@mixin quick($weight) {
+  font-family: "Quick";
   font-weight: $weight;
 }
 
@@ -52,10 +72,10 @@
 
 @keyframes fade {
   from {
-    opacity: 1;
+    opacity: 0;
   }
   to {
-    opacity: 0;
+    opacity: 1;
   }
 }
 
@@ -117,6 +137,10 @@
 
 .fade-rotate {
   animation: fadeInRotate 0.4s ease-out forwards;
+}
+
+.fade {
+  animation: fade 0.4s ease-out forwards;
 }
 
 // MAP

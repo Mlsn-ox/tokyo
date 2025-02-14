@@ -3,7 +3,7 @@
     include "../controller/pdo.php";
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
-        $sql = "SELECT users.*, COUNT(articles.article_id) AS total_articles, 
+        $sql = "SELECT users.*, COUNT(articles.id) AS total_articles, 
                     CASE 
                         WHEN newsletters.newsletter_mail IS NOT NULL THEN 1 
                         ELSE 0 

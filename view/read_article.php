@@ -3,7 +3,7 @@
     include "../controller/pdo.php";
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
-        $sql = "SELECT articles.*, users.user_id, users.user_name FROM articles LEFT JOIN users ON articles.user_ide = users.user_id WHERE articles.article_id = $id";
+        $sql = "SELECT articles.*, users.user_id, users.user_name FROM articles LEFT JOIN users ON articles.user_ide = users.user_id WHERE articles.id = $id";
         $stmt = $pdo->query($sql);
         $article = $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -15,13 +15,13 @@
                 <a href="../controller/favorite_controller.php" class="favorite">
                     <img src="../assets/logo_category/heart_white.svg" class="heart" alt="Ajouter aux favoris">
                 </a>
-                <h1 class="text-center"><?= htmlentities(ucfirst($article['article_title'])) ?></h1>
+                <h1 class="text-center"><?= htmlentities(ucfirst($article['title'])) ?></h1>
             </div>
             <h4 class="categorie">
-                <img src="../assets/logo_category/<?= $article['article_category'] ?>.svg" alt="Catégorie <?= htmlentities($article["article_category"]) ?>">
-                <?= htmlentities($article['article_category']) ?>
+                <img src="../assets/logo_category/<?= $article['category'] ?>.svg" alt="Catégorie <?= htmlentities($article["category"]) ?>">
+                <?= htmlentities($article['category']) ?>
             </h4>
-            <p><?= htmlentities(ucfirst($article['article_content'])) ?></p>
+            <p><?= htmlentities(ucfirst($article['content'])) ?></p>
             <p>Posté par
                 <a href="read_user.php?id=<?= $article['user_id'] ?>" class="fst-italic">
                     <?= htmlentities($article['user_name']) ?>
@@ -29,11 +29,11 @@
             </p>
         </div>
         <div class="container-fluid fade-left">
-            <img src="../assets/img_articles/<?= $article['article_img'] ?>" class="rounded-4" alt="Photo de l'article" style="width: 100%;">
+            <img src="../assets/img_articles/<?= $article['img'] ?>" class="rounded-4" alt="Photo de l'article" style="width: 100%;">
         </div>
     </div>
     <div class="container-fluid mx-auto my-3">
-        <div id="map" data-lat="<?= $article['article_lat'] ?>" data-lng="<?= $article['article_lng'] ?>"
+        <div id="map" data-lat="<?= $article['lat'] ?>" data-lng="<?= $article['lng'] ?>"
             class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom fade-up">
         </div>
     </div>

@@ -1,14 +1,22 @@
 @charset "UTF-8";
 @font-face {
-  font-family: "Noto";
-  src: url(../assets/);
+  font-family: "Quick";
+  src: url(../assets/fonts/Quicksand-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: "Merienda";
-  src: url(../assets/Merienda-VariableFont_wght.ttf);
+  src: url(../assets/fonts/Merienda-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: "Playpen";
+  src: url(../assets/fonts/PlaypenSans-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: "Digits";
+  src: url(../assets/fonts/digital-7.ttf);
 }
 :root {
-  --font-family: "Muli", sans-serif;
+  --font-family: "Atemic", sans-serif;
   --card-bg: #ffffff56;
   --shadow-color: #ffffff1a;
   --box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
@@ -33,10 +41,10 @@
 }
 @keyframes fade {
   from {
-    opacity: 1;
+    opacity: 0;
   }
   to {
-    opacity: 0;
+    opacity: 1;
   }
 }
 @keyframes fadeInRotate {
@@ -93,6 +101,10 @@
 
 .fade-rotate {
   animation: fadeInRotate 0.4s ease-out forwards;
+}
+
+.fade {
+  animation: fade 0.4s ease-out forwards;
 }
 
 #map {
@@ -281,7 +293,29 @@ backdrop-filter: blur(10px);
     transform: scale(1) translateY(0) rotateZ(0);
   }
 }
+.navbar {
+  box-shadow: var(--box-shadow);
+  z-index: 1;
+}
+.navbar .container-fluid .navbar-brand {
+  font-family: "Merienda";
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+}
+.navbar .page-profil img {
+  height: 25px;
+  border-radius: 50%;
+}
+
+.home {
+  background: rgba(255, 255, 255, 0.7137254902);
+  backdrop-filter: blur(10px);
+}
+
 body {
+  font-family: "Quick";
+  font-weight: 500;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -309,24 +343,30 @@ body .petal {
   animation: fall linear infinite;
 }
 
-.home {
-  background: rgba(255, 255, 255, 0.7137254902);
-  backdrop-filter: blur(10px);
+.direct h1 {
+  font-family: "Playpen";
+  font-weight: 500;
 }
-
-.navbar {
-  box-shadow: var(--box-shadow);
-  z-index: 1;
+.direct h1 span {
+  animation: fade 1s linear infinite alternate;
 }
-.navbar .container-fluid .navbar-brand {
-  font-family: "Merienda";
-  font-weight: 700;
+.direct #meteo-tokyo span {
   font-size: 1.5rem;
-  letter-spacing: -1px;
 }
-.navbar .page-profil img {
-  height: 25px;
-  border-radius: 50%;
+.direct #heure-tokyo {
+  font-size: 3rem;
+  font-family: "Digits";
+}
+.direct .iframe-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+  height: 0;
+}
+.direct .iframe-container iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 header {
@@ -501,15 +541,16 @@ header .head-content img {
   overflow: hidden;
 }
 .pop-up h5 {
-  margin: 0;
+  margin: 0 0 0 5px;
 }
 .pop-up p {
   margin: 5px;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 .pop-up img {
   border-radius: 15px;
   width: 100%;
+  max-height: 210px;
 }
 
 .leaflet-popup-content-wrapper {

@@ -5,7 +5,7 @@
 
     try {
         $limitArt = 6;
-        $sql = "SELECT article_id, article_title, article_category, article_content, article_img FROM articles $where $orderBy LIMIT $limitArt";
+        $sql = "SELECT id, title, category, content, img FROM articles $where $orderBy LIMIT $limitArt";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -19,7 +19,7 @@
         <form method="GET" class="d-flex flex-column align-items-center" id="filter">
             <div class="d-flex justify-content-around my-3">
                 <?php try {
-                    $sql = "SELECT DISTINCT (article_category) AS category FROM articles ORDER BY article_category ASC;";
+                    $sql = "SELECT DISTINCT category FROM articles ORDER BY category ASC;";
                     $stmt = $pdo->query($sql);
                     while ($cat = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
                         <div class="form-check form-switch me-4">
@@ -44,16 +44,16 @@
     <div class="container mx-auto row justify-content-around flex-wrap" id="articles">
         <?php if ($articles) {
             foreach ($articles as $article) { ?>
-                <a href="read_article.php?id=<?= $article['article_id'] ?>" class="article g-md-2 m-2 mb-3" 
-                    style="background-image: url('../assets/img_articles/<?= $article["article_img"] ?>');">
+                <a href="read_article.php?id=<?= $article['id'] ?>" class="article g-md-2 m-2 mb-3" 
+                    style="background-image: url('../assets/img_articles/<?= $article["img"] ?>');">
                     <div class="article-content text-dark">
-                        <h2><?= htmlentities(ucfirst($article["article_title"])) ?></h2>
+                        <h2><?= htmlentities(ucfirst($article["title"])) ?></h2>
                         <div class="content">
                             <p class="m-0 categorie">
-                                <img src="../assets/logo_category/<?= $article["article_category"] ?>.svg" alt="Catégorie <?= htmlentities($article["article_category"]) ?>" style="height: 16px;">
-                                <?= htmlentities($article["article_category"]) ?>
+                                <img src="../assets/logo_category/<?= $article["category"] ?>.svg" alt="Catégorie <?= htmlentities($article["category"]) ?>" style="height: 16px;">
+                                <?= htmlentities($article["category"]) ?>
                             </p>
-                            <p><?= htmlentities(ucfirst($article["article_content"])) ?></p>
+                            <p><?= htmlentities(ucfirst($article["content"])) ?></p>
                         </div>
                     </div>
                 </a>

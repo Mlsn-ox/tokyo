@@ -15,7 +15,7 @@
   use PhpParser\Node\Stmt\TryCatch;
   include "../controller/pdo.php";
   try {
-    $sql = "SELECT DISTINCT (article_category) AS category FROM articles ORDER BY article_category ASC;";
+    $sql = "SELECT DISTINCT category FROM articles ORDER BY category ASC;";
     $stmt = $pdo->query($sql);
   } catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage();
