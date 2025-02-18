@@ -1,8 +1,8 @@
 <?php
     use PhpParser\Node\Stmt\TryCatch;
-    include "./navbar.php";
-    require "../controller/filters.php";
-
+    require_once "../includes/pdo.php";
+    require_once "../includes/navbar.php";
+    require_once "../includes/filters.php";
     try {
         $limitArt = 6;
         $sql = "SELECT id, title, category, content, img FROM articles $where $orderBy LIMIT $limitArt";
@@ -65,4 +65,4 @@
     <div class="container mx-auto text-center my-3" id="loader"></div>
 </div>
 <script src="../script/index_articles.js"></script>
-<?php include "./footer.php" ?>
+<?php require_once "../includes/footer.php" ?>

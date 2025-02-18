@@ -1,4 +1,5 @@
 <?php
+require_once "../includes/pdo.php";
 
 if (isset($_POST["id"])) {
     $id = $_POST["id"];

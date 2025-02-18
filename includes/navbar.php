@@ -13,7 +13,7 @@
 
 <?php
   use PhpParser\Node\Stmt\TryCatch;
-  include "../controller/pdo.php";
+  include "../includes/pdo.php";
   try {
     $sql = "SELECT DISTINCT category FROM articles ORDER BY category ASC;";
     $stmt = $pdo->query($sql);
@@ -26,8 +26,7 @@
   <nav class="home navbar navbar-expand-lg">
     <div class="container-fluid">
       <a href="./homepage.php" class="navbar-brand">
-        <img src="../assets/logo_category/ToriiLogo.svg" alt="Torii" width="64px">
-        <span>TokyoSpot</span>
+        <img src="../assets/logo_category/Torii.svg" alt="Torii">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

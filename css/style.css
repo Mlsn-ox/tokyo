@@ -297,11 +297,8 @@ backdrop-filter: blur(10px);
   box-shadow: var(--box-shadow);
   z-index: 1;
 }
-.navbar .container-fluid .navbar-brand {
-  font-family: "Merienda";
-  font-weight: 700;
-  font-size: 1.5rem;
-  letter-spacing: -1px;
+.navbar .container-fluid .navbar-brand img {
+  height: 80px;
 }
 .navbar .page-profil img {
   height: 25px;
@@ -328,6 +325,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  overflow-x: hidden;
 }
 body .section {
   flex: 1;

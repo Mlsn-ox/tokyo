@@ -1,5 +1,6 @@
 <?php
-include "pdo.php";
+require_once "../includes/pdo.php";
+
 $sql = "SELECT id, title, category, content, img, lat, lng FROM articles";
 $stmt = $pdo->query($sql);
 $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);

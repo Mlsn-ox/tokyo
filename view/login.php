@@ -1,4 +1,7 @@
-<?php include "./navbar.php"; ?>
+<?php
+    require_once "../includes/pdo.php";
+    require_once "../includes/navbar.php";
+?>
 <div class="section col-xxl-6 col-md-9 col-12 mx-auto px-5 pt-4  home">
     <form method="POST" action="../controller/login_controller.php">
         <h1 class="text-center text-primary mb-4">Connexion</h1>
@@ -20,4 +23,4 @@
         }; ?> 
     </form>
 </div>
-<?php include "./footer.php"; ?>
+<?php require_once "../includes/footer.php" ?>

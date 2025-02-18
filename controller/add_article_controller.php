@@ -1,5 +1,6 @@
 <?php
-include "pdo.php";
+require_once "../includes/pdo.php";
+
 if (
     !empty($_POST['title']) && 
     !empty($_POST['content']) && 

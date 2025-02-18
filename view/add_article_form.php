@@ -1,4 +1,7 @@
-<?php include "./navbar.php" ?>
+<?php
+    require_once "../includes/pdo.php";
+    require_once "../includes/navbar.php";
+?>
 
 <div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-4">
     <div class="container">
@@ -40,4 +43,4 @@
     </div>
 </div>
 <script src="../script/add_article_form.js"></script>
-<?php include "./footer.php" ?>
+<?php require_once "../includes/footer.php" ?>

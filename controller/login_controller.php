@@ -1,5 +1,6 @@
 <?php
-include "./pdo.php";
+require_once "../includes/pdo.php";
+
 
 if (!empty($_POST['user_mail']) && !empty($_POST['user_psw'])) {
     $mail = $_POST['user_mail'];

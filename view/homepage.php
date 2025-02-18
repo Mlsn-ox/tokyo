@@ -1,5 +1,6 @@
-<?php include "navbar.php";
-
+<?php
+    require_once "../includes/pdo.php";
+    require_once "../includes/navbar.php";
 // echo "<pre>";
 // print_r($_SESSION);
 // echo "</pre>";
@@ -92,4 +93,4 @@
     </div> -->
 </div>
 <script defer src="../script/homepage.js"></script>
-<?php include "footer.php" ?>
+<?php require_once "../includes/footer.php" ?>

@@ -1,6 +1,6 @@
 <?php
-    include "./navbar.php";
-    include "../controller/pdo.php";
+    require_once "../includes/pdo.php";
+    require_once "../includes/navbar.php";
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
         $sql = "SELECT articles.*, users.user_id, users.user_name FROM articles LEFT JOIN users ON articles.user_ide = users.user_id WHERE articles.id = $id";
@@ -39,4 +39,4 @@
     </div>
 </div>
 <script type="module" src="../script/read_article.js"></script>
-<?php include "footer.php"; ?>
+<?php require_once "../includes/footer.php" ?>

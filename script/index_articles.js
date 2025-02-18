@@ -50,15 +50,15 @@ function loadMoreArticles() {
       } else {
         data.forEach((article) => {
           let articleHTML = `
-            <a href="read_article.php?id=${article.article_id}" class="article g-md-2 m-2 mb-3" style="background-image: url('../assets/img_articles/${article.article_img}');">
+            <a href="read_article.php?id=${article.id}" class="article g-md-2 m-2 mb-3" style="background-image: url('../assets/img_articles/${article.img}');">
                 <div class="article-content text-dark">
-                    <h2>${article.article_title}</h2>
+                    <h2>${article.title}</h2>
                     <div class="content">
                         <p class="m-0 categorie">
-                            <img src="../assets/logo_category/${article.article_category}.svg" alt="Catégorie ${article.article_category}" style="height: 16px;">
-                            ${article.article_category}
+                            <img src="../assets/logo_category/${article.category}.svg" alt="Catégorie ${article.category}" style="height: 16px;">
+                            ${article.category}
                         </p>
-                        <p>${article.article_content}</p>
+                        <p>${article.content}</p>
                     </div>
                 </div>
             </a>`;

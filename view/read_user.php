@@ -1,6 +1,6 @@
 <?php
-    include "navbar.php";
-    include "../controller/pdo.php";
+    require_once "../includes/pdo.php";
+    require_once "../includes/navbar.php";
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
         $sql = "SELECT users.*, COUNT(articles.id) AS total_articles, 
@@ -37,4 +37,4 @@
         </div>
     </div>
 </div>
-<?php include "footer.php"; ?>
+<?php require_once "../includes/footer.php" ?>
