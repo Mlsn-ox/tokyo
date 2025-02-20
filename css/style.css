@@ -47,6 +47,16 @@
     opacity: 1;
   }
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px) rotateZ(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateZ(0);
+  }
+}
 @keyframes fadeInRotate {
   from {
     opacity: 0;
@@ -283,22 +293,12 @@ backdrop-filter: blur(10px);
 /* Landscape phone to portrait tablet */
 /* Portrait tablet to landscape and desktop */
 /* Large desktop */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.7) translateY(20px) rotateZ(10deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0) rotateZ(0);
-  }
-}
 .navbar {
   box-shadow: var(--box-shadow);
   z-index: 1;
 }
 .navbar .container-fluid .navbar-brand img {
-  height: 80px;
+  height: 60px;
 }
 .navbar .page-profil img {
   height: 25px;
@@ -339,6 +339,11 @@ body .petal {
   border-radius: 100% 0% 100% 0%;
   opacity: 0.8;
   animation: fall linear infinite;
+}
+
+.hero h1 {
+  font-family: "Playpen";
+  font-weight: 500;
 }
 
 .direct h1 {

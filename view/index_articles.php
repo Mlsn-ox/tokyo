@@ -32,7 +32,7 @@
                     <?php }
                 } catch (PDOException $e) {
                     echo "Erreur : " . $e->getMessage();
-                } ?>  
+                } ?>
             </div>
             <select class="form-select mb-3" name="order">
                 <option value="desc" <?= $order === "desc" ? "selected" : "" ?>>Du plus récent au plus ancien</option>

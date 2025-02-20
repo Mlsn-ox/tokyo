@@ -6,8 +6,8 @@
 // echo "</pre>";
 ?>
 <div class="section p-4 col-xxl-7 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
-    <div class="container p-xl-5 py-2 px-4 rounded-5 home mb-5 fade">
-        <h1>Bienvenue chez TokyoSpot !</h1>
+    <div class="container p-xl-5 py-2 px-4 rounded-5 home mb-5 fade hero">
+        <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>
         <p>
             Tokyo est une ville aux mille visages, entre tradition et modernité, temples centenaires et gratte-ciels futuristes,
             ruelles secrètes et quartiers animés. Ici, chaque coin de rue réserve une surprise,
@@ -27,13 +27,13 @@
         </p>
     </div>
     <div class="container p-xl-5 rounded-5 home direct fade">
-        <h1 class="text-center"><span>🔴</span> Tokyo Live</h1>
+        <h1 class="text-center">En direct de Tokyo : carrefour Shibuya</h1>
         <div class="d-flex justify-content-around align-items-center mb-2 flex-wrap">
             <div id="heure-tokyo" class="d-flex align-items-center justify-content-center mx-auto col-lg-4"></div>
             <div id="meteo-tokyo" class="d-flex align-items-center justify-content-center mx-auto text-center flex-wrap"></div>
         </div>
         <div class="iframe-container">
-            <iframe src="https://www.youtube.com/embed/TUd7JORZeWo?autoplay=1&mute=1" frameborder="0" allow="autoplay" class="rounded-4" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/TUd7JORZeWo?autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
 

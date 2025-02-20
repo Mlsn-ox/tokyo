@@ -1,6 +1,7 @@
 <?php
 $categories = [];
-$where = $orderBy = $order = "";
+$where = $order = "";
+$orderBy = ' ORDER BY id DESC ';
 
 // Gestion catégorie
 if (isset($_GET["category"]) && !empty($_GET["category"])) { // Récupération catégorie(s) ET tableau non vide

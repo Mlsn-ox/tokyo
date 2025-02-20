@@ -1,6 +1,7 @@
 <?php
     require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
+    include "../includes/message.php";
 ?>
 
 <div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-4">
@@ -34,8 +35,8 @@
             </div>
             <input type="hidden" name="author" value="1">
             <button type="submit" class="btn btn-primary mb-3">Envoyer</button>
-            <?php if (isset($_GET["message"]) && isset($_GET["status"])) {
-                    $message = $_GET["message"];
+            <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
+                    $message = getMessage($_GET["message_code"]);
                     $status = $_GET["status"];
                     echo "<h4 class='text-center $status' >$message.</h4>";
                 } ?>

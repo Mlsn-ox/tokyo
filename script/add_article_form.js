@@ -101,3 +101,14 @@ function onMapClick(e) {
   document.querySelector("#lat").value = marker._latlng.lat;
   document.querySelector("#lng").value = marker._latlng.lng;
 }
+
+// Fonction pour récupérer les param l'URL en fonction du "nom=""
+function getParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name); // Ne retourne que le param souhaité dans l'url
+}
+
+if (getParam("showModal") === "1") {
+  let myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+  myModal.show();
+}

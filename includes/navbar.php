@@ -25,7 +25,7 @@
 <body>
   <nav class="home navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a href="./homepage.php" class="navbar-brand">
+      <a href="../view/homepage.php" class="navbar-brand">
         <img src="../assets/logo_category/Torii.svg" alt="Torii">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="index_articles.php">
+                <a class="dropdown-item" href="../view/index_articles.php">
                   Tous les articles
                 </a>
               </li>
@@ -48,7 +48,7 @@
               </li>
               <?php while ($cat = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
                 <li>
-                  <a href="index_articles.php?category[]=<?= $cat["category"] ?>" class="dropdown-item">
+                  <a href="../view/index_articles.php?category[]=<?= $cat["category"] ?>" class="dropdown-item">
                     <?= ucfirst($cat["category"]) ?>
                   </a>
                 </li>
@@ -56,28 +56,34 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="./map_all.php" class="nav-link">
+            <a href="../view/map_all.php" class="nav-link">
               Carte des spots
             </a>
           <li class="nav-item">
-            <a href="./add_article_form.php" class="nav-link">
+            <a 
+              <?php if (!isset($_SESSION['name'])) { ?>
+                href="../view/login.php"
+              <?php } else { ?> 
+                href="../view/add_article_form.php"
+              <?php } ?>
+              class="nav-link">
               Créer un article
             </a>
           </li>
           <?php if (!isset($_SESSION['name'])) { ?>
             <li class="nav-item">
-              <a href="./add_user_form.php" class="nav-link">
+              <a href="../view/add_user_form.php" class="nav-link">
                 S'inscrire
               </a>
             </li>
             <li class="nav-item">
-              <a href="./login.php" class="nav-link">
+              <a href="../view/login.php" class="nav-link">
                 Connexion
               </a>
             </li>
           <?php } else { ?>
             <li class="nav-item">
-              <a href="./read_user.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil">
+              <a href="../view/read_user.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil">
                 <img src="../assets/img_profil/<?= $_SESSION['img'] ?>" alt="Photo de profil">
                 Mon profil
               </a>
