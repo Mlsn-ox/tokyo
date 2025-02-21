@@ -13,7 +13,7 @@
                 <input type="text" name="title" class="form-control form-control-lg" placeholder="Titre" maxlength="40">
             </div>
             <select class="form-select mb-3 category" name="category">
-                <option selected>Choix de la catégorie</option>
+                <option value="" selected>Choix de la catégorie</option>
                 <option value="panorama">Panorama</option>
                 <option value="gastronomie">Gastronomie</option>
                 <option value="shopping">Shopping</option>
@@ -33,12 +33,12 @@
                 <label for="formFile image_uploads" class="form-label btn btn-warning">Ajouter une photo</label>
                 <div class="preview my-2"></div>
             </div>
-            <input type="hidden" name="author" value="1">
+            <input type="hidden" name="author" value="<?= $_SESSION['id'] ?>">
             <button type="submit" class="btn btn-primary mb-3">Envoyer</button>
             <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
                     $message = getMessage($_GET["message_code"]);
                     $status = $_GET["status"];
-                    echo "<h4 class='text-center $status' >$message.</h4>";
+                    echo "<h4 class='text-center $status' >$message</h4>";
                 } ?>
         </form>
     </div>

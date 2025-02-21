@@ -1,20 +1,28 @@
 <?php
     require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
-    if (isset($_GET["id"])) {
+
+    try {
+        if (!isset($_GET["id"])) {
+            throw new Exception("article_not_find"); 
+        }
         $id = $_GET["id"];
-        $sql = "SELECT articles.*, users.user_id, users.user_name FROM articles LEFT JOIN users ON articles.user_ide = users.user_id WHERE articles.id = $id";
-        $stmt = $pdo->query($sql); $article = $stmt->fetch(PDO::FETCH_ASSOC); }
-    else { 
-        header("Location:../view/homepage.php?message_code=article_not_find&status=error"); 
-    }
+        $sql = "SELECT articles.*, users.id, users.name FROM articles LEFT JOIN users ON articles.user_ide = users.id WHERE articles.id = $id";
+        $stmt = $pdo->query($sql); 
+        $article = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$article){
+            throw new Exception("article_not_find");
+        }
+    } catch (Exception $e) {
+        $error_code = urlencode($e->getMessage());
+        header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
+        exit();
+    } 
+
     if (isset($_GET["message_code"]) && isset($_GET["status"])) { 
         $message = getMessage($_GET["message_code"]);
     } 
-    if (isset($_SESSION['error_message'])) {
-        echo "<p style='color: red'>Erreur : " . htmlspecialchars($_SESSION['error_message']) . "</p>"; 
-        unset($_SESSION['error_message']); // Supprime l'erreur après l'affichage 
-    }
+
 ?>
 <div class="modal" tabindex="-1">
     <div class="modal-dialog">
@@ -63,10 +71,10 @@
         <p>
             Posté par
             <a
-            href="read_user.php?id=<?= $article['user_id'] ?>"
+            href="read_user.php?id=<?= $article['id'] ?>"
             class="fst-italic"
             >
-            <?= htmlentities($article['user_name']) ?>
+            <?= htmlentities($article['name']) ?>
             </a>
         </p>
         </div>

@@ -71,7 +71,7 @@ fetch(urlOpenW)
     } else {
       iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
     }
-    openWeather.innerHTML = `<span>🌡️ ${temperature}°C  </span><span>🔹  ${meteoCapital} </span><img src="${iconUrl}" alt="${meteo}" style="height:50px;">`;
+    openWeather.innerHTML = `<p>🌡️ ${temperature}°c &nbsp; - &nbsp; ${meteoCapital} </p><img src="${iconUrl}" alt="${meteo}" style="height:50px;">`;
   })
   .catch((error) => console.error("Erreur :", error));
 

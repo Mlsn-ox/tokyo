@@ -1,18 +1,20 @@
 <?php
     require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
-// echo "<pre>";
-// print_r($_SESSION);
-// echo "</pre>";
+echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
 ?>
 <div class="section p-4 col-xxl-7 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
     <div class="container p-xl-5 py-2 px-4 rounded-5 home mb-5 fade hero">
+    <?php if (!isset($_SESSION['name'])) { ?>
         <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>
         <p>
             Tokyo est une ville aux mille visages, entre tradition et modernité, temples centenaires et gratte-ciels futuristes,
             ruelles secrètes et quartiers animés. Ici, chaque coin de rue réserve une surprise,
             et c’est justement ce que nous voulons partager avec vous !
         </p>
+        <div class="container"></div>
         <p>
             TokyoSpot est un blog collaboratif où vous êtes les guides.
         </p>
@@ -23,17 +25,27 @@
             Ensemble, faisons de TokyoSpot la référence pour découvrir Tokyo sous un nouvel angle !
         </p>
         <p>
-            Une découverte à partager ? 📍 <a href="add_article_form.php">Publiez votre trouvaille</a> et faites voyager les autres à travers votre regard !
+            Une découverte à partager ? 📍 <a href="add_user_form.php">Venez partager avec nous votre trouvaille</a> et faites voyager les autres à travers votre regard !
         </p>
+        <?php } else { ?> 
+            <h2 class="mb-3">Bienvenue <?= $_SESSION['name'] ?>, qu'allez-vous faire aujourd'hui ?</h2>
+            <div class="container d-flex flex-wrap row-gap-3 column-gap-3 justify-content-center">
+                <a class="btn btn-outline-primary" href="../view/index_articles.php">Explorer les spots</a>
+                <a class="btn btn-outline-primary" href="../view/add_article_form.php">Partager un nouveau lieu</a>
+                <a class="btn btn-outline-primary" href="../view/index_articles.php">Examiner vos favoris</a>
+                <a class="btn btn-outline-primary" href="../view/read_user.php?id=<?= $_SESSION['id'] ?>">Inspecter votre profil</a>
+            </div>
+        <?php } ?>
     </div>
+    
     <div class="container p-xl-5 rounded-5 home direct fade">
         <h1 class="text-center">En direct de Tokyo : carrefour Shibuya</h1>
-        <div class="d-flex justify-content-around align-items-center mb-2 flex-wrap">
-            <div id="heure-tokyo" class="d-flex align-items-center justify-content-center mx-auto col-lg-4"></div>
+        <div class="d-flex justify-content-center align-items-center mb-2 flex-wrap">
+            <div id="heure-tokyo" class="d-flex align-items-center justify-content-center mx-auto col-lg-2"></div>
             <div id="meteo-tokyo" class="d-flex align-items-center justify-content-center mx-auto text-center flex-wrap"></div>
         </div>
         <div class="iframe-container">
-            <iframe src="https://www.youtube.com/embed/TUd7JORZeWo?autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe class="rounded-4" src="https://www.youtube.com/embed/TUd7JORZeWo?autoplay=1&mute=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
         </div>
     </div>
 

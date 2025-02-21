@@ -1,22 +1,18 @@
 @charset "UTF-8";
 @font-face {
+  font-family: "Digits";
+  src: url(../assets/fonts/digital-7.ttf);
+}
+@font-face {
   font-family: "Quick";
   src: url(../assets/fonts/Quicksand-VariableFont_wght.ttf);
 }
 @font-face {
-  font-family: "Merienda";
-  src: url(../assets/fonts/Merienda-VariableFont_wght.ttf);
-}
-@font-face {
-  font-family: "Playpen";
-  src: url(../assets/fonts/PlaypenSans-VariableFont_wght.ttf);
-}
-@font-face {
-  font-family: "Digits";
-  src: url(../assets/fonts/digital-7.ttf);
+  font-family: "Oxan";
+  src: url(../assets/fonts/Oxanium-VariableFont_wght.ttf);
 }
 :root {
-  --font-family: "Atemic", sans-serif;
+  --font-family: "Quick";
   --card-bg: #ffffff56;
   --shadow-color: #ffffff1a;
   --box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
@@ -130,12 +126,14 @@
 .success {
   color: #30a021;
   animation: fade 2s 1s 1 forwards;
+  animation-direction: reverse;
 }
 
 .error {
   color: #b31818;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.5019607843);
   animation: fade 2s 4s 1 forwards;
+  animation-direction: reverse;
 }
 
 .separator {
@@ -293,25 +291,8 @@ backdrop-filter: blur(10px);
 /* Landscape phone to portrait tablet */
 /* Portrait tablet to landscape and desktop */
 /* Large desktop */
-.navbar {
-  box-shadow: var(--box-shadow);
-  z-index: 1;
-}
-.navbar .container-fluid .navbar-brand img {
-  height: 60px;
-}
-.navbar .page-profil img {
-  height: 25px;
-  border-radius: 50%;
-}
-
-.home {
-  background: rgba(255, 255, 255, 0.7137254902);
-  backdrop-filter: blur(10px);
-}
-
 body {
-  font-family: "Quick";
+  font-family: var(--font-family);
   font-weight: 500;
   display: flex;
   flex-direction: column;
@@ -341,20 +322,44 @@ body .petal {
   animation: fall linear infinite;
 }
 
+.navbar {
+  box-shadow: var(--box-shadow);
+  z-index: 1;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.navbar .container-fluid .navbar-brand img {
+  height: 60px;
+}
+.navbar .page-profil img {
+  height: 25px;
+  border-radius: 50%;
+}
+
+.home {
+  background: rgba(255, 255, 255, 0.7137254902);
+  backdrop-filter: blur(10px);
+}
+
 .hero h1 {
-  font-family: "Playpen";
+  font-family: "Oxan";
   font-weight: 500;
 }
 
+.direct {
+  font-family: "Oxan";
+  font-weight: 400;
+}
 .direct h1 {
-  font-family: "Playpen";
+  font-family: "Oxan";
   font-weight: 500;
 }
 .direct h1 span {
   animation: fade 1s linear infinite alternate;
 }
-.direct #meteo-tokyo span {
+.direct #meteo-tokyo p {
   font-size: 1.5rem;
+  margin: 0;
 }
 .direct #heure-tokyo {
   font-size: 3rem;
@@ -391,8 +396,6 @@ header .head-content {
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  font-family: "Merienda";
-  font-weight: 500;
   text-align: center;
   font-size: 1.3rem;
   text-shadow: 1px 0 2px #dc3545;

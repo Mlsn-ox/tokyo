@@ -1,6 +1,7 @@
 <?php
     require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
+    include "../includes/message.php";
 ?>
 
 <div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-4">
@@ -93,12 +94,12 @@
                 <button type="submit" class="btn btn-primary">S'inscrire</button>
             </div>
             <div class="col-3">
-                <a href="#" class="btn btn-danger">Retour à l'accueil</a>
+                <a href="./homepage.php" class="btn btn-danger">Retour à l'accueil</a>
             </div>
-            <?php if (isset($_GET["message"]) && isset($_GET["status"])) {
-                    $message = $_GET["message"];
+            <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
+                    $message = getMessage($_GET["message_code"]);
                     $status = $_GET["status"];
-                    echo "<h4 class='text-center $status' >$message.</h4>";
+                    echo "<h4 class='text-center $status' >$message</h4>";
                 } ?>
         </form>
     </div>

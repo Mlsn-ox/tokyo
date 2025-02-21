@@ -102,7 +102,7 @@ function onMapClick(e) {
   document.querySelector("#lng").value = marker._latlng.lng;
 }
 
-// Fonction pour récupérer les param l'URL en fonction du "nom=""
+// Fonction pour récupérer les param de l'URL en fonction du "nom=""
 function getParam(name) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(name); // Ne retourne que le param souhaité dans l'url

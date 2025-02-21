@@ -1,25 +1,20 @@
 @font-face {
+  font-family: "Digits";
+  src: url(../assets/fonts/digital-7.ttf);
+}
+
+@font-face {
   font-family: "Quick";
   src: url(../assets/fonts/Quicksand-VariableFont_wght.ttf);
 }
 
 @font-face {
-  font-family: "Merienda";
-  src: url(../assets/fonts/Merienda-VariableFont_wght.ttf);
-}
-
-@font-face {
-  font-family: "Playpen";
-  src: url(../assets/fonts/PlaypenSans-VariableFont_wght.ttf);
-}
-
-@font-face {
-  font-family: "Digits";
-  src: url(../assets/fonts/digital-7.ttf);
+  font-family: "Oxan";
+  src: url(../assets/fonts/Oxanium-VariableFont_wght.ttf);
 }
 
 :root {
-  --font-family: "Atemic", sans-serif;
+  --font-family: "Quick";
   --card-bg: #ffffff56;
   --shadow-color: #ffffff1a;
   --box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
@@ -36,13 +31,8 @@
   @return $delay-base + ($n - 1) * $increment;
 }
 
-@mixin meri($weight) {
-  font-family: "Merienda";
-  font-weight: $weight;
-}
-
-@mixin play($weight) {
-  font-family: "Playpen";
+@mixin ox($weight) {
+  font-family: "Oxan";
   font-weight: $weight;
 }
 
@@ -169,12 +159,14 @@
 .success {
   color: #30a021;
   animation: fade 2s 1s 1 forwards;
+  animation-direction: reverse;
 }
 
 .error {
   color: #b31818;
   text-shadow: 1px 1px #00000080;
   animation: fade 2s 4s 1 forwards;
+  animation-direction: reverse;
 }
 
 .separator {
