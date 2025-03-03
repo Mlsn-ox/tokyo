@@ -35,7 +35,7 @@
                     Nombre de post : <?= htmlentities($user["total_articles"]) ?>
                 </li>
                 <li class='list-group-item bg-light-subtle'>
-                    Newsletter : <?= $user['is_subscribed'] ? "Abonné" : "Non abonné" ?>
+                    Newsletter : <?= $user['newsletter'] ? "Abonné" : "Non abonné" ?>
                 </li>
             </ul>
         </div>

@@ -24,77 +24,79 @@
     } 
 
 ?>
+
+<!-- 
 <div class="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            ></button>
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    < balise echo $message ?>
+                </p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-primary">Retour</button>
+            </div>
         </div>
-        <div class="modal-body">
-            <p><?= $message ?></p>
+    </div>
+</div> -->
+
+<div class="section home col-xxl-8 col-md-10 col-12 mx-auto px-xl-4 py-4">
+    <div class="container-fluid fade-up">
+        <div class="container-fluid title read-title d-flex align-items-center my-2">
+            <a href="../controller/favorite_controller.php" class="favorite">
+                <img src="../assets/logo_category/heart_white.svg" class="heart" alt="Ajouter aux favoris" />
+            </a>
+            <h1 class="text-center">
+                <?= htmlentities(ucfirst($article['title'])) ?>
+            </h1>
         </div>
-        <div class="modal-footer text-center">
-            <button type="button" class="btn btn-primary">Retour</button>
+        <div class="container-fluid">
+            <h4 class="categorie">
+                <img src="../assets/logo_category/<?= $article['category'] ?>.svg" alt="Catégorie
+                <?= htmlentities($article["category"]) ?>">
+                <?= htmlentities($article['category']) ?>
+            </h4>
         </div>
+    </div>
+    <div class="container-fluid d-md-flex justify-content-between pt-3">
+        <div class="container-fluid col-12 col-md-6 fade-right pt-md-4">
+            <p><?= htmlentities(ucfirst($article['content'])) ?></p>
+            <p>
+                Posté par
+                <a href="read_user.php?id=<?= $article['id'] ?>" class="fst-italic">
+                    <?= htmlentities($article['name']) ?>
+                </a>
+            </p>
+        </div>
+        <div class="container-fluid col-12 col-md-6 fade-left img-clickable-container py-1">
+            <img src="../assets/img_articles/<?= $article['img'] ?>" alt="Photo de l'article"
+                class="rounded-4 img-clickable" data-bs-toggle="modal" data-bs-target="#imageModal" />
+        </div>
+    </div>
+    <div class="container-fluid mx-auto mt-4 mb-2">
+        <div id="map" data-lat="<?= $article['lat'] ?>" data-lng="<?= $article['lng'] ?>"
+            class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom fade-up">
+        </div>
+    </div>
+</div>
+<!-- Modale pour afficher l'image en taille originale -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid" alt="Image en taille réelle">
+            </div>
         </div>
     </div>
 </div>
 
-<div class="section home col-xxl-7 col-md-10 col-12 mx-auto px-xl-5 py-4">
-    <div class="container d-flex align-items-center">
-        <div class="container-fluid fade-right">
-        <div class="container-fluid title d-flex align-items-center read-title">
-            <a href="../controller/favorite_controller.php" class="favorite">
-            <img
-                src="../assets/logo_category/heart_white.svg"
-                class="heart"
-                alt="Ajouter aux favoris"
-            />
-            </a>
-            <h1 class="text-center">
-            <?= htmlentities(ucfirst($article['title'])) ?>
-            </h1>
-        </div>
-        <h4 class="categorie">
-            <img src="../assets/logo_category/<?= $article['category'] ?>.svg"
-            alt="Catégorie
-            <?= htmlentities($article["category"]) ?>">
-            <?= htmlentities($article['category']) ?>
-        </h4>
-        <p><?= htmlentities(ucfirst($article['content'])) ?></p>
-        <p>
-            Posté par
-            <a
-            href="read_user.php?id=<?= $article['id'] ?>"
-            class="fst-italic"
-            >
-            <?= htmlentities($article['name']) ?>
-            </a>
-        </p>
-        </div>
-        <div class="container-fluid fade-left">
-        <img
-            src="../assets/img_articles/<?= $article['img'] ?>"
-            class="rounded-4"
-            alt="Photo de l'article"
-            style="width: 100%"
-        />
-        </div>
-    </div>
-    <div class="container-fluid mx-auto my-3">
-        <div
-        id="map"
-        data-lat="<?= $article['lat'] ?>"
-        data-lng="<?= $article['lng'] ?>"
-        class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom fade-up"
-        ></div>
-    </div>
-</div>
 <script type="module" src="../script/read_article.js"></script>
 <?php require_once "../includes/footer.php" ?>

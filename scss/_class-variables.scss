@@ -1,3 +1,31 @@
+// RESPONSIVE
+
+@mixin media($breakpoint) {
+  @if $breakpoint == xs {
+    @media (max-width: 575px) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media (min-width: 576px) and (max-width: 767px) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (min-width: 768px) and (max-width: 991px) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (min-width: 992px) and (max-width: 1199px) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
+// FONTS
+
 @font-face {
   font-family: "Digits";
   src: url(../assets/fonts/digital-7.ttf);
@@ -13,19 +41,31 @@
   src: url(../assets/fonts/Oxanium-VariableFont_wght.ttf);
 }
 
+// VARIABLES
+
 :root {
+  --bs-blue: #900;
+  --bs-primary: #900; /* Nouvelle couleur principale */
+  --bs-secondary: #555;
+  --bs-success: #198754;
+  --bs-danger: #dc3545;
   --font-family: "Quick";
   --card-bg: #ffffff56;
   --shadow-color: #ffffff1a;
-  --box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --box-shadow: 0 1px 2px 0 #3c40444d, 0 1px 3px 1px #3c404326;
+  --shadow: 4px 4px 7px #bbb, -3px -3px 6px #fff;
+  --inner-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
 }
+
+// RESET
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+// MIXIN ET FONCTIONS
 
 @function delayPlus($n, $delay-base: 0s, $increment: 0.1s) {
   @return $delay-base + ($n - 1) * $increment;
@@ -48,6 +88,8 @@
   align-items: $ai;
   flex-wrap: $wrap;
 }
+
+// ANIMATIONS
 
 @keyframes fall {
   0% {
@@ -144,6 +186,19 @@
   animation: fade 0.4s ease-out forwards;
 }
 
+// BUTTONS
+
+.btn {
+  box-shadow: var(--shadow) !important;
+  font-weight: 500 !important;
+  &:hover {
+    box-shadow: var(--box-shadow) !important;
+  }
+  &:active {
+    box-shadow: inset var(--inner-shadow) !important;
+  }
+}
+
 // MAP
 
 #map {
@@ -178,11 +233,12 @@
 .categorie {
   font-variant: small-caps;
   img {
-    height: 16px;
+    height: 30px;
   }
 }
 
 /*
+
 
 background: hsla(0,0%,100%,.2);
 backdrop-filter: blur(10px);
@@ -197,126 +253,4 @@ backdrop-filter: blur(10px);
 
   cards triés par popularité
 
-  newsletters
-
-
-// GRID POUR ARTICLE CARDS
-
-.card-container {
-  display: grid;
-  padding: 3rem 2rem;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 20vh 5vh 3vh 5vh 25vh 15vh 5vh 25vh;
-  grid-template-areas:
-    "a0 a0 a0 a1 a1 a1"
-    "a0 a0 a0 a1 a1 a1"
-    "a2 a2 . a1 a1 a1"
-    "a2 a2 a3 a3 . ."
-    "a2 a2 a3 a3 a4 a4"
-    "a5 a5 a3 a3 a4 a4"
-    "a5 a5 . a7 a7 a7"
-    "a6 a6 a6 a7 a7 a7";
-  gap: 2rem;
-  max-width: 1400px;
-  width: 100%;
-  .card-article {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-    border-radius: 15px;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(20px);
-    box-shadow: var(--box-shadow);
-    padding-top: 0.5rem;
-    cursor: pointer;
-    animation: fadeIn 0.6s ease-out forwards;
-    &:nth-child(1) {
-      grid-area: a0;
-    }
-    &:nth-child(2) {
-      animation-delay: 0.2s;
-      grid-area: a1;
-    }
-    &:nth-child(3) {
-      animation-delay: 0.4s;
-      grid-area: a2;
-    }
-    &:nth-child(4) {
-      animation-delay: 0.6s;
-      grid-area: a3;
-    }
-    &:nth-child(5) {
-      animation-delay: 0.8s;
-      grid-area: a4;
-    }
-    &:nth-child(6) {
-      animation-delay: 1s;
-      grid-area: a5;
-    }
-    &:nth-child(7) {
-      animation-delay: 1.2s;
-      grid-area: a6;
-    }
-    &:nth-child(8) {
-      animation-delay: 1.4s;
-      grid-area: a7;
-    }
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--card-bg);
-    }
-    .card-content {
-      position: absolute;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      text-shadow: 2px 2px 2px #ffffff;
-      h2 {
-        font-size: 2rem;
-        margin-left: 2rem;
-      }
-      p {
-        align-self: center;
-        opacity: 0;
-        transform: translateX(-60px);
-        font-size: 1.3rem;
-        width: 110%;
-        padding: 0.8rem 2.5rem;
-        background-color: #ffffffb7;
-        margin: 0;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        word-break: break-word;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-      }
-    }
-    &:hover {
-      .card-content p {
-        opacity: 1;
-        transform: none;
-        transition: all 0.7s ease;
-      }
-    }
-  }
-}
-
-  .banner {
-    width: 100%;
-    height: 20%;
-    background-image: url(../assets/banner-shape-min.png);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-
-*/
+  newsletters */

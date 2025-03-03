@@ -13,8 +13,8 @@
             throw new Exception("form_error");
         }
         // Nettoyage des données
-        $title = htmlspecialchars(trim($_POST['title']), ENT_QUOTES, 'UTF-8'); // ENT_QUOTES : conversion des " et '
-        $content = htmlspecialchars(trim($_POST['content']), ENT_QUOTES, 'UTF-8');
+        $title = htmlspecialchars(ucfirst(trim($_POST['title'])), ENT_QUOTES, 'UTF-8'); // ENT_QUOTES : conversion des " et '
+        $content = htmlspecialchars(ucfirst(trim($_POST['content'])), ENT_QUOTES, 'UTF-8');
         $category = htmlspecialchars($_POST['category'], ENT_QUOTES, 'UTF-8');
         $author = $_POST['author'];
         $today = date('Y-m-d'); 

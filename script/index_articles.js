@@ -1,5 +1,6 @@
 let html = document.querySelector("#articles");
 let form = document.querySelector("#filter");
+const collapse = document.querySelector("#collapseExample");
 
 const params = new URLSearchParams(window.location.search);
 let order = params.get("order"); // Récupère la valeur de order
@@ -55,7 +56,7 @@ function loadMoreArticles() {
                     <h2>${article.title}</h2>
                     <div class="content">
                         <p class="m-0 categorie">
-                            <img src="../assets/logo_category/${article.category}.svg" alt="Catégorie ${article.category}" style="height: 16px;">
+                            <img src="../assets/logo_category/${article.category}.svg" alt="Catégorie ${article.category}">
                             ${article.category}
                         </p>
                         <p>${article.content}</p>
