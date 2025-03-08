@@ -8,7 +8,12 @@
     <div class="container p-0 fade-up">
         <h1 class="m-0">Rejoignez la communauté</h1>
         <div class="separator my-3 text-center"></div>
-        <form method="POST" class="mt-4 row g-3" action="../controller/add_user_controller.php">
+        <form method="POST" class="mt-4 row g-3 position-relative" action="../controller/add_user_controller.php">
+        <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
+                    $message = getMessage($_GET["message_code"]);
+                    $status = $_GET["status"];
+                    echo "<h3 class='text-center message-code $status' >$message</h3>";
+                } ?>
             <div class="col-md-6">
                 <label for="mail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="mail" name="mail">
@@ -30,42 +35,42 @@
             </div>
             <p class="mt-4">Choisissez une image de profil</p>
             <div class="col-12 d-flex row justify-content-around mb-3 mx-auto text-center avatars">
-                <div class="form-check p-0 m-md-2 mb-2 col-6 col-sm-5 col-lg-3 img-select">
+                <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
                     <input class="form-check-input" type="radio" name="profil" id="sakura" value="Sakura.png" checked>
                     <label class="form-check-label" for="sakura">
                         <img class="avatar" src="../assets/img_profil/Sakura.png" alt="temple japonais et fleur de sakura">
                         <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
-                <div class="form-check p-0 m-md-2 mb-2 col-6 col-sm-5 col-lg-3 img-select">
+                <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
                     <input class="form-check-input" type="radio" name="profil" id="neko" value="Neko.png">
                     <label class="form-check-label" for="neko">
                         <img class="avatar" src="../assets/img_profil/Neko.png" alt="Maneki Neko">
                         <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
-                <div class="form-check p-0 m-md-2 mb-2 col-6 col-sm-5 col-lg-3 img-select">
+                <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
                     <input class="form-check-input" type="radio" name="profil" id="godzilla" value="Godzilla.png">
                     <label class="form-check-label" for="godzilla">
                         <img class="avatar" src="../assets/img_profil/Godzilla.png" alt="Kawaii Godzilla">
                         <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
-                <div class="form-check p-0 m-md-2 mb-2 col-6 col-sm-5 col-lg-3 img-select">
+                <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
                     <input class="form-check-input" type="radio" name="profil" id="ramen" value="Ramen.png">
                     <label class="form-check-label" for="ramen">
                         <img class="avatar" src="../assets/img_profil/Ramen.png" alt="Bol de ramen">
                         <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
-                <div class="form-check p-0 m-md-2 mb-2 col-6 col-sm-5 col-lg-3 img-select">
+                <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
                     <input class="form-check-input" type="radio" name="profil" id="Kanagawa" value="Kanagawa.png">
                     <label class="form-check-label" for="Kanagawa">
                         <img class="avatar" src="../assets/img_profil/Kanagawa.png" alt="Grande vague de Kanagawa">
                         <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
-                <div class="form-check p-0 m-md-2 mb-2 col-6 col-sm-5 col-lg-3 img-select">
+                <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
                     <input class="form-check-input" type="radio" name="profil" id="shiba" value="Shiba.png">
                     <label class="form-check-label" for="shiba">
                         <img class="avatar" src="../assets/img_profil/Shiba.png" alt="Shiba inu">
@@ -90,15 +95,10 @@
                     </label>
                 </div>
             </div>
-            <div class="container mx-auto my-3 row justify-content-between">
+            <div class="container mx-auto mt-4 mb-2 row justify-content-between">
                 <button type="submit" class="btn btn-outline-primary rounded-pill col-5 col-md-4 col-xl-3">S'inscrire</button>
-                <a href="./homepage.php" class="btn btn-outline-danger rounded-pill col-5 col-md-4 col-xl-3">Retour à l'accueil</a>
+                <a href="./homepage.php" class="btn btn-outline-danger rounded-pill col-5 col-md-4 col-xl-3">Retour</a>
             </div>
-            <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
-                    $message = getMessage($_GET["message_code"]);
-                    $status = $_GET["status"];
-                    echo "<h4 class='text-center $status' >$message</h4>";
-                } ?>
         </form>
     </div>
 </div>

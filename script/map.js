@@ -27,13 +27,13 @@ export function mapping(lat, lng) {
   return map;
 }
 
-export function icon() {
-  // Créer une icône personnalisée
-  const customIcon = L.icon({
-    iconUrl: "../assets/logo_category/geo.svg", // Image personnalisée
-    iconSize: [25, 35], // Taille du marqueur [largeur, hauteur]
-    iconAnchor: [20, 40], // Point d'ancrage (au centre en bas)
-    popupAnchor: [-7, -28], // Position de la popup par rapport au marqueur
-  });
-  return customIcon;
-}
+// export function icon() {
+//   // Créer une icône personnalisée
+//   const customIcon = L.icon({
+//     iconUrl: "../assets/logo_category/geo.svg", // Image personnalisée
+//     iconSize: [25, 35], // Taille du marqueur [largeur, hauteur]
+//     iconAnchor: [20, 40], // Point d'ancrage (au centre en bas)
+//     popupAnchor: [-7, -28], // Position de la popup par rapport au marqueur
+//   });
+//   return customIcon;
+// }

@@ -1,3 +1,4 @@
+import { mapping } from "./map.js";
 const inputFiles = document.querySelector(".files");
 const preview = document.querySelector(".preview");
 const form = document.querySelector("form");
@@ -6,6 +7,12 @@ let image = document.createElement("img");
 const cat = document.querySelector(".category");
 cat[0].selected = true;
 image.src = "";
+
+// Outils Map LEAFLET
+const map = mapping(35.705, 139.74);
+let layerGroup = L.layerGroup();
+
+map.on("click", onMapClick);
 
 /**
  * Disabled placeholder select form
@@ -52,40 +59,6 @@ function fileSize(size) {
   }
 }
 
-// OUTIL MAP
-
-// Initialisation de la map
-const map = L.map("map").setView([35.705, 139.74], 11);
-let layerGroup = L.layerGroup();
-map.on("click", onMapClick);
-
-// Creation du tableau de choix des maps MapBox
-
-const street = L.tileLayer(
-  "https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWxzbiIsImEiOiJjbTZpMjR6dzMwMnRmMmlxc2NsdGNpdzBtIn0.ODgHxRTgvTEgXe9jH7r88A",
-  {
-    attribution: '&copy; <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 20,
-  }
-).addTo(map);
-
-const sat = L.tileLayer(
-  "https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWxzbiIsImEiOiJjbTZpMjR6dzMwMnRmMmlxc2NsdGNpdzBtIn0.ODgHxRTgvTEgXe9jH7r88A",
-  {
-    attribution: '&copy; <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 20,
-  }
-);
-
-const baseMaps = {
-  "Mapbox Street": street,
-  "Mapbox Satellite": sat,
-};
-L.control.layers(baseMaps).addTo(map);
-L.control.scale().addTo(map);
-
-//
-
 /**
  * Données GPS du marker insuflées dans les inputs associés
  * @param {event} e marqueur à l'événement click
@@ -102,7 +75,9 @@ function onMapClick(e) {
   document.querySelector("#lng").value = marker._latlng.lng;
 }
 
-// Fonction pour récupérer les param de l'URL en fonction du "nom=""
+// Ouvrir une modale en fonction d'un param URL
+
+// Fonction pour récupérer les param de l'URL en fonction du "name=""
 function getParam(name) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(name); // Ne retourne que le param souhaité dans l'url

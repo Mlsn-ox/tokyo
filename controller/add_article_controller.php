@@ -1,5 +1,6 @@
 <?php
     require_once "../includes/pdo.php";
+    session_start();
 
     try {
         if (
@@ -66,8 +67,7 @@
             throw new Exception("server_error"); 
         }
 
-        $lastId = $pdo->lastInsertId();
-        header("Location: ../view/read_article.php?id=" . $lastId . "message_code=article_added&status=success");
+        header("Location: ../view/read_user.php?id=" . $_SESSION['id'] . "message_code=article_added&status=success");
         exit();
 
     } catch (Exception $e) {

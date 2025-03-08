@@ -7,7 +7,7 @@ $orderBy = ' ORDER BY id DESC ';
 if (isset($_GET["category"]) && !empty($_GET["category"])) { // Récupération catégorie(s) ET tableau non vide
     $categories = $_GET["category"];
     $categoString = "'" . implode("','", $categories) . "'"; // Explosion du tableau en string
-    $where = 'WHERE category IN(' . $categoString . ')'; // Formation de la requète sql
+    $where = 'AND category IN(' . $categoString . ')'; // Formation de la requète sql
 }
 
 // Gestion tri

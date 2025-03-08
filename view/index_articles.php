@@ -7,7 +7,7 @@
     }  
     try {
         $limitArt = 6;
-        $sql = "SELECT id, title, category, content, img FROM articles $where $orderBy LIMIT $limitArt";
+        $sql = "SELECT id, title, category, content, img FROM articles WHERE status = 'approved' $where $orderBy LIMIT $limitArt";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);

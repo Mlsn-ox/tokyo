@@ -2,11 +2,12 @@
     require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
 // echo "<pre>";
-// print_r($_SESSION);
+// print_r(gettype($notif['COUNT(*)']));
 // echo "</pre>";
+$notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : $badge = ""
 ?>
 <div class="section p-1 col-xxl-8 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
-    <div class="container-fluid p-xl-5 p-3 rounded-5 home my-3 my-md-4 fade hero">
+    <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fade hero">
     <?php if (!isset($_SESSION['name'])) { ?>
         <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>
         <p class="d-none d-sm-block">
@@ -24,11 +25,12 @@
             Ensemble, faisons de TokyoSpot la référence pour découvrir Tokyo sous un nouvel angle !
         </p>
         <p>
-            Une découverte à partager ? 📍 <a href="add_user_form.php">Venez partager avec nous votre trouvaille</a> et faites voyager les autres à travers votre regard !
+            Une découverte à partager ? 📍 <a href="./login.php">Venez partager avec nous votre trouvaille</a> et faites voyager les autres à travers votre regard !
         </p>
         <?php } else { ?> 
             <h2 class="mb-3 text-center">Bienvenue <?= $_SESSION['name'] ?>, qu'allez-vous faire aujourd'hui ?</h2>
             <div class="container d-flex flex-wrap row-gap-2 column-gap-2 justify-content-center">
+                <?= $_SESSION['role'] && $_SESSION['role'] > 0 ?  '<a class="btn btn-outline-danger" href="../view/admin.php">Espace modérateur ' . $badge . '</a>' : "" ?>
                 <a class="btn btn-outline-primary" href="../view/index_articles.php">Explorer les spots</a>
                 <a class="btn btn-outline-primary" href="../view/add_article_form.php">Partager un nouveau lieu</a>
                 <a class="btn btn-outline-primary" href="../view/index_articles.php">Examiner vos favoris</a>
@@ -49,7 +51,7 @@
         };
         if ($articles){ 
             ?>
-            <div class="container-fluid p-xl-5 p-2 rounded-5 home fade carousel-container">
+            <div class="container-fluid p-xl-5 p-md-3 p-2 rounded-5 home fade carousel-container">
                 <h1 class="text-center mb-3">Explorer nos spots :</h1>
                 <div id="carouselExampleInterval" class="carousel slide carousel-fade mx-auto" data-bs-ride="carousel">
                     <div class="carousel-inner rounded-5">
@@ -74,14 +76,14 @@
             </div>
         <?php } ?>
 
-    <div class="container-fluid p-xl-5 p-2 my-3 my-md-4 rounded-5 home direct fade">
+    <div class="container-fluid p-xl-5 p-md-3 p-2 my-3 my-md-4 rounded-5 home direct fade">
         <h1 class="text-center">En direct de Tokyo : carrefour Shibuya</h1>
         <div class="d-flex justify-content-center align-items-center mb-2 flex-wrap">
             <div id="heure-tokyo" class="d-flex align-items-center justify-content-center mx-3 mx-sm-auto col-lg-2"></div>
             <div id="meteo-tokyo" class="d-flex align-items-center justify-content-center mx-3 mx-sm-auto text-center flex-wrap"></div>
         </div>
         <div class="iframe-container">
-            <iframe class="rounded-5" src="https://www.youtube.com/embed/TUd7JORZeWo?autoplay=1&mute=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+            <iframe class="rounded-4" src="https://www.youtube.com/embed/TUd7JORZeWo?autoplay=1&mute=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
         </div>
     </div>
 </div>

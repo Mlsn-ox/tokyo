@@ -16,11 +16,13 @@
 </head>
 
 <?php
-  use PhpParser\Node\Stmt\TryCatch;
   include "../includes/pdo.php";
   try {
     $sql = "SELECT DISTINCT category FROM articles ORDER BY category ASC;";
     $stmt = $pdo->query($sql);
+    $sqlNotif = "SELECT COUNT(*) FROM articles WHERE articles.status = 'pending';";
+    $stmtNotif = $pdo->query($sqlNotif);
+    $notif = $stmtNotif->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage();
   }
@@ -66,7 +68,7 @@
           <li class="nav-item">
             <a 
               <?php if (!isset($_SESSION['name'])) { ?>
-                href="../view/login.php"
+                href="../view/login.php?message_code=connect_error&status=error"
               <?php } else { ?> 
                 href="../view/add_article_form.php"
               <?php } ?>
@@ -92,6 +94,14 @@
                 Mon profil
               </a>
             </li>
+            <?php if ($_SESSION['role']) { ?>
+              <li class="nav-item">
+                <a href="../view/admin.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil">
+                  Modération
+                  <?= $notif['COUNT(*)'] > 0 ? "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : "" ?>
+                </a>
+              </li>           
+            <?php } ?> 
             <li class="nav-item">
               <a href="../controller/logout_controller.php" class="nav-link">
                 Se déconnecter

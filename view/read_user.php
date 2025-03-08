@@ -1,5 +1,6 @@
 <?php
     require_once "../includes/pdo.php";
+    require_once "../includes/message.php";
     require_once "../includes/navbar.php";
 
     try {
@@ -43,7 +44,7 @@
     <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
                     $message = getMessage($_GET["message_code"]);
                     $status = $_GET["status"];
-                    echo "<h4 class='text-center $status' >$message.</h4>";
+                    echo "<h4 class='text-center mt-5 $status' >$message</h4>";
                 } ?>
 </div>
 <?php require_once "../includes/footer.php" ?>

@@ -21,7 +21,7 @@
                 <option value="loisir">Loisir</option>
             </select>
             <div class="mb-3">
-                <textarea class="form-control" name="content" id="exampleFormControlTextarea1" placeholder="Décrivez le lieu en quelques mots" maxlength="300" rows="3"></textarea>
+                <textarea class="form-control" name="content" placeholder="Décrivez le lieu en quelques mots" maxlength="300" rows="3"></textarea>
             </div>
             <div class="mb-4">
                 <label for="map" class="form-label">Cliquez sur la carte pour marquer l'emplacement</label>
@@ -45,5 +45,5 @@
         </form>
     </div>
 </div>
-<script src="../script/add_article_form.js"></script>
+<script type="module" src="../script/add_article_form.js"></script>
 <?php require_once "../includes/footer.php" ?>

@@ -30,4 +30,5 @@
                 } ?>
     </form>
 </div>
+<script src="../script/login.js"></script>
 <?php require_once "../includes/footer.php" ?>

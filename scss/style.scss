@@ -1,13 +1,6 @@
 @use "class-variables" as *;
 @use "media-queries" as *;
 
-// Variable overrides
-$enable-shadows: true;
-$blue: rgb(26, 106, 153);
-$success: rgb(17, 105, 51);
-$info: rgb(223, 200, 69);
-@import "../node_modules/bootstrap/scss/bootstrap";
-
 body {
   font-family: var(--font-family);
   font-weight: 500;
@@ -35,6 +28,15 @@ body {
   }
 }
 
+.message-code {
+  position: absolute;
+  background-color: #ffffffee;
+  border-radius: 15px;
+  top: -20px;
+  padding: 1rem 0;
+  pointer-events: none;
+}
+
 // NAVBAR
 
 .navbar {
@@ -55,6 +57,10 @@ body {
       border-radius: 50%;
     }
   }
+}
+
+.badge {
+  animation: notif 1s linear 3;
 }
 
 //HOMEPAGE
@@ -81,6 +87,11 @@ body {
     p {
       font-size: 1.5rem;
       margin: 0;
+    }
+    .icon-meteo {
+      height: 45px;
+      background-color: #5db0e3;
+      border-radius: 50%;
     }
   }
   #heure-tokyo {
@@ -233,6 +244,10 @@ header {
   }
 }
 
+.moderation {
+  flex: auto;
+}
+
 .img-clickable-container {
   height: 40vh;
   overflow: hidden;
@@ -362,6 +377,39 @@ select.form-select {
 
 .login-btn {
   width: 250px;
+}
+
+// ADMIN
+
+.list-stat {
+  .list-group-item {
+    background-color: transparent;
+    border-color: #bebebe;
+    span {
+      font-weight: 700;
+      color: #2b2b2b;
+      + span {
+        font-weight: 500;
+        color: #000;
+      }
+    }
+  }
+}
+
+.admin-card {
+  display: block;
+  width: 300px;
+  border-radius: 15px;
+  img {
+    border-radius: 15px;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  a {
+    text-decoration: none;
+  }
 }
 
 // FOOTER

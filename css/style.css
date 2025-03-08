@@ -25,164 +25,6 @@
   --inner-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-@keyframes fall {
-  0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) translateX(30px) rotate(360deg);
-    opacity: 0;
-  }
-}
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.7) translateY(20px) rotateZ(10deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0) rotateZ(0);
-  }
-}
-@keyframes fadeInRotate {
-  from {
-    opacity: 0;
-    transform: scale(0.7) translateY(20px) rotateZ(10deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0) rotateZ(0);
-  }
-}
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: scale(0.8) translateY(100px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: scale(0.8) translateX(100px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateX(0);
-  }
-}
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: scale(0.8) translateX(-100px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateX(0);
-  }
-}
-.fade-left {
-  animation: fadeInLeft 0.4s ease-out forwards;
-}
-
-.fade-right {
-  animation: fadeInRight 0.4s ease-out forwards;
-}
-
-.fade-up {
-  animation: fadeInUp 0.4s ease-out forwards;
-}
-
-.fade-rotate {
-  animation: fadeInRotate 0.4s ease-out forwards;
-}
-
-.fade {
-  animation: fade 0.4s ease-out forwards;
-}
-
-.btn {
-  box-shadow: var(--shadow) !important;
-  font-weight: 500 !important;
-}
-.btn:hover {
-  box-shadow: var(--box-shadow) !important;
-}
-.btn:active {
-  box-shadow: inset var(--inner-shadow) !important;
-}
-
-#map {
-  height: 40vh;
-  width: 100%;
-  border-radius: 10px;
-}
-
-#map.all {
-  height: 68vh;
-}
-
-.success {
-  color: #30a021;
-  animation: fade 2s 1s 1 forwards;
-  animation-direction: reverse;
-}
-
-.error {
-  color: #b31818;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.5019607843);
-  animation: fade 2s 4s 1 forwards;
-  animation-direction: reverse;
-}
-
-.separator {
-  width: 100%;
-  height: 1px;
-  background-color: #666;
-}
-
-.categorie {
-  font-variant: small-caps;
-}
-.categorie img {
-  height: 30px;
-}
-
-/*
-
-
-background: hsla(0,0%,100%,.2);
-backdrop-filter: blur(10px);
-
-// shadow hover : 0px 8px 12px #091E4226, 0px 0px 1px #091E424F
-// transition: box-shadow 0.2s ease-in-out;
-// Texte article overflow .clamp
-
-  Transmission heure et météo à Tokyo en direct
-
-  carroussel des images de la bdd aléatoires avec liens vers les articles
-
-  cards triés par popularité
-
-  newsletters */
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -190,7 +32,7 @@ backdrop-filter: blur(10px);
  */
 :root,
 [data-bs-theme=light] {
-  --bs-blue: rgb(26, 106, 153);
+  --bs-blue: #1a6a99;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
@@ -213,10 +55,10 @@ backdrop-filter: blur(10px);
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: rgb(26, 106, 153);
+  --bs-primary: #1a6a99;
   --bs-secondary: #6c757d;
-  --bs-success: rgb(17, 105, 51);
-  --bs-info: rgb(223, 200, 69);
+  --bs-success: #116933;
+  --bs-info: #dfc845;
   --bs-warning: #ffc107;
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
@@ -277,7 +119,7 @@ backdrop-filter: blur(10px);
   --bs-tertiary-bg: #f8f9fa;
   --bs-tertiary-bg-rgb: 248, 249, 250;
   --bs-heading-color: inherit;
-  --bs-link-color: rgb(26, 106, 153);
+  --bs-link-color: #1a6a99;
   --bs-link-color-rgb: 26, 106, 153;
   --bs-link-decoration: underline;
   --bs-link-hover-color: rgb(20.8, 84.8, 122.4);
@@ -303,8 +145,8 @@ backdrop-filter: blur(10px);
   --bs-focus-ring-width: 0.25rem;
   --bs-focus-ring-opacity: 0.25;
   --bs-focus-ring-color: rgba(26, 106, 153, 0.25);
-  --bs-form-valid-color: rgb(17, 105, 51);
-  --bs-form-valid-border-color: rgb(17, 105, 51);
+  --bs-form-valid-color: #116933;
+  --bs-form-valid-border-color: #116933;
   --bs-form-invalid-color: #dc3545;
   --bs-form-invalid-border-color: #dc3545;
 }
@@ -2555,8 +2397,8 @@ textarea.form-control-lg {
   box-shadow: 0 0 0 0.25rem rgba(26, 106, 153, 0.25);
 }
 .form-check-input:checked {
-  background-color: rgb(26, 106, 153);
-  border-color: rgb(26, 106, 153);
+  background-color: #1a6a99;
+  border-color: #1a6a99;
 }
 .form-check-input:checked[type=checkbox] {
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
@@ -2565,8 +2407,8 @@ textarea.form-control-lg {
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
 .form-check-input[type=checkbox]:indeterminate {
-  background-color: rgb(26, 106, 153);
-  border-color: rgb(26, 106, 153);
+  background-color: #1a6a99;
+  border-color: #1a6a99;
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
 }
 .form-check-input:disabled {
@@ -2656,7 +2498,7 @@ textarea.form-control-lg {
   height: 1rem;
   margin-top: -0.25rem;
   appearance: none;
-  background-color: rgb(26, 106, 153);
+  background-color: #1a6a99;
   border: 0;
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.25rem rgba(0, 0, 0, 0.1);
@@ -2684,7 +2526,7 @@ textarea.form-control-lg {
   width: 1rem;
   height: 1rem;
   appearance: none;
-  background-color: rgb(26, 106, 153);
+  background-color: #1a6a99;
   border: 0;
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.25rem rgba(0, 0, 0, 0.1);
@@ -2930,7 +2772,7 @@ textarea.form-control-lg {
 .was-validated .form-control:valid, .form-control.is-valid {
   border-color: var(--bs-form-valid-border-color);
   padding-right: calc(1.5em + 0.75rem);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='rgb%2817, 105, 51%29' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23116933' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.1875rem) center;
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
@@ -2949,7 +2791,7 @@ textarea.form-control-lg {
   border-color: var(--bs-form-valid-border-color);
 }
 .was-validated .form-select:valid:not([multiple]):not([size]), .was-validated .form-select:valid:not([multiple])[size="1"], .form-select.is-valid:not([multiple]):not([size]), .form-select.is-valid:not([multiple])[size="1"] {
-  --bs-form-select-bg-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='rgb%2817, 105, 51%29' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  --bs-form-select-bg-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23116933' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   padding-right: 4.125rem;
   background-position: right 0.75rem center, center right 2.25rem;
   background-size: 16px 12px, calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
@@ -3162,8 +3004,8 @@ textarea.form-control-lg {
 
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: rgb(26, 106, 153);
-  --bs-btn-border-color: rgb(26, 106, 153);
+  --bs-btn-bg: #1a6a99;
+  --bs-btn-border-color: #1a6a99;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: rgb(22.1, 90.1, 130.05);
   --bs-btn-hover-border-color: rgb(20.8, 84.8, 122.4);
@@ -3173,8 +3015,8 @@ textarea.form-control-lg {
   --bs-btn-active-border-color: rgb(19.5, 79.5, 114.75);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: rgb(26, 106, 153);
-  --bs-btn-disabled-border-color: rgb(26, 106, 153);
+  --bs-btn-disabled-bg: #1a6a99;
+  --bs-btn-disabled-border-color: #1a6a99;
 }
 
 .btn-secondary {
@@ -3196,8 +3038,8 @@ textarea.form-control-lg {
 
 .btn-success {
   --bs-btn-color: #fff;
-  --bs-btn-bg: rgb(17, 105, 51);
-  --bs-btn-border-color: rgb(17, 105, 51);
+  --bs-btn-bg: #116933;
+  --bs-btn-border-color: #116933;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: rgb(14.45, 89.25, 43.35);
   --bs-btn-hover-border-color: rgb(13.6, 84, 40.8);
@@ -3207,14 +3049,14 @@ textarea.form-control-lg {
   --bs-btn-active-border-color: rgb(12.75, 78.75, 38.25);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: rgb(17, 105, 51);
-  --bs-btn-disabled-border-color: rgb(17, 105, 51);
+  --bs-btn-disabled-bg: #116933;
+  --bs-btn-disabled-border-color: #116933;
 }
 
 .btn-info {
   --bs-btn-color: #000;
-  --bs-btn-bg: rgb(223, 200, 69);
-  --bs-btn-border-color: rgb(223, 200, 69);
+  --bs-btn-bg: #dfc845;
+  --bs-btn-border-color: #dfc845;
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: rgb(227.8, 208.25, 96.9);
   --bs-btn-hover-border-color: rgb(226.2, 205.5, 87.6);
@@ -3224,8 +3066,8 @@ textarea.form-control-lg {
   --bs-btn-active-border-color: rgb(226.2, 205.5, 87.6);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: rgb(223, 200, 69);
-  --bs-btn-disabled-border-color: rgb(223, 200, 69);
+  --bs-btn-disabled-bg: #dfc845;
+  --bs-btn-disabled-border-color: #dfc845;
 }
 
 .btn-warning {
@@ -3297,19 +3139,19 @@ textarea.form-control-lg {
 }
 
 .btn-outline-primary {
-  --bs-btn-color: rgb(26, 106, 153);
-  --bs-btn-border-color: rgb(26, 106, 153);
+  --bs-btn-color: #1a6a99;
+  --bs-btn-border-color: #1a6a99;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: rgb(26, 106, 153);
-  --bs-btn-hover-border-color: rgb(26, 106, 153);
+  --bs-btn-hover-bg: #1a6a99;
+  --bs-btn-hover-border-color: #1a6a99;
   --bs-btn-focus-shadow-rgb: 26, 106, 153;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: rgb(26, 106, 153);
-  --bs-btn-active-border-color: rgb(26, 106, 153);
+  --bs-btn-active-bg: #1a6a99;
+  --bs-btn-active-border-color: #1a6a99;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: rgb(26, 106, 153);
+  --bs-btn-disabled-color: #1a6a99;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: rgb(26, 106, 153);
+  --bs-btn-disabled-border-color: #1a6a99;
   --bs-gradient: none;
 }
 
@@ -3331,36 +3173,36 @@ textarea.form-control-lg {
 }
 
 .btn-outline-success {
-  --bs-btn-color: rgb(17, 105, 51);
-  --bs-btn-border-color: rgb(17, 105, 51);
+  --bs-btn-color: #116933;
+  --bs-btn-border-color: #116933;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: rgb(17, 105, 51);
-  --bs-btn-hover-border-color: rgb(17, 105, 51);
+  --bs-btn-hover-bg: #116933;
+  --bs-btn-hover-border-color: #116933;
   --bs-btn-focus-shadow-rgb: 17, 105, 51;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: rgb(17, 105, 51);
-  --bs-btn-active-border-color: rgb(17, 105, 51);
+  --bs-btn-active-bg: #116933;
+  --bs-btn-active-border-color: #116933;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: rgb(17, 105, 51);
+  --bs-btn-disabled-color: #116933;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: rgb(17, 105, 51);
+  --bs-btn-disabled-border-color: #116933;
   --bs-gradient: none;
 }
 
 .btn-outline-info {
-  --bs-btn-color: rgb(223, 200, 69);
-  --bs-btn-border-color: rgb(223, 200, 69);
+  --bs-btn-color: #dfc845;
+  --bs-btn-border-color: #dfc845;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: rgb(223, 200, 69);
-  --bs-btn-hover-border-color: rgb(223, 200, 69);
+  --bs-btn-hover-bg: #dfc845;
+  --bs-btn-hover-border-color: #dfc845;
   --bs-btn-focus-shadow-rgb: 223, 200, 69;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: rgb(223, 200, 69);
-  --bs-btn-active-border-color: rgb(223, 200, 69);
+  --bs-btn-active-bg: #dfc845;
+  --bs-btn-active-border-color: #dfc845;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: rgb(223, 200, 69);
+  --bs-btn-disabled-color: #dfc845;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: rgb(223, 200, 69);
+  --bs-btn-disabled-border-color: #dfc845;
   --bs-gradient: none;
 }
 
@@ -3551,7 +3393,7 @@ textarea.form-control-lg {
   --bs-dropdown-link-hover-color: var(--bs-body-color);
   --bs-dropdown-link-hover-bg: var(--bs-tertiary-bg);
   --bs-dropdown-link-active-color: #fff;
-  --bs-dropdown-link-active-bg: rgb(26, 106, 153);
+  --bs-dropdown-link-active-bg: #1a6a99;
   --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
   --bs-dropdown-item-padding-x: 1rem;
   --bs-dropdown-item-padding-y: 0.25rem;
@@ -3818,7 +3660,7 @@ textarea.form-control-lg {
   --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
   --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
   --bs-dropdown-link-active-color: #fff;
-  --bs-dropdown-link-active-bg: rgb(26, 106, 153);
+  --bs-dropdown-link-active-bg: #1a6a99;
   --bs-dropdown-link-disabled-color: #adb5bd;
   --bs-dropdown-header-color: #adb5bd;
 }
@@ -4008,7 +3850,7 @@ textarea.form-control-lg {
 .nav-pills {
   --bs-nav-pills-border-radius: var(--bs-border-radius);
   --bs-nav-pills-link-active-color: #fff;
-  --bs-nav-pills-link-active-bg: rgb(26, 106, 153);
+  --bs-nav-pills-link-active-bg: #1a6a99;
 }
 .nav-pills .nav-link {
   border-radius: var(--bs-nav-pills-border-radius);
@@ -4872,8 +4714,8 @@ textarea.form-control-lg {
   --bs-pagination-focus-bg: var(--bs-secondary-bg);
   --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(26, 106, 153, 0.25);
   --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: rgb(26, 106, 153);
-  --bs-pagination-active-border-color: rgb(26, 106, 153);
+  --bs-pagination-active-bg: #1a6a99;
+  --bs-pagination-active-border-color: #1a6a99;
   --bs-pagination-disabled-color: var(--bs-secondary-color);
   --bs-pagination-disabled-bg: var(--bs-secondary-bg);
   --bs-pagination-disabled-border-color: var(--bs-border-color);
@@ -5085,7 +4927,7 @@ textarea.form-control-lg {
   --bs-progress-border-radius: var(--bs-border-radius);
   --bs-progress-box-shadow: var(--bs-box-shadow-inset);
   --bs-progress-bar-color: #fff;
-  --bs-progress-bar-bg: rgb(26, 106, 153);
+  --bs-progress-bar-bg: #1a6a99;
   --bs-progress-bar-transition: width 0.6s ease;
   display: flex;
   height: var(--bs-progress-height);
@@ -5151,8 +4993,8 @@ textarea.form-control-lg {
   --bs-list-group-disabled-color: var(--bs-secondary-color);
   --bs-list-group-disabled-bg: var(--bs-body-bg);
   --bs-list-group-active-color: #fff;
-  --bs-list-group-active-bg: rgb(26, 106, 153);
-  --bs-list-group-active-border-color: rgb(26, 106, 153);
+  --bs-list-group-active-bg: #1a6a99;
+  --bs-list-group-active-border-color: #1a6a99;
   display: flex;
   flex-direction: column;
   padding-left: 0;
@@ -12062,6 +11904,181 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(30px) rotate(360deg);
+    opacity: 0;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px) rotateZ(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateZ(0);
+  }
+}
+@keyframes fadeInRotate {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px) rotateZ(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateZ(0);
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}
+@keyframes notif {
+  0% {
+    transform: rotate(0deg);
+  }
+  35% {
+    transform: rotate(-12deg);
+  }
+  50% {
+    transform: rotate(12deg);
+  }
+  65% {
+    transform: rotate(-7deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.fade-left {
+  animation: fadeInLeft 0.4s ease-out forwards;
+}
+
+.fade-right {
+  animation: fadeInRight 0.4s ease-out forwards;
+}
+
+.fade-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.fade-rotate {
+  animation: fadeInRotate 0.4s ease-out forwards;
+}
+
+.fade {
+  animation: fade 0.4s ease-out forwards;
+}
+
+.btn {
+  box-shadow: var(--shadow) !important;
+  font-weight: 500 !important;
+}
+.btn:hover {
+  box-shadow: var(--box-shadow) !important;
+}
+.btn:active {
+  box-shadow: inset var(--inner-shadow) !important;
+}
+
+#map {
+  height: 40vh;
+  width: 100%;
+  border-radius: 10px;
+}
+
+#map.all {
+  height: 68vh;
+}
+
+.success {
+  color: #30a021;
+  animation: fade 1s 1s 1 forwards;
+  animation-direction: reverse;
+}
+
+.error {
+  color: #c91a1a;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5019607843);
+  animation: fade 1s 3s 1 forwards;
+  animation-direction: reverse;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: #666;
+}
+
+.categorie {
+  font-variant: small-caps;
+}
+.categorie img {
+  height: 30px;
+}
+
+/*
+
+
+background: hsla(0,0%,100%,.2);
+backdrop-filter: blur(10px);
+
+// shadow hover : 0px 8px 12px #091E4226, 0px 0px 1px #091E424F
+// transition: box-shadow 0.2s ease-in-out;
+// Texte article overflow .clamp
+
+  Transmission heure et météo à Tokyo en direct
+
+  carroussel des images de la bdd aléatoires avec liens vers les articles
+
+  cards triés par popularité
+
+  newsletters */
 body {
   font-family: var(--font-family);
   font-weight: 500;
@@ -12093,13 +12110,22 @@ body .petal {
   animation: fall linear infinite;
 }
 
+.message-code {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.9333333333);
+  border-radius: 15px;
+  top: -20px;
+  padding: 1rem 0;
+  pointer-events: none;
+}
+
 .navbar {
   box-shadow: var(--box-shadow);
   z-index: 1;
   font-size: 1.1rem;
   font-weight: 500;
 }
-.navbar .container-fluid .navbar-brand img, .navbar .container-sm .navbar-brand img, .navbar .container-md .navbar-brand img, .navbar .container-lg .navbar-brand img, .navbar .container-xl .navbar-brand img, .navbar .container-xxl .navbar-brand img {
+.navbar .container-fluid .navbar-brand img {
   height: 60px;
 }
 .navbar .page-profil img {
@@ -12107,26 +12133,35 @@ body .petal {
   border-radius: 50%;
 }
 
+.badge {
+  animation: notif 1s linear 3;
+}
+
 .home {
   background: rgba(255, 255, 255, 0.7137254902);
   backdrop-filter: blur(10px);
 }
 
-.hero h1, .hero .h1 {
+.hero h1 {
   font-family: "Oxan";
   font-weight: 500;
 }
 
-.direct h1, .direct .h1 {
+.direct h1 {
   font-family: "Oxan";
   font-weight: 500;
 }
-.direct h1 span, .direct .h1 span {
+.direct h1 span {
   animation: fade 1s linear infinite alternate;
 }
 .direct #meteo-tokyo p {
   font-size: 1.5rem;
   margin: 0;
+}
+.direct #meteo-tokyo .icon-meteo {
+  height: 45px;
+  background-color: #5db0e3;
+  border-radius: 50%;
 }
 .direct #heure-tokyo {
   font-size: 3rem;
@@ -12147,7 +12182,7 @@ body .petal {
 .carousel-container {
   max-width: 850px;
 }
-.carousel-container h1, .carousel-container .h1 {
+.carousel-container h1 {
   font-family: "Oxan";
   font-weight: 500;
 }
@@ -12244,7 +12279,7 @@ header .head-content img {
   justify-content: space-between;
   text-shadow: 2px 2px 2px #ffffff;
 }
-.article .article-content h2, .article .article-content .h2 {
+.article .article-content h2 {
   font-size: 2rem;
   margin-left: 2rem;
 }
@@ -12283,8 +12318,12 @@ header .head-content img {
   width: 40px;
   height: 40px;
 }
-.read-title h1, .read-title .h1 {
+.read-title h1 {
   flex: 1;
+}
+
+.moderation {
+  flex: auto;
 }
 
 .img-clickable-container {
@@ -12372,7 +12411,7 @@ select.form-select:focus {
   width: 200px;
   overflow: hidden;
 }
-.pop-up h5, .pop-up .h5 {
+.pop-up h5 {
   margin: 0 0 0 5px;
 }
 .pop-up p {
@@ -12403,6 +12442,35 @@ select.form-select:focus {
 
 .login-btn {
   width: 250px;
+}
+
+.list-stat .list-group-item {
+  background-color: transparent;
+  border-color: #bebebe;
+}
+.list-stat .list-group-item span {
+  font-weight: 700;
+  color: #2b2b2b;
+}
+.list-stat .list-group-item span + span {
+  font-weight: 500;
+  color: #000;
+}
+
+.admin-card {
+  display: block;
+  width: 300px;
+  border-radius: 15px;
+}
+.admin-card img {
+  border-radius: 15px;
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.admin-card a {
+  text-decoration: none;
 }
 
 footer {

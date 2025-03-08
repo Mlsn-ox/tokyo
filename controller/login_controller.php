@@ -18,8 +18,13 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
                 $_SESSION['role'] = $user['admin'];
                 $_SESSION['img'] = $user['img'];
                 $_SESSION['token'] = bin2hex(random_bytes(16));
-                header("Location: ../view/homepage.php");
-                exit;
+                if ($user['admin']){
+                    header("Location: ../view/admin.php");
+                    exit;
+                } else {
+                    header("Location: ../view/homepage.php");
+                    exit;
+                }
             } else {
                 throw new Exception("login_error"); 
             }

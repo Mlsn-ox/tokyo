@@ -1,5 +1,5 @@
 import { mapping } from "./map.js";
-import { icon } from "./map.js";
+// import { icon } from "./map.js";
 const map = mapping(35.679432, 139.763259);
 
 markerAll();
@@ -16,7 +16,7 @@ function markerAll() {
           article.content = words.slice(0, 14).join(" ") + "..."; // Prend les 14 premiers mots et ajoute "..."
         }
 
-        let marker = L.marker([gpsLat, gpsLng], { icon: icon() }).addTo(map);
+        let marker = L.marker([gpsLat, gpsLng]).addTo(map);
         marker.bindPopup(
           `<a href="read_article.php?id=${article.id}" class="pop-up">
             <h5>${article.title}</h5>
