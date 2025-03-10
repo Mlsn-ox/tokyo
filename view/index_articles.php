@@ -1,6 +1,5 @@
 <?php
     require_once "../includes/pdo.php";
-    require_once "../includes/navbar.php";
     require_once "../includes/filters.php";
     function filterSet() {
         return isset($_GET["category"]) || isset($_GET["order"]);
@@ -13,7 +12,8 @@
         $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
-    }
+    }    
+    require_once "../includes/navbar.php";
 ?>
 <div class="section col-xl-11 col-xxl-10 col-12 p-xl-3 p-md-2 p-1 mx-auto home">
 

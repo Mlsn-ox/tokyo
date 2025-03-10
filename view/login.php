@@ -1,5 +1,4 @@
 <?php
-    require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
     include "../includes/message.php";
 ?>

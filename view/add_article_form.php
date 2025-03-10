@@ -1,9 +1,7 @@
 <?php
-    require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
     include "../includes/message.php";
 ?>
-
 <div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-4">
     <div class="container fade-up">
         <h1 class="m-0">Ajouter un article</h1>

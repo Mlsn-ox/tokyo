@@ -15,16 +15,15 @@
         // Nettoyage des données
         $name = htmlspecialchars(trim($_POST["name"]), ENT_QUOTES, 'UTF-8');
         $mail = filter_var(trim($_POST["mail"]), FILTER_VALIDATE_EMAIL);
+        // Vérifie email valide
+        if (!$mail) {
+            throw new Exception("mail_error");
+        }
         $password = password_hash($_POST["password1"], PASSWORD_DEFAULT);
         $profil = $_POST["profil"];
         $newsletter = isset($_POST['newsletter']) ? 1 : 0;
         $today = date("Y-m-d");
 
-        // Vérifie email valide
-        if (!$mail) {
-            throw new Exception("mail_error");
-        }
-    
         // Vérifie si l'email existe déjà
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE mail = ?");
         $stmt->execute([$mail]);

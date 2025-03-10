@@ -11,6 +11,9 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user) {
             if (password_verify($_POST["psw"], $user['psw'])) {
+                $update = "UPDATE users SET last_co = NOW() WHERE id = :id";
+                $stmtUpdate = $pdo->prepare($update);
+                $stmtUpdate->execute(['id' => $user['id']]);
                 session_start();
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['name'] = $user['name'];

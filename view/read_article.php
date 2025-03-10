@@ -1,7 +1,5 @@
 <?php
     require_once "../includes/pdo.php";
-    require_once "../includes/navbar.php";
-
     try {
         if (!isset($_GET["id"])) {
             throw new Exception("article_not_find"); 
@@ -13,15 +11,19 @@
         if (!$article){
             throw new Exception("article_not_find");
         }
-    } catch (Exception $e) {
+    } catch (Exception $e) {http://localhost/TokyoSpot/view/read_article.php?id=29
         $error_code = urlencode($e->getMessage());
         header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
         exit();
     } 
-
     if (isset($_GET["message_code"]) && isset($_GET["status"])) { 
         $message = getMessage($_GET["message_code"]);
-    } 
+    }
+    require_once "../includes/navbar.php";
+    if ($article['status'] !== 'approved' && $_SESSION['role'] == 0){
+        header("Location: ../view/homepage.php?message_code=article_not_find&status=error");
+        exit();
+    }
 ?>
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -43,22 +45,22 @@
                 <img src="../assets/logo_category/heart_white.svg" class="heart" alt="Ajouter aux favoris" />
             </a>
             <h1 class="text-center">
-                <?= htmlentities(ucfirst($article['title'])) ?>
+                <?= ucfirst(htmlspecialchars_decode($article['title'])) ?>
             </h1>
         </div>
         <div class="container-fluid">
             <h4 class="categorie">
                 <img src="../assets/logo_category/<?= $article['category'] ?>.svg" alt="Catégorie
-                <?= htmlentities($article["category"]) ?>">
-                <?= htmlentities($article['category']) ?>
+                <?= htmlspecialchars_decode($article["category"]) ?>">
+                <?= htmlspecialchars_decode($article['category']) ?>
             </h4>
         </div>
     </div>
     <div class="container-fluid d-md-flex justify-content-between pt-3">
         <div class="container-fluid col-12 col-md-6 fade-right pt-md-4 d-flex flex-column">
-            <p><?= htmlentities(ucfirst($article['content'])) ?></p>
+            <p><?= ucfirst(htmlspecialchars_decode($article['content'])) ?></p>
             <p>
-                Posté par
+                Posté le <?= date("d/m/Y", strtotime($article['create_date'])) ?>, par
                 <a href="read_user.php?id=<?= $article['id'] ?>" class="fst-italic">
                     <?= htmlentities($article['author']) ?>
                 </a>

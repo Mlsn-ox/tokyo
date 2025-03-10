@@ -35,7 +35,8 @@
 $enable-shadows: true;
 $blue: #1a6a99;
 $success: #116933;
-$info: #dfc845;
+$info: #6d16b4;
+$warning: #dfc845;
 $danger: #dc3545;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
@@ -212,13 +213,13 @@ $danger: #dc3545;
 }
 
 .success {
-  color: #30a021;
+  color: $success;
   animation: fade 1s 1s 1 forwards;
   animation-direction: reverse;
 }
 
 .error {
-  color: #c91a1a;
+  color: $danger;
   text-shadow: 1px 1px #00000080;
   animation: fade 1s 3s 1 forwards;
   animation-direction: reverse;

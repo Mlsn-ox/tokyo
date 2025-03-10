@@ -1,8 +1,6 @@
 <?php
     require_once "../includes/pdo.php";
     require_once "../includes/message.php";
-    require_once "../includes/navbar.php";
-
     try {
         if (!isset($_GET["id"])) {
             throw new Exception("user_not_find"); 
@@ -19,7 +17,8 @@
         $error_code = urlencode($e->getMessage());
         header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
         exit();
-    } 
+    }
+    require_once "../includes/navbar.php";
 ?>
 <div class="section home col-xxl-7 col-md-10 col-12 mx-auto px-5 py-4">
     <div class="container user-container d-flex flex-column align-items-center">
@@ -27,7 +26,7 @@
             <img src="../assets/img_profil/<?= $user['img'] ?>" alt="Photo de profil" class="rounded-circle" style="width: 30%;">
         </div>
         <div class="fade-up">
-            <h1 class="text-center my-4"><?= htmlentities($user["name"]) ?></h1>
+            <h1 class="text-center my-4"><?= htmlspecialchars_decode($user["name"]) ?></h1>
             <ul class="list-group list-group-flush px-5 rounded">
                 <li class="list-group-item bg-light-subtle">
                     Mail : <?= htmlentities($user["mail"]) ?>
@@ -37,6 +36,9 @@
                 </li>
                 <li class='list-group-item bg-light-subtle'>
                     Newsletter : <?= $user['newsletter'] ? "Abonné" : "Non abonné" ?>
+                </li>
+                <li class='list-group-item bg-light-subtle'>
+                    Dernière connexion : <?= date("d/m/Y", strtotime($user['last_co'])) ?>
                 </li>
             </ul>
         </div>

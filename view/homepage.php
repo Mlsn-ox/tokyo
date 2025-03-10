@@ -1,6 +1,6 @@
 <?php
-    require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
+    include "../includes/message.php";
 // echo "<pre>";
 // print_r(gettype($notif['COUNT(*)']));
 // echo "</pre>";
@@ -8,6 +8,11 @@ $notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" 
 ?>
 <div class="section p-1 col-xxl-8 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
     <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fade hero">
+        <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
+            $message = getMessage($_GET["message_code"]);
+            $status = $_GET["status"];
+            echo "<h3 class='text-center home message-code mx-auto $status' >$message</h3>";
+        } ?>
     <?php if (!isset($_SESSION['name'])) { ?>
         <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>
         <p class="d-none d-sm-block">
@@ -42,7 +47,7 @@ $notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" 
     <?php
         $i = 0;
         try {
-            $sql = "SELECT id, img FROM articles ORDER BY RAND()";
+            $sql = "SELECT id, img FROM articles WHERE status = 'approved' ORDER BY RAND()";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);

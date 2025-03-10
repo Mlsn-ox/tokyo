@@ -1,5 +1,4 @@
 <?php
-    require_once "../includes/pdo.php";
     require_once "../includes/navbar.php";
 ?>
 <div class="section home col-xl-11 col-xxl-10 col-12 p-xl-3 p-md-2 p-1 mx-auto">

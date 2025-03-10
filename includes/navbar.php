@@ -16,7 +16,7 @@
 </head>
 
 <?php
-  include "../includes/pdo.php";
+  require_once "../includes/pdo.php";
   try {
     $sql = "SELECT DISTINCT category FROM articles ORDER BY category ASC;";
     $stmt = $pdo->query($sql);
