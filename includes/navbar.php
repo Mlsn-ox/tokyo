@@ -39,7 +39,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item dropdown">
+          <li class="nav-item">
+            <a href="../view/homepage.php" class="nav-link" aria-current="page">
+              Accueil
+            </a>
+          </li>
+          <li class="nav-item d-lg-none">
+            <a href="../view/index_articles.php" class="nav-link">
+              Voir les spots
+            </a>
+          </li>
+          <li class="nav-item dropdown d-none d-lg-block">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Les spots
             </a>
@@ -62,9 +72,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="../view/map_all.php" class="nav-link">
+            <a href="../view/map_all.php" class="nav-link" aria-current="page">
               Plan de Tokyo
             </a>
+          </li>
           <li class="nav-item">
             <a 
               <?php if (!isset($_SESSION['name'])) { ?>
@@ -72,18 +83,18 @@
               <?php } else { ?> 
                 href="../view/add_article_form.php"
               <?php } ?>
-              class="nav-link">
+              class="nav-link" aria-current="page">
               Ajouter un spot
             </a>
           </li>
           <?php if (!isset($_SESSION['name'])) { ?>
             <li class="nav-item">
-              <a href="../view/add_user_form.php" class="nav-link">
+              <a href="../view/add_user_form.php" class="nav-link" aria-current="page">
                 S'inscrire
               </a>
             </li>
             <li class="nav-item">
-              <a href="../view/login.php" class="nav-link">
+              <a href="../view/login.php" class="nav-link" aria-current="page">
                 Connexion
               </a>
             </li>
