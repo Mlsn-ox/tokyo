@@ -18,8 +18,8 @@
 <div class="section col-xl-11 col-xxl-10 col-12 p-xl-3 p-md-2 p-1 mx-auto home">
 
     <div class="container d-flex justify-content-center my-4 filters">
-        <button class="btn btn-lg btn-outline-info rounded-pill text-black d-flex align-items-center justify-content-center px-3 gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            <img src="../assets/logo_category/filters.svg" alt="filters icon" height="20px"> Filtrer
+        <button class="btn btn-lg btn-outline-success rounded-pill text-black d-flex align-items-center justify-content-center px-3 gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Filtrer
         </button>
     </div>
     <div class="collapse <?= filterSet() ? "show" : "" ?>" id="collapseExample">
@@ -57,13 +57,13 @@
                 <a href="read_article.php?id=<?= $article['id'] ?>" class="article g-md-2 m-2 mb-3" 
                     style="background-image: url('../assets/img_articles/<?= $article["img"] ?>');">
                     <div class="article-content text-dark">
-                        <h2><?= htmlentities(ucfirst($article["title"])) ?></h2>
+                        <h2><?= ucfirst(htmlspecialchars_decode($article["title"])) ?></h2>
                         <div class="content">
                             <p class="m-0 categorie">
                                 <img src="../assets/logo_category/<?= $article["category"] ?>.svg" alt="Catégorie <?= htmlentities($article["category"]) ?>">
                                 <?= htmlentities($article["category"]) ?>
                             </p>
-                            <p><?= htmlentities(ucfirst($article["content"])) ?></p>
+                            <p><?= ucfirst(htmlspecialchars_decode($article["content"])) ?></p>
                         </div>
                     </div>
                 </a>

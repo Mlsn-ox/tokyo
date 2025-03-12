@@ -117,11 +117,11 @@
         };?>
     </div>
     <?php if ($articlesPending) { ?>
-        <div class="container-fluid p-xl-5 p-2 rounded-5 my-3 my-md-4 mx-auto fade-up home">
-            <a class="btn btn-outline-primary btn-lg mb-3" data-bs-toggle="collapse" href="#collapseArticles" role="button" aria-expanded="false" aria-controls="collapseArticles">
-                Voir les articles en attente ⤵
+        <div class="container-fluid p-xl-5 p-md-3 p-1 rounded-5 my-3 my-md-4 mx-auto fade-up home">
+            <a class="btn btn-outline-primary btn-lg mb-2 ms-3" data-bs-toggle="collapse" href="#collapseArticles" role="button" aria-expanded="false" aria-controls="collapseArticles">
+                Articles en attente ⤵
             </a>
-            <div class="container-fluid collapse row justify-content-around flex-wrap" id="collapseArticles">
+            <div class="container-fluid collapse row justify-content-around flex-wrap show" id="collapseArticles">
                 <?php foreach ($articlesPending as $article) { ?>
                     <div class="card admin-card p-1 pb-sm-3 pb-2 p-sm-2 g-1 d-flex flex-column justify-content-between fade-rotate">
                         <img src="../assets/img_articles/<?= $article["img"] ?>" class="card-img-top" alt="illustration spot">
@@ -140,9 +140,9 @@
         </div>
     <?php }; 
     if ($users) { ?>
-        <div class="container-fluid p-xl-5 p-2 rounded-5 my-3 my-md-4 mx-auto fade-up home">
-            <a class="btn btn-outline-primary btn-lg mb-3" data-bs-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseArticles">
-                Voir la liste des utlisateurs ⤵
+        <div class="container-fluid p-xl-5 p-md-3 p-1 rounded-5 my-3 my-md-4 mx-auto fade-up home">
+            <a class="btn btn-outline-primary btn-lg mb-2 ms-3" data-bs-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseArticles">
+                Liste des utlisateurs ⤵
             </a>
             <table class="table table-striped collapse fade-up" id="collapseUsers">
                 <thead>

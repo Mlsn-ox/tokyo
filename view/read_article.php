@@ -1,5 +1,6 @@
 <?php
-    require_once "../includes/pdo.php";
+    require_once "../includes/navbar.php";
+    include "../includes/message.php";
     try {
         if (!isset($_GET["id"])) {
             throw new Exception("article_not_find"); 
@@ -19,7 +20,6 @@
     if (isset($_GET["message_code"]) && isset($_GET["status"])) { 
         $message = getMessage($_GET["message_code"]);
     }
-    require_once "../includes/navbar.php";
     if ($article['status'] !== 'approved' && $_SESSION['role'] == 0){
         header("Location: ../view/homepage.php?message_code=article_not_find&status=error");
         exit();

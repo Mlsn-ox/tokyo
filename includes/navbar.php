@@ -11,6 +11,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script defer src="../script/navbar.js"></script>
   <link rel="stylesheet" href="../css/style.css" />
   <title>TokyoSpot</title>
 </head>
@@ -31,95 +32,44 @@
 <body>
   <nav class="home navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a href="../view/homepage.php" class="navbar-brand">
+      <a href="/TokyoSpot/view/homepage.php" class="navbar-brand">
         <img src="../assets/logo_category/Torii.png" alt="Torii">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="../view/homepage.php" class="nav-link" aria-current="page">
-              Accueil
+        <a href="/TokyoSpot/view/index_articles.php" class="nav-link">
+          Les spots
+        </a>
+        <a href="/TokyoSpot/view/map_all.php" class="nav-link">
+          Plan de Tokyo
+        </a>
+        <a href="/TokyoSpot/view/add_article_form.php" class="nav-link">
+          Ajouter un spot
+        </a>
+        <?php if (!isset($_SESSION['name'])) { ?>
+          <a href="/TokyoSpot/view/add_user_form.php" class="nav-link">
+            S'inscrire
+          </a>
+          <a href="/TokyoSpot/view/login.php" class="nav-link">
+            Connexion
+          </a>
+        <?php } else { ?>
+          <a href="/TokyoSpot/view/read_user.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil d-flex align-items-center">
+            <img src="../assets/img_profil/<?= $_SESSION['img'] ?>" alt="Photo de profil" class="px-1">
+            <span>Profil</span>
+          </a>
+          <?php if ($_SESSION['role']) { ?>
+            <a href="/TokyoSpot/view/admin.php" class="nav-link page-profil">
+              Modération
+              <?= $notif['COUNT(*)'] > 0 ? "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : "" ?>
             </a>
-          </li>
-          <li class="nav-item d-lg-none">
-            <a href="../view/index_articles.php" class="nav-link">
-              Voir les spots
-            </a>
-          </li>
-          <li class="nav-item dropdown d-none d-lg-block">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Les spots
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="../view/index_articles.php">
-                  Voir tout
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <?php while ($cat = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-                <li>
-                  <a href="../view/index_articles.php?category[]=<?= $cat["category"] ?>" class="dropdown-item">
-                    <?= ucfirst($cat["category"]) ?>
-                  </a>
-                </li>
-              <?php }; ?>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="../view/map_all.php" class="nav-link" aria-current="page">
-              Plan de Tokyo
-            </a>
-          </li>
-          <li class="nav-item">
-            <a 
-              <?php if (!isset($_SESSION['name'])) { ?>
-                href="../view/login.php?message_code=connect_error&status=error"
-              <?php } else { ?> 
-                href="../view/add_article_form.php"
-              <?php } ?>
-              class="nav-link" aria-current="page">
-              Ajouter un spot
-            </a>
-          </li>
-          <?php if (!isset($_SESSION['name'])) { ?>
-            <li class="nav-item">
-              <a href="../view/add_user_form.php" class="nav-link" aria-current="page">
-                S'inscrire
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="../view/login.php" class="nav-link" aria-current="page">
-                Connexion
-              </a>
-            </li>
-          <?php } else { ?>
-            <li class="nav-item">
-              <a href="../view/read_user.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil">
-                <img src="../assets/img_profil/<?= $_SESSION['img'] ?>" alt="Photo de profil">
-                Mon profil
-              </a>
-            </li>
-            <?php if ($_SESSION['role']) { ?>
-              <li class="nav-item">
-                <a href="../view/admin.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil">
-                  Modération
-                  <?= $notif['COUNT(*)'] > 0 ? "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : "" ?>
-                </a>
-              </li>           
-            <?php } ?> 
-            <li class="nav-item">
-              <a href="../controller/logout_controller.php" class="nav-link">
-                Se déconnecter
-              </a>
-            </li>
-          <?php } ?>
-        </ul>
+          <?php } ?> 
+          <a href="../controller/logout_controller.php" class="nav-link">
+            Déconnexion
+          </a>
+        <?php } ?>
       </div>
     </div>
   </nav>

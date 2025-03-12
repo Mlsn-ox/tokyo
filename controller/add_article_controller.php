@@ -67,10 +67,11 @@
             throw new Exception("server_error"); 
         }
 
-        header("Location: ../view/read_user.php?id=" . $_SESSION['id'] . "message_code=article_added&status=success");
+        header("Location: ../view/homepage.php?id=" . $_SESSION['id'] . "message_code=article_added&status=success");
         exit();
 
     } catch (Exception $e) {
+
         $error_code = urlencode($e->getMessage());
         header("Location: ../view/add_article_form.php?message_code=" . $error_code . "&status=error");
         exit();

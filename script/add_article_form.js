@@ -5,8 +5,24 @@ const form = document.querySelector("form");
 const dis = document.querySelector(".disappear");
 let image = document.createElement("img");
 const cat = document.querySelector(".category");
+const lat = document.getElementById("lat");
+const lng = document.getElementById("lng");
 cat[0].selected = true;
 image.src = "";
+
+// Tooltip Bootstrap
+const tooltipTriggerList = [].slice.call(
+  document.querySelectorAll('[data-bs-toggle="tooltip"]') // Sélectionne attribut data-bs-toggle="tooltip"
+);
+tooltipTriggerList.forEach(function (input) {
+  let tooltip = new bootstrap.Tooltip(input, { trigger: "manual" }); // Permet l'affichage du tooltip quand l'utilisateur saisit des données
+  input.addEventListener("focus", function () {
+    tooltip.show();
+  });
+  input.addEventListener("blur", function () {
+    tooltip.hide();
+  });
+});
 
 // Outils Map LEAFLET
 const map = mapping(35.705, 139.74);
@@ -71,8 +87,8 @@ function onMapClick(e) {
   let marker = L.marker([e.latlng.lat, e.latlng.lng]);
   layerGroup.addLayer(marker);
   map.addLayer(layerGroup);
-  document.querySelector("#lat").value = marker._latlng.lat;
-  document.querySelector("#lng").value = marker._latlng.lng;
+  lat.value = marker._latlng.lat;
+  lng.value = marker._latlng.lng;
 }
 
 // Ouvrir une modale en fonction d'un param URL
@@ -83,7 +99,69 @@ function getParam(name) {
   return urlParams.get(name); // Ne retourne que le param souhaité dans l'url
 }
 
-if (getParam("showModal") === "1") {
-  let myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+if (getParam("message_code")) {
+  let myModal = new bootstrap.Modal(document.getElementById("modal-error"));
   myModal.show();
 }
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  "use strict";
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll(".needs-validation");
+  const lat = document.getElementById("lat");
+  const lng = document.getElementById("lng");
+  // Loop over them and prevent submission
+  Array.from(forms).forEach((form) => {
+    form.addEventListener(
+      "submit",
+      (event) => {
+        lat.disabled = false;
+        lng.disabled = false;
+        if (!form.checkValidity() || !lat.value.trim() || !lng.value.trim()) {
+          event.preventDefault();
+          event.stopPropagation();
+          if (!lat.value || !lng.value) {
+            lat.classList.add("is-invalid");
+            lng.classList.add("is-invalid");
+          }
+        }
+        form.classList.add("was-validated");
+        lat.disabled = true;
+        lng.disabled = true;
+      },
+      false
+    );
+  });
+})();
+
+//
+async function getAdresse(lat, lon) {
+  const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": "MonApplication/1.0", // Obligatoire
+      },
+    });
+    const data = await response.json();
+    console.log(data.display_name || "Adresse non trouvée");
+  } catch (error) {
+    console.error("Erreur :", error);
+  }
+}
+
+const localisation = function () {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      let geolat = position.coords.latitude;
+      let geolng = position.coords.longitude;
+      lat.value = geolat;
+      lng.value = geolng;
+      getAdresse(geolat, geolng);
+    },
+    (error) => {
+      console.error("Erreur de géolocalisation :", error);
+    }
+  );
+};

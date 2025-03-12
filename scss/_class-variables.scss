@@ -17,20 +17,6 @@
 
 // VARIABLES
 
-:root {
-  --bs-blue: #900;
-  --bs-primary: #900; /* Nouvelle couleur principale */
-  --bs-secondary: #555;
-  --bs-success: #198754;
-  --bs-danger: #dc3545;
-  --font-family: "Quick";
-  --card-bg: #ffffff56;
-  --shadow-color: #ffffff1a;
-  --box-shadow: 0 1px 2px 0 #3c40444d, 0 1px 3px 1px #3c404326;
-  --shadow: 4px 4px 7px #bbb, -3px -3px 6px #fff;
-  --inner-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
-}
-
 // Variable overrides bootstrap
 $enable-shadows: true;
 $blue: #1a6a99;
@@ -39,6 +25,17 @@ $info: #6d16b4;
 $warning: #dfc845;
 $danger: #dc3545;
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+:root {
+  --white: #fff;
+  --black: #000;
+  --font-family: "Quick";
+  --card-bg: #ffffff56;
+  --shadow-color: #ffffff1a;
+  --box-shadow: 0 1px 2px 0 #3c40444d, 0 1px 3px 1px #3c404326;
+  --shadow: 4px 4px 7px #bbb, -3px -3px 6px #fff;
+  --inner-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
+}
 
 // RESET
 

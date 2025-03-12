@@ -1,4 +1,4 @@
-css/
 node_modules/
 vendor/
+css/
 .env
