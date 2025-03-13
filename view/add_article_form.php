@@ -7,31 +7,13 @@
     }
 ?>
 
-<!-- Modal -->
-
-<div class="modal fade" id="modal-error" tabindex="-1" aria-labelledby="modal-error" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
-                    $message = getMessage($_GET["message_code"]);
-                    $status = $_GET["status"];
-                    echo "<p>$message</p>";
-                } ?>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-4">
+<div class="section home col-xxl-7 col-md-10 col-12 mx-auto p-1 p-md-3 p-xl-4">
     <div class="container fade-up">
-        <h1 class="m-0">Ajouter un article</h1>
+        <h1 class="m-0 pt-2">Ajouter un article</h1>
         <div class="separator my-3 text-center"></div>
         <form method="POST" class="mt-4 position-relative needs-validation" novalidate action="../controller/add_article_controller.php" enctype="multipart/form-data">
             <input type="hidden" name="author" value="<?= $_SESSION['id'] ?>">
+            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
             <div class="mb-3">
                 <input type="text" name="title" class="form-control form-control-lg" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="40 caractères maximum." placeholder="Titre" maxlength="40" required>
                 <div class="invalid-feedback">
@@ -66,8 +48,12 @@
                         Veuillez sélectionner les coordonnées de votre spot.
                     </div>
                 </div>
-                <div class="container-fluid">
-                    <p class="adresse"></p>
+                <div class="container-fluid d-flex flex-column justify-content-center my-2">
+                    <p class="adress text-center"></p>
+                    <input class="btn btn-primary col-11 col-sm-7 col-md-5 col-xl-4 mx-auto rounded-0 localise" value="Me localiser">
+                    <div class="container-fluid d-none loading-icon d-flex justify-content-center" style="">
+                        <div class="spinner"></div>
+                    </div>
                 </div>
             </div>
             <div class="container-fluid text-center">
@@ -79,21 +65,61 @@
                     </div>
                     <div class="preview my-2"></div>
                 </div>
-                <button type="submit" class="btn btn-outline-success rounded-pill mb-3 col-11 col-sm-7 col-md-5 col-xl-4">Envoyer</button>
+                <input class="btn btn-outline-success rounded-pill mb-3 col-11 col-sm-7 col-md-5 col-xl-4" data-bs-toggle="modal" data-bs-target="#confirmModal" value="Envoyer">
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+            <div
+                class="modal fade"
+                id="confirmModal"
+                tabindex="-1"
+                aria-labelledby="confirmModalLabel"
+                aria-hidden="true"
+                >
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmer votre spot</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title fs-5" id="confirmModalLabel">
+                        Avant de publier votre spot…
+                        </h1>
+                        <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        ></button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <p>
+                        Assurez-vous que votre spot respecte les règles de publication de
+                        TokyoSpot.
+                        </p>
+                        <p>
+                        Votre spot doit être en lien avec le tourisme à Tokyo (lieu
+                        intéressant, bon plan, expérience originale…). Pas de publicité ni
+                        de contenu hors sujet.
+                        </p>
+                        <p>Pas de propos offensants, discriminatoires ou inappropriés.</p>
+                        <p>
+                        Relisez-vous avant d’envoyer ! Un texte bien écrit est plus
+                        agréable à lire et aide la communauté à mieux comprendre votre
+                        découverte.
+                        </p>
+                        <p>
+                        Assurez-vous que votre image est nette et bien représentative de
+                        l’endroit que vous partagez.
+                        </p>
+                        <p>Les spots non conformes seront supprimés.</p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button
+                        type="button"
+                        class="btn btn-outline-danger rounded-pill"
+                        data-bs-dismiss="modal"
+                        >
+                        Se relire une dernière fois
+                        </button>
+                        <button type="submit" class="btn btn-outline-success rounded-pill">
+                        Prêt ? Envoyer !
+                        </button>
                     </div>
                     </div>
                 </div>

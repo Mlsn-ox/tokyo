@@ -3,6 +3,10 @@
     session_start();
 
     try {
+        if ($_SESSION['token'] !== $_POST['token']) {
+            header("Location: ../view/login.php?message_code=" . $error_code . "&status=error");
+            exit();
+        }
         if (
             empty($_POST['title']) ||
             empty($_POST['content']) ||
@@ -14,7 +18,7 @@
             throw new Exception("form_error");
         }
         // Nettoyage des données
-        $title = htmlspecialchars(ucfirst(trim($_POST['title'])), ENT_QUOTES, 'UTF-8'); // ENT_QUOTES : conversion des " et '
+        $title = htmlspecialchars(ucfirst(trim($_POST['title'])), ENT_QUOTES, 'UTF-8'); // ENT_QUOTES : conversion des ", ', &, <, > ;
         $content = htmlspecialchars(ucfirst(trim($_POST['content'])), ENT_QUOTES, 'UTF-8');
         $category = htmlspecialchars($_POST['category'], ENT_QUOTES, 'UTF-8');
         $author = $_POST['author'];

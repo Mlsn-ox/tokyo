@@ -146,6 +146,15 @@ $danger: #dc3545;
   }
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes notif {
   0% {
     transform: rotate(0deg);
@@ -180,7 +189,7 @@ $danger: #dc3545;
   animation: fadeInRotate 0.4s ease-out forwards;
 }
 
-.fade {
+.fading {
   animation: fade 0.4s ease-out forwards;
 }
 
@@ -201,6 +210,7 @@ $danger: #dc3545;
 
 #map {
   height: 40vh;
+  min-height: 250px;
   width: 100%;
   border-radius: 10px;
 }
