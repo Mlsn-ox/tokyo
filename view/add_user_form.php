@@ -1,17 +1,12 @@
 <?php
-    require_once "../includes/navbar.php";
     include "../includes/message.php";
+    require_once "../includes/navbar.php";
 ?>
 <div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-md-4 p-3">
     <div class="container p-0 fade-up">
         <h1 class="m-0">Rejoignez la communauté</h1>
         <div class="separator my-3 text-center"></div>
         <form method="POST" class="mt-4 row g-3 position-relative" action="../controller/add_user_controller.php">
-            <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
-                $message = getMessage($_GET["message_code"]);
-                $status = $_GET["status"];
-                echo "<h3 class='text-center message-code $status' >$message</h3>";
-            } ?>
             <div class="col-md-6">
                 <label for="mail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="mail" name="mail">

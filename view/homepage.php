@@ -1,18 +1,10 @@
 <?php
-    require_once "../includes/navbar.php";
     include "../includes/message.php";
-// echo "<pre>";
-// print_r(gettype($notif['COUNT(*)']));
-// echo "</pre>";
-$notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : $badge = ""
+    require_once "../includes/navbar.php";
+    $notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : $badge = "";
 ?>
 <div class="section p-1 col-xxl-8 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
-    <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fade hero">
-        <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
-            $message = getMessage($_GET["message_code"]);
-            $status = $_GET["status"];
-            echo "<h3 class='text-center home message-code mx-auto $status' >$message</h3>";
-        } ?>
+    <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fading hero">
     <?php if (!isset($_SESSION['name'])) { ?>
         <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>
         <p class="d-none d-sm-block">
@@ -56,7 +48,7 @@ $notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" 
         };
         if ($articles){ 
             ?>
-            <div class="container-fluid p-xl-5 p-md-3 p-2 rounded-5 home fade carousel-container">
+            <div class="container-fluid p-xl-5 p-md-3 p-2 rounded-5 home fading carousel-container">
                 <h1 class="text-center mb-3">Explorer nos spots :</h1>
                 <div id="carouselExampleInterval" class="carousel slide carousel-fade mx-auto" data-bs-ride="carousel">
                     <div class="carousel-inner rounded-5">
@@ -81,7 +73,7 @@ $notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" 
             </div>
         <?php } ?>
 
-    <div class="container-fluid p-xl-5 p-md-3 p-2 my-3 my-md-4 rounded-5 home direct fade">
+    <div class="container-fluid p-xl-5 p-md-3 py-2 my-3 my-md-4 rounded-5 home direct fading">
         <h1 class="text-center">En direct de Tokyo : carrefour Shibuya</h1>
         <div class="d-flex justify-content-center align-items-center mb-2 flex-wrap">
             <div id="heure-tokyo" class="d-flex align-items-center justify-content-center mx-3 mx-sm-auto col-lg-2"></div>

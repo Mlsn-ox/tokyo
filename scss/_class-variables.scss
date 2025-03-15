@@ -24,6 +24,7 @@ $success: #116933;
 $info: #6d16b4;
 $warning: #dfc845;
 $danger: #dc3545;
+$background: url(../assets/tokyo-sakura.png);
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 :root {
@@ -173,6 +174,28 @@ $danger: #dc3545;
   }
 }
 
+@keyframes fadeMessage {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+
 .fade-left {
   animation: fadeInLeft 0.4s ease-out forwards;
 }
@@ -219,46 +242,37 @@ $danger: #dc3545;
   height: 68vh;
 }
 
+// Message code
+
+.message-code {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  @include flex(column, start, center, nowrap);
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: var(--shadow) !important;
+  animation: fade 0.5s ease-in 3s reverse forwards;
+}
+
 .success {
+  margin-top: 30vh;
   color: $success;
-  animation: fade 1s 1s 1 forwards;
-  animation-direction: reverse;
+  border: 1px solid $success;
+  animation: fadeMessage 0.7s ease, fadeOut 0.5s ease-in 3s forwards;
 }
 
 .error {
+  margin-top: 30vh;
   color: $danger;
-  text-shadow: 1px 1px #00000080;
-  animation: fade 1s 3s 1 forwards;
-  animation-direction: reverse;
-}
-
-.separator {
-  width: 100%;
-  height: 1px;
-  background-color: #666;
-}
-
-.categorie {
-  font-variant: small-caps;
-  img {
-    height: 30px;
-  }
+  border: 1px solid $danger;
+  animation: fadeMessage 0.7s ease, fadeOut 0.5s ease-in 3s forwards;
 }
 
 /*
-
-
-background: hsla(0,0%,100%,.2);
-backdrop-filter: blur(10px);
-
-// shadow hover : 0px 8px 12px #091E4226, 0px 0px 1px #091E424F
-// transition: box-shadow 0.2s ease-in-out;
-// Texte article overflow .clamp
-
-  Transmission heure et météo à Tokyo en direct
-
-  carroussel des images de la bdd aléatoires avec liens vers les articles
-
-  cards triés par popularité
-
-  newsletters */
+cards triés par popularité
+newsletters 
+*/

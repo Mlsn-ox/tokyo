@@ -46,14 +46,14 @@ function loadMoreArticles() {
     .then((data) => {
       console.log(data);
       if (data.length === 0) {
-        loader.textContent = "Fin des articles.";
+        loader.textContent = "Tous les spots ont été chargés";
         window.removeEventListener("scroll", handleScroll); // Désactiver le scroll si plus d'articles
       } else {
         data.forEach((article) => {
           let articleHTML = `
-            <a href="read_article.php?id=${article.id}" class="article g-md-2 m-2 mb-3" style="background-image: url('../assets/img_articles/${article.img}');">
+            <a href="read_article.php?id=${article.id}" class="article mb-3" style="background-image: url('../assets/img_articles/${article.img}');">
                 <div class="article-content text-dark">
-                    <h2>${article.title}</h2>
+                    <h2 class="mx-1">${article.title}</h2>
                     <div class="content">
                         <p class="m-0 categorie">
                             <img src="../assets/logo_category/${article.category}.svg" alt="Catégorie ${article.category}">

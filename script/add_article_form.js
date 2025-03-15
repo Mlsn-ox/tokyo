@@ -8,7 +8,8 @@ const lng = document.getElementById("lng");
 const locate = document.querySelector(".localise");
 const adress = document.querySelector(".adress");
 const spinny = document.querySelector(".loading-icon");
-cat[0].selected = true;
+
+cat[0].selected = true; // Sélectionne la première option de la liste déroulante
 image.src = "";
 
 // Tooltip Bootstrap
@@ -25,35 +26,35 @@ tooltipTriggerList.forEach(function (input) {
   });
 });
 
-// Outils Map LEAFLET
+// Initialisation de la map
 const map = mapping(35.705, 139.74);
 let layerGroup = L.layerGroup().addTo(map);
-
 map.on("click", onMapClick);
 
-/**
- * Disabled placeholder select form
- */
+// Désactivation de la première option de la liste déroulante
 cat.addEventListener("change", function () {
   cat[0].disabled = true;
 });
 
 /**
- * Affichage miniature des images téléchargées.
- * @param {object} inputFiles img input files
- * @returns {document} image miniature
+ * Affichage de l'image miniature et contrôle de la taille du fichier
+ * @param {object} e événement change
+ * @returns {string} nom fichier
+ * @returns {string} taille fichier
+ * @returns {string} message d'erreur si fichier trop volumineux
  */
 inputFiles.addEventListener("change", function () {
   preview.innerHTML = "";
   const file = this.files[0];
-  const maxSize = 2 * 1024 * 1024; // 2 Mo en octets
+  const maxSize = 10 * 1024 * 1024; // 10 Mo en octets
   let para = document.createElement("p");
   let size = fileSize(file.size);
   if (file.size > maxSize) {
-    para.textContent = `Fichier trop volumineux : ${size} (2 Mo maximum)`;
+    para.textContent = `Fichier trop volumineux : ${size} (10 Mo maximum)`;
     this.value = "";
   } else {
-    let name = file.name.slice(0, 25);
+    let name =
+      file.name.length > 25 ? file.name.slice(0, 22) + "..." : file.name; // Limite le nom du fichier à 25 caractères
     para.textContent = `${name}, ${size}.`;
     image.src = window.URL.createObjectURL(file);
     preview.appendChild(image);
@@ -62,24 +63,25 @@ inputFiles.addEventListener("change", function () {
 });
 
 /**
- * Affichage de la taille des img téléchargées.
- * @param {number} size
- * @returns {string} taille en octets
+ * Conversion taille fichier en octets, Ko, Mo
+ * @param {number} size taille fichier
+ * @returns {string} taille fichier en octets, Ko, Mo
  */
 function fileSize(size) {
   if (size < 1024) {
     return size + " octets";
   } else if (size >= 1024 && size < 1048576) {
     return (size / 1024).toFixed(1) + " Ko";
-  } else if (size >= 1048576) {
+  } else {
     return (size / 1048576).toFixed(1) + " Mo";
   }
 }
 
 /**
- * Données GPS du marker insuflées dans les inputs associés
- * @param {event} e marqueur à l'événement click
- * @returns {number} valeurs latitude et longitude
+ * Récupération des coordonnées GPS à partir du clic sur la map
+ * @param {object} e événement click
+ * @returns {number} valeurs input lat
+ * @returns {number} valeurs input lng
  */
 function onMapClick(e) {
   // Nettoyer les anciens marqueurs dans le layerGroup
@@ -92,38 +94,14 @@ function onMapClick(e) {
   getAdresse(marker._latlng.lat, marker._latlng.lng);
 }
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(() => {
-  "use strict";
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll(".needs-validation");
-  // Loop over them and prevent submission
-  Array.from(forms).forEach((form) => {
-    form.addEventListener(
-      "submit",
-      (event) => {
-        lat.disabled = false;
-        lng.disabled = false;
-        if (!form.checkValidity() || !lat.value.trim() || !lng.value.trim()) {
-          event.preventDefault();
-          event.stopPropagation();
-          if (!lat.value || !lng.value) {
-            lat.classList.add("is-invalid");
-            lng.classList.add("is-invalid");
-          }
-        }
-        form.classList.add("was-validated");
-        lat.disabled = true;
-        lng.disabled = true;
-      },
-      false
-    );
-  });
-})();
-
-//
-async function getAdresse(lat, lon) {
-  const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`;
+/**
+ * Récupération de l'adresse à partir des coordonnées GPS via API OpenStreetMap Nominatim
+ * @param {number} x latitude
+ * @param {number} y longitude
+ * @returns {string} adresse
+ */
+async function getAdresse(x, y) {
+  const url = `https://nominatim.openstreetmap.org/reverse?lat=${x}&lon=${y}&format=json`;
   try {
     const response = await fetch(url, {
       headers: {
@@ -138,46 +116,40 @@ async function getAdresse(lat, lon) {
   }
 }
 
+// Géolocalisation
 function success(pos) {
   var crd = pos.coords;
   let geolat = crd.latitude;
   let geolng = crd.longitude;
-  // Mettre à jour les valeurs des inputs
-  lat.value = geolat;
+  lat.value = geolat; // Mise à jour valeurs des inputs
   lng.value = geolng;
-  // Appel de la fonction pour récupérer l'adresse
-  getAdresse(geolat, geolng);
-  // Vérifier si la couche de marqueurs existe et la nettoyer
+  getAdresse(geolat, geolng); // Appel de la fonction pour récupérer l'adresse
   layerGroup.clearLayers();
-  // Ajouter le marqueur à la carte avec Leaflet
-  map.setView([geolat, geolng], 16);
-  L.marker([geolat, geolng]).addTo(layerGroup);
-  spinny.classList.add("d-none");
+  map.setView([geolat, geolng], 16); // Recentrer sur position géolocalisée
+  L.marker([geolat, geolng]).addTo(layerGroup); // Ajout marker
+  spinny.classList.add("d-none"); // Disparition du spinner, remise du bouton
   locate.classList.remove("d-none");
   setTimeout(() => {
+    // Message d'attention avec Timeout pour être sur de l'affichage
     let precise =
       "<span class='text-danger fw-bold d-block'>ATTENTION : la géolocalisation est approximative, n'hésitez pas à modifier la position du marker sur la map.</span>";
     adress.innerHTML += precise;
   }, 1000);
+  console.log(lat.value, lng.value);
 }
-
 function error(err) {
   console.warn(`ERREUR LOCALISATION (${err.code}): ${err.message}`);
   spinny.classList.add("d-none");
   locate.classList.remove("d-none");
 }
-
 var options = {
   enableHighAccuracy: true,
   timeout: 5000,
   maximumAge: 0,
 };
-
 const localisation = function () {
-  locate.classList.add("d-none");
+  locate.classList.add("d-none"); // Disparition du bouton, apparition du spinner
   spinny.classList.remove("d-none");
   navigator.geolocation.getCurrentPosition(success, error, options);
 };
-
-// Écouteur sur le bouton pour déclencher la localisation
-locate.addEventListener("click", localisation);
+locate.addEventListener("click", localisation); // Appel de la fonction de géolocalisation

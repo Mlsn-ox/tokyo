@@ -1,6 +1,6 @@
 <?php
-    require_once "../includes/navbar.php";
     include "../includes/message.php";
+    require_once "../includes/navbar.php";
 ?>
 <div class="section col-xxl-7 col-md-9 col-12 mx-auto p-4 home">
     <form method="POST" action="../controller/login_controller.php" class="fade-up">
@@ -22,12 +22,6 @@
             <p>Vous n'avez pas encore de compte ? c'est par ici !</p>
             <a class="rounded-pill btn btn-outline-success py-2 login-btn" href="./add_user_form.php">S'inscrire</a>
         </div>
-        <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
-                    $message = getMessage($_GET["message_code"]);
-                    $status = $_GET["status"];
-                    echo "<h4 class='text-center mt-5 $status' >$message</h4>";
-                } ?>
     </form>
 </div>
-<script src="../script/login.js"></script>
 <?php require_once "../includes/footer.php" ?>

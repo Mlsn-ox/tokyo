@@ -1,6 +1,6 @@
 <?php
-    require_once "../includes/navbar.php";
     include "../includes/message.php";
+    require_once "../includes/navbar.php";
     try {
         if (!isset($_GET["id"])) {
             throw new Exception("article_not_find"); 
@@ -12,14 +12,11 @@
         if (!$article){
             throw new Exception("article_not_find");
         }
-    } catch (Exception $e) {http://localhost/TokyoSpot/view/read_article.php?id=29
+    } catch (Exception $e) {
         $error_code = urlencode($e->getMessage());
         header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
         exit();
     } 
-    if (isset($_GET["message_code"]) && isset($_GET["status"])) { 
-        $message = getMessage($_GET["message_code"]);
-    }
     if ($article['status'] !== 'approved' && $_SESSION['role'] == 0){
         header("Location: ../view/homepage.php?message_code=article_not_find&status=error");
         exit();
@@ -45,7 +42,7 @@
                 <img src="../assets/logo_category/heart_white.svg" class="heart" alt="Ajouter aux favoris" />
             </a>
             <h1 class="text-center">
-                <?= ucfirst(htmlspecialchars_decode($article['title'])) ?>
+                <?= htmlspecialchars_decode($article['title']) ?>
             </h1>
         </div>
         <div class="container-fluid">
@@ -58,7 +55,7 @@
     </div>
     <div class="container-fluid d-md-flex justify-content-between pt-3">
         <div class="container-fluid col-12 col-md-6 fade-right pt-md-4 d-flex flex-column">
-            <p><?= ucfirst(htmlspecialchars_decode($article['content'])) ?></p>
+            <p><?= htmlspecialchars_decode($article['content']) ?></p>
             <p>
                 Posté le <?= date("d/m/Y", strtotime($article['create_date'])) ?>, par
                 <a href="read_user.php?id=<?= $article['id'] ?>" class="fst-italic">

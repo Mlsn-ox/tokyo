@@ -4,8 +4,8 @@
     
 if (isset($_GET['id'], $_GET['action'], $_GET['token']) && $_GET['token'] === $_SESSION['token']) {
     try {
-        $id = $_GET['id'];
-        $action = $_GET['action'];
+        $id = htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8');
+        $action = htmlspecialchars($_GET['action'], ENT_QUOTES, 'UTF-8'); ;
         if ($action) {
             $sql = "UPDATE articles SET status = :action WHERE id = :id";
         } else {
@@ -14,7 +14,7 @@ if (isset($_GET['id'], $_GET['action'], $_GET['token']) && $_GET['token'] === $_
         $stmt = $pdo->prepare($sql);
         $verif = $stmt->execute(['action' => $action, 'id' => $id]);
         if ($verif) {
-            header("Location: ../view/admin.php?message_code=article_added&status=success");
+            header("Location: ../view/admin.php?message_code=article_updated&status=success");
             exit;
         } else {
             throw new Exception("server_error");

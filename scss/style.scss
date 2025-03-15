@@ -7,7 +7,7 @@ body {
   @include flex(column, start, stretch, nowrap);
   position: relative;
   min-height: 100vh;
-  background-image: url(../assets/tokyo-sakura.png);
+  background-image: $background;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -28,22 +28,22 @@ body {
   }
 }
 
-.message-code {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  background-color: #ffffffee;
-  border-radius: 15px;
-  top: -20px;
-  padding: 1rem 0;
-  pointer-events: none;
-}
-
 .modal-backdrop {
   opacity: 0 !important;
   pointer-events: none;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: #666;
+}
+
+.categorie {
+  font-variant: small-caps;
+  img {
+    height: 30px;
+  }
 }
 
 // NAVBAR
@@ -194,7 +194,7 @@ body {
   box-shadow: var(--box-shadow);
   padding-top: 0.5rem;
   cursor: pointer;
-  max-width: 400px;
+  max-width: 360px;
   height: 380px;
   transform: translateY(20px);
   animation: fadeInRotate 0.4s ease-out forwards;
@@ -220,16 +220,15 @@ body {
     justify-content: space-between;
     text-shadow: 2px 2px 2px #ffffff;
     h2 {
-      font-size: 2rem;
-      margin-left: 2rem;
+      font-size: 1.9rem;
     }
     .content {
       align-self: center;
       opacity: 0;
       transform: translateX(-60px);
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       width: 110%;
-      padding: 0.8rem 2.5rem;
+      padding: 0.8rem 2rem;
       background-color: #ffffffb7;
       margin: 0;
       -webkit-box-orient: vertical;
@@ -249,10 +248,9 @@ body {
   }
 }
 
-.loader {
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
+#loader {
+  font-size: 1.3rem;
+  font-variant: small-caps;
 }
 
 // READ ARTICLE

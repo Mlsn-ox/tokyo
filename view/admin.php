@@ -1,6 +1,6 @@
 <?php
-    require_once "../includes/navbar.php";
     include "../includes/message.php";
+    require_once "../includes/navbar.php";
 
     if (!isset($_SESSION['role']) || $_SESSION['role'] == 0){
         header("Location: ../view/homepage.php");
@@ -60,7 +60,7 @@
     // print_r($news);
     // echo "</pre>";
 ?>
-<div class="section col-xxl-9 col-md-11 col-12 mx-auto p-lg-4 p-1 fade">
+<div class="section col-xxl-9 col-md-11 col-12 mx-auto p-lg-4 p-1 fading">
     <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 home my-3 my-md-4 fade-up hero d-flex flex-wrap">
         <?php if ($articlesStat && $users){ ?>
             <ul class="container-fluid col-12 col-xl-5 list-group list-group-flush list-stat">
@@ -112,12 +112,12 @@
                     </li>
                 <?php } ?>
             </ul>
-        <?php } else { 
-            echo "<p> Erreur de chargement des données </p>";
-        };?>
+        <?php } else { ?>
+            <p> Erreur de chargement des données </p>
+        <?php } ?>
     </div>
-    <?php if ($articlesPending) { ?>
-        <div class="container-fluid p-xl-5 p-md-3 p-1 rounded-5 my-3 my-md-4 mx-auto fade-up home">
+    <div class="container-fluid p-xl-5 p-md-3 p-1 rounded-5 my-3 my-md-4 mx-auto fade-up home">
+        <?php if ($articlesPending) { ?>
             <a class="btn btn-outline-primary btn-lg mb-2 ms-3" data-bs-toggle="collapse" href="#collapseArticles" role="button" aria-expanded="false" aria-controls="collapseArticles">
                 Articles en attente ⤵
             </a>
@@ -126,21 +126,23 @@
                     <div class="card admin-card p-1 pb-sm-3 pb-2 p-sm-2 g-1 d-flex flex-column justify-content-between fade-rotate">
                         <img src="../assets/img_articles/<?= $article["img"] ?>" class="card-img-top" alt="illustration spot">
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlentities(ucfirst($article["title"])) ?></h5>
-                            <p class="card-text mb-1"><?= htmlentities($article["category"]) ?></p>
-                            <a href="./read_user.php?id=<?= $article['ide'] ?>" class="card-text">Par <?= htmlentities($article["author"]) ?></a>
+                            <h5 class="card-title"><?= htmlspecialchars_decode($article["title"]) ?></h5>
+                            <p class="card-text mb-1"><?= htmlspecialchars_decode($article["category"]) ?></p>
+                            <a href="./read_user.php?id=<?= $article['ide'] ?>" class="card-text">Par <?= htmlspecialchars_decode($article["author"]) ?></a>
                         </div>
                         <div class="buttons d-flex justify-content-around ">
                             <a href="./read_article.php?id=<?= $article['id'] ?>" class="btn btn-outline-primary">Inspecter</a>
                             <a href="../controller/moderation.php?id=<?= $article['id'] ?>&action=rejected&token=<?= $_SESSION['token'] ?>" class="btn btn-danger">Refuser</a>
                         </div>
                     </div>
-                <?php } ?>
+                <?php }?>
             </div>
-        </div>
-    <?php }; 
-    if ($users) { ?>
-        <div class="container-fluid p-xl-5 p-md-3 p-1 rounded-5 my-3 my-md-4 mx-auto fade-up home">
+        <?php } else { ?>
+            <p class=" fs-4"> Aucun article à modérer </p>
+        <?php } ?>
+    </div>
+    <div class="container-fluid p-xl-5 p-md-3 p-1 rounded-5 my-3 my-md-4 mx-auto fade-up home">
+        <?php if ($users) { ?>
             <a class="btn btn-outline-primary btn-lg mb-2 ms-3" data-bs-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseArticles">
                 Liste des utlisateurs ⤵
             </a>
@@ -168,8 +170,10 @@
                     <?php } ?>
                 </tbody>
             </table>
-        </div>
-    <?php } ?>
+        <?php } else { ?>
+            <p> Erreur de chargement des données </p>
+        <?php } ?>
+    </div>
 </div>
 <script src="../script/admin.js"></script>
 <?php require_once "../includes/footer.php" ?>

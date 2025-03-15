@@ -1,6 +1,7 @@
 <?php
-    require_once "../includes/pdo.php";
+    require_once "../includes/message.php";
     require_once "../includes/filters.php";
+    require_once "../includes/navbar.php";
     function filterSet() {
         return isset($_GET["category"]) || isset($_GET["order"]);
     }  
@@ -13,7 +14,6 @@
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
     }    
-    require_once "../includes/navbar.php";
 ?>
 <div class="section col-xl-11 col-xxl-10 col-12 p-xl-3 p-md-2 p-1 mx-auto home">
 
@@ -54,16 +54,16 @@
     <div class="container mx-auto row justify-content-around flex-wrap" id="articles">
         <?php if ($articles) {
             foreach ($articles as $article) { ?>
-                <a href="read_article.php?id=<?= $article['id'] ?>" class="article g-md-2 m-2 mb-3" 
+                <a href="read_article.php?id=<?= $article['id'] ?>" class="article mb-3" 
                     style="background-image: url('../assets/img_articles/<?= $article["img"] ?>');">
                     <div class="article-content text-dark">
-                        <h2><?= ucfirst(htmlspecialchars_decode($article["title"])) ?></h2>
+                        <h2 class="mx-1"><?= htmlspecialchars_decode($article["title"]) ?></h2>
                         <div class="content">
                             <p class="m-0 categorie">
-                                <img src="../assets/logo_category/<?= $article["category"] ?>.svg" alt="Catégorie <?= htmlentities($article["category"]) ?>">
-                                <?= htmlentities($article["category"]) ?>
+                                <img src="../assets/logo_category/<?= $article["category"] ?>.svg" alt="Catégorie <?= $article["category"] ?>">
+                                <?= htmlspecialchars_decode($article["category"]) ?>
                             </p>
-                            <p><?= ucfirst(htmlspecialchars_decode($article["content"])) ?></p>
+                            <p><?= htmlspecialchars_decode($article["content"]) ?></p>
                         </div>
                     </div>
                 </a>

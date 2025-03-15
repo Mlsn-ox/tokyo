@@ -1,6 +1,6 @@
 <?php
-    require_once "../includes/pdo.php";
     require_once "../includes/message.php";
+    require_once "../includes/navbar.php";
     try {
         if (!isset($_GET["id"])) {
             throw new Exception("user_not_find"); 
@@ -18,7 +18,6 @@
         header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
         exit();
     }
-    require_once "../includes/navbar.php";
 ?>
 <div class="section home col-xxl-7 col-md-10 col-12 mx-auto px-5 py-4">
     <div class="container user-container d-flex flex-column align-items-center">
@@ -43,10 +42,5 @@
             </ul>
         </div>
     </div>
-    <?php if (isset($_GET["message_code"]) && isset($_GET["status"])) {
-                    $message = getMessage($_GET["message_code"]);
-                    $status = $_GET["status"];
-                    echo "<h4 class='text-center mt-5 $status' >$message</h4>";
-                } ?>
 </div>
 <?php require_once "../includes/footer.php" ?>
