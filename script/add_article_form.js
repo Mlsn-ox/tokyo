@@ -1,16 +1,23 @@
 import { mapping } from "./map.js";
 const inputFiles = document.querySelector(".files");
 const preview = document.querySelector(".preview");
-let image = document.createElement("img");
 const cat = document.querySelector(".category");
 const lat = document.getElementById("lat");
 const lng = document.getElementById("lng");
 const locate = document.querySelector(".localise");
 const adress = document.querySelector(".adress");
 const spinny = document.querySelector(".loading-icon");
+const inputs = document.querySelectorAll("input, textarea, select");
+const submit = document.querySelector(".submit");
+let image = document.createElement("img");
+image.src = "";
 
 cat[0].selected = true; // Sélectionne la première option de la liste déroulante
-image.src = "";
+
+document.addEventListener("DOMContentLoaded", function () {
+  var myModal = new bootstrap.Modal(document.getElementById("confirmModal"));
+  myModal.show();
+});
 
 // Tooltip Bootstrap
 const tooltipTriggerList = [].slice.call(
@@ -24,6 +31,33 @@ tooltipTriggerList.forEach(function (input) {
   input.addEventListener("blur", function () {
     tooltip.hide();
   });
+});
+
+/**
+ * Vérification de la saisie des champs du formulaire
+ * @returns {boolean} true si tous les champs sont remplis
+ * @returns {boolean} false si un champ est vide
+ * @returns {boolean} active submit si tous les champs sont remplis
+ */
+function checkForm() {
+  // spread operator pour transformer la NodeList en tableau pour pouvoir utiliser la méthode every
+  const allFilled = [...inputs].every((input) => {
+    return input.value.trim() !== ""; // retourne true si tous les champs sont remplis
+  });
+  submit.disabled = !allFilled; // Désactive le bouton submit si un champ est vide
+  if (allFilled) {
+    submit.innerHTML = "Envoyer";
+    submit.classList.add("notif-bounce", "btn-success");
+    submit.classList.remove("btn-outline-success");
+  } else {
+    submit.innerHTML = "Veuillez remplir tous les champs demandés";
+    submit.classList.add("btn-outline-success");
+    submit.classList.remove("notif-bounce", "btn-success");
+  }
+}
+
+inputs.forEach((input) => {
+  input.addEventListener("input", checkForm);
 });
 
 // Initialisation de la map
@@ -91,6 +125,7 @@ function onMapClick(e) {
   map.addLayer(layerGroup);
   lat.value = marker._latlng.lat;
   lng.value = marker._latlng.lng;
+  checkForm();
   getAdresse(marker._latlng.lat, marker._latlng.lng);
 }
 
@@ -123,6 +158,7 @@ function success(pos) {
   let geolng = crd.longitude;
   lat.value = geolat; // Mise à jour valeurs des inputs
   lng.value = geolng;
+  checkForm();
   getAdresse(geolat, geolng); // Appel de la fonction pour récupérer l'adresse
   layerGroup.clearLayers();
   map.setView([geolat, geolng], 16); // Recentrer sur position géolocalisée
@@ -139,12 +175,13 @@ function success(pos) {
 }
 function error(err) {
   console.warn(`ERREUR LOCALISATION (${err.code}): ${err.message}`);
+  adress.innerHTML = "Adresse non trouvée";
   spinny.classList.add("d-none");
   locate.classList.remove("d-none");
 }
 var options = {
   enableHighAccuracy: true,
-  timeout: 5000,
+  timeout: 7000,
   maximumAge: 0,
 };
 const localisation = function () {

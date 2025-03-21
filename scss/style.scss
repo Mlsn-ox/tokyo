@@ -29,7 +29,7 @@ body {
 }
 
 .modal-backdrop {
-  opacity: 0 !important;
+  opacity: 0.8 !important;
   pointer-events: none;
 }
 
@@ -95,10 +95,6 @@ body {
     height: 25px;
     border-radius: 50%;
   }
-}
-
-.badge {
-  animation: notif 1s linear 3;
 }
 
 .active-page {
@@ -307,11 +303,6 @@ select.form-select {
   }
 }
 
-#lat,
-#lng {
-  max-width: 200px;
-}
-
 .preview {
   img {
     width: 40%;
@@ -319,14 +310,13 @@ select.form-select {
   }
 }
 
-/* Style de l'animation du spinner */
 .spinner {
-  border: 5px solid #f3f3f3; /* Couleur de fond du cercle */
-  border-top: 5px solid $primary; /* Couleur de la partie active du cercle */
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid $primary;
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  animation: spin 1s linear infinite; /* Animation du spinner */
+  animation: spin 1s linear infinite;
 }
 
 // AVATARS FORM

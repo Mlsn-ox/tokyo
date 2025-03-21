@@ -196,6 +196,30 @@ $background: url(../assets/tokyo-sakura.png);
   }
 }
 
+@keyframes beats {
+  0% {
+    transform: scale(1);
+  }
+  17% {
+    transform: scale(1.1);
+  }
+  34% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  67% {
+    transform: scale(1);
+  }
+  84% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .fade-left {
   animation: fadeInLeft 0.4s ease-out forwards;
 }
@@ -214,6 +238,14 @@ $background: url(../assets/tokyo-sakura.png);
 
 .fading {
   animation: fade 0.4s ease-out forwards;
+}
+
+.badge {
+  animation: notif 1s linear 3;
+}
+
+.notif-bounce {
+  animation: beats 2s linear;
 }
 
 // BUTTONS
@@ -255,21 +287,21 @@ $background: url(../assets/tokyo-sakura.png);
   z-index: 2;
   pointer-events: none;
   box-shadow: var(--shadow) !important;
-  animation: fade 0.5s ease-in 3s reverse forwards;
+  animation: fade 0.4s ease-in 1.8s reverse forwards;
 }
 
 .success {
   margin-top: 30vh;
   color: $success;
   border: 1px solid $success;
-  animation: fadeMessage 0.7s ease, fadeOut 0.5s ease-in 3s forwards;
+  animation: fadeMessage 0.4s ease, fadeOut 0.5s ease-in 1.8s forwards;
 }
 
 .error {
   margin-top: 30vh;
   color: $danger;
   border: 1px solid $danger;
-  animation: fadeMessage 0.7s ease, fadeOut 0.5s ease-in 3s forwards;
+  animation: fadeMessage 0.4s ease, fadeOut 0.5s ease-in 1.8s forwards;
 }
 
 /*

@@ -9,27 +9,27 @@
         <form method="POST" class="mt-4 row g-3 position-relative" action="../controller/add_user_controller.php">
             <div class="col-md-6">
                 <label for="mail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="mail" name="mail">
+                <input type="email" class="form-control" id="mail" name="mail" required>
             </div>
             <div class="col-md-6">
                 <label for="name" class="form-label">Nom d'utilisateur</label>
                 <input type="text" class="form-control" id="name" data-bs-toggle="tooltip" data-bs-placement="top" pattern="[A-Za-z0-9_\-]+" name="name"
-                    data-bs-title="Lettres, chiffres et tirets uniquement.">
+                    data-bs-title="Lettres, chiffres et tirets uniquement." required>
             </div>
             <div class="col-md-6">
                 <label for="psw" class="form-label">Mot de passe</label>
                 <input type="password" class="form-control" id="psw" data-bs-toggle="tooltip" data-bs-placement="top" name="password1"
-                    data-bs-title="Au moins 7 caractères dont un chiffre et une majuscule.">
+                    data-bs-title="Au moins 7 caractères dont un chiffre et une majuscule." pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
             </div>
             <div class="col-md-6">
                 <label for="psw" class="form-label">Confirmer le mot de passe</label>
                 <input type="password" class="form-control" id="psw" data-bs-toggle="tooltip" data-bs-placement="top" name="password2"
-                    data-bs-title="Au moins 7 caractères dont un chiffre et une majuscule.">
+                    data-bs-title="Au moins 7 caractères dont un chiffre et une majuscule." pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
             </div>
             <p class="mt-4">Choisissez une image de profil</p>
             <div class="col-12 d-flex row justify-content-around mb-3 mx-auto text-center avatars">
                 <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
-                    <input class="form-check-input" type="radio" name="profil" id="sakura" value="Sakura.png" checked>
+                    <input class="form-check-input" type="radio" name="profil" id="sakura" value="Sakura.png" checked required>
                     <label class="form-check-label" for="sakura">
                         <img class="avatar" src="../assets/img_profil/Sakura.png" alt="temple japonais et fleur de sakura">
                         <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
@@ -89,11 +89,11 @@
                 </div>
             </div>
             <div class="container mx-auto mt-4 mb-2 row justify-content-between">
-                <button type="submit" class="btn btn-outline-primary rounded-pill col-5 col-md-4 col-xl-3">S'inscrire</button>
-                <a href="./homepage.php" class="btn btn-outline-danger rounded-pill col-5 col-md-4 col-xl-3">Retour</a>
+                <button type="submit" class="btn btn-outline-success rounded-pill mb-3 col-11 col-sm-7 col-md-6 submit" disabled>Remplissez tous les champs demandés</button>
+                <a href="./homepage.php" class="btn btn-outline-danger rounded-pill mb-3 col-11 col-sm-7 col-md-5 col-xl-4">Retour à la page d'accueil</a>
             </div>
         </form>
     </div>
 </div>
-<script src="../script/add_user_form.js"></script>
+<script defer src="../script/add_user_form.js"></script>
 <?php require_once "../includes/footer.php" ?>

@@ -113,15 +113,15 @@
                 <?php } ?>
             </ul>
         <?php } else { ?>
-            <p> Erreur de chargement des données </p>
+            <p class="ms-2 mb-0 fs-5">Erreur de chargement des données</p>
         <?php } ?>
     </div>
     <div class="container-fluid p-xl-5 p-md-3 p-1 rounded-5 my-3 my-md-4 mx-auto fade-up home">
         <?php if ($articlesPending) { ?>
-            <a class="btn btn-outline-primary btn-lg mb-2 ms-3" data-bs-toggle="collapse" href="#collapseArticles" role="button" aria-expanded="false" aria-controls="collapseArticles">
+            <a class="btn btn-outline-primary btn-lg ms-3" data-bs-toggle="collapse" href="#collapseArticles" role="button" aria-expanded="false" aria-controls="collapseArticles">
                 Articles en attente ⤵
             </a>
-            <div class="container-fluid collapse row justify-content-around flex-wrap show" id="collapseArticles">
+            <div class="container-fluid collapse mt-3 row justify-content-around flex-wrap show" id="collapseArticles">
                 <?php foreach ($articlesPending as $article) { ?>
                     <div class="card admin-card p-1 pb-sm-3 pb-2 p-sm-2 g-1 d-flex flex-column justify-content-between fade-rotate">
                         <img src="../assets/img_articles/<?= $article["img"] ?>" class="card-img-top" alt="illustration spot">
@@ -138,15 +138,15 @@
                 <?php }?>
             </div>
         <?php } else { ?>
-            <p class=" fs-4"> Aucun article à modérer </p>
+            <p class="ms-2 mb-0 fs-5">Aucun article à modérer</p>
         <?php } ?>
     </div>
     <div class="container-fluid p-xl-5 p-md-3 p-1 rounded-5 my-3 my-md-4 mx-auto fade-up home">
         <?php if ($users) { ?>
-            <a class="btn btn-outline-primary btn-lg mb-2 ms-3" data-bs-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseArticles">
+            <a class="btn btn-outline-primary btn-lg ms-2" data-bs-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseArticles">
                 Liste des utlisateurs ⤵
             </a>
-            <table class="table table-striped collapse fade-up" id="collapseUsers">
+            <table class="table table-striped collapse fade-up mt-3" id="collapseUsers">
                 <thead>
                     <tr>
                         <th scope="col" class="text-primary">Nom</th>
@@ -171,9 +171,8 @@
                 </tbody>
             </table>
         <?php } else { ?>
-            <p> Erreur de chargement des données </p>
+            <p class="ms-2 mb-0 fs-5">Erreur de chargement des données</p>
         <?php } ?>
     </div>
 </div>
-<script src="../script/admin.js"></script>
 <?php require_once "../includes/footer.php" ?>
