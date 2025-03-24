@@ -151,11 +151,30 @@ async function getAdresse(x, y) {
   }
 }
 
+/**
+ * Vérification que les coordonnées soient bien à Tokyo
+ * @param {number} x latitude
+ * @param {number} y longitude
+ * @returns {boolean}
+ */
+function isInTokyo(x, y) {
+  // Ici on définit une "fourchette" approximative pour Tokyo.
+  // Ces valeurs peuvent être ajustées en fonction de vos critères.
+  return x >= 35.52 && x <= 35.8 && y >= 139.46 && y <= 139.91;
+}
+
 // Géolocalisation
 function success(pos) {
   var crd = pos.coords;
   let geolat = crd.latitude;
   let geolng = crd.longitude;
+  // Vérifier si les coordonnées correspondent à Tokyo
+  if (!isInTokyo(geolat, geolng)) {
+    adress.innerHTML = "Dommage, vous n'êtes pas à Tokyo.";
+    spinny.classList.add("d-none");
+    locate.classList.remove("d-none");
+    return; // Arrête la fonction si on n'est pas dans la zone de Tokyo
+  }
   lat.value = geolat; // Mise à jour valeurs des inputs
   lng.value = geolng;
   checkForm();
@@ -168,7 +187,7 @@ function success(pos) {
   setTimeout(() => {
     // Message d'attention avec Timeout pour être sur de l'affichage
     let precise =
-      "<span class='text-danger fw-bold d-block'>ATTENTION : la géolocalisation est approximative, n'hésitez pas à modifier la position du marker sur la map.</span>";
+      "<span class='text-danger fw-bold d-block'>La géolocalisation peut être approximative, n'hésitez pas à modifier la position du marker sur la map.</span>";
     adress.innerHTML += precise;
   }, 1000);
   console.log(lat.value, lng.value);

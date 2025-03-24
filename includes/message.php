@@ -20,7 +20,7 @@ $messages = [
 
 // Fonction pour récupérer le message correspondant au code
 function getMessage($code) {
-    global $messages;
+    global $messages; // Permet d'accéder au tableau défini hors de la fonction
     return isset($messages[$code]) ? $messages[$code] : $messages['generic_error'];  // Message générique si le code n'existe pas
 }
 ?>

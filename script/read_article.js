@@ -1,7 +1,4 @@
 import { mapping } from "./map.js";
-// import { icon } from "./map.js";
-
-const modalImg = document.querySelector(".img-clickable");
 const gps = document.querySelector("#map");
 let lat = gps.dataset.lat;
 let lng = gps.dataset.lng;

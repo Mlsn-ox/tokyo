@@ -113,32 +113,20 @@ body {
   backdrop-filter: blur(10px);
 }
 
-.hero {
-  h1 {
-    @include ox(500);
-  }
-}
-
 .direct {
-  h1 {
-    @include ox(500);
-    span {
-      animation: fade 1s linear infinite alternate;
-    }
-  }
   #meteo-tokyo {
     p {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       margin: 0;
     }
     .icon-meteo {
-      height: 45px;
-      background-color: #5db0e3;
+      height: 35px;
+      background-color: #5db0e350;
       border-radius: 50%;
     }
   }
   #heure-tokyo {
-    font-size: 3rem;
+    font-size: 2.3rem;
     font-family: "Digits";
   }
   .iframe-container {
@@ -156,9 +144,6 @@ body {
 
 .carousel-container {
   max-width: 850px;
-  h1 {
-    @include ox(500);
-  }
   .carousel-item {
     height: 60vh;
     overflow: hidden;
@@ -282,6 +267,20 @@ body {
       transform: scale(1.02);
       box-shadow: var(--box-shadow);
     }
+  }
+}
+
+// READ USER
+
+.user {
+  position: relative;
+  margin-top: 10rem;
+  .profil-pic {
+    width: 250px;
+    position: fixed;
+    top: -135px;
+    left: calc(50% - 125px);
+    box-shadow: var(--box-shadow);
   }
 }
 

@@ -21,6 +21,9 @@
         header("Location: ../view/homepage.php?message_code=article_not_find&status=error");
         exit();
     }
+    // echo "<pre>";
+    // print_r($article);
+    // echo "</pre>";
 ?>
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -58,7 +61,7 @@
             <p><?= htmlspecialchars_decode($article['content']) ?></p>
             <p>
                 Posté le <?= date("d/m/Y", strtotime($article['create_date'])) ?>, par
-                <a href="read_user.php?id=<?= $article['id'] ?>" class="fst-italic">
+                <a href="read_user.php?id=<?= $article['user_ide'] ?>" class="fst-italic">
                     <?= htmlentities($article['author']) ?>
                 </a>
             </p>
@@ -88,7 +91,7 @@
 <!-- Modale pour afficher l'image en taille originale -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
+        <div class="modal-content bg-transparent shadow-none border-0">
             <div class="modal-body text-center">
                 <img id="modalImage" src="../assets/img_articles/<?= $article['img'] ?>" class="img-fluid" alt="Image en taille réelle">
             </div>

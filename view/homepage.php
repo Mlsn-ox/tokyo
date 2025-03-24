@@ -4,7 +4,7 @@
     $notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : $badge = "";
 ?>
 <div class="section p-1 col-xxl-8 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
-    <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fading hero">
+    <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fading">
     <?php if (!isset($_SESSION['name'])) { ?>
         <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>
         <p class="d-none d-sm-block">
@@ -25,7 +25,7 @@
             Une découverte à partager ? 📍 <a href="./login.php">Venez partager avec nous votre trouvaille</a> et faites voyager les autres à travers votre regard !
         </p>
         <?php } else { ?> 
-            <h2 class="mb-3 text-center">Bienvenue <?= $_SESSION['name'] ?>, qu'allez-vous faire aujourd'hui ?</h2>
+            <h2 class="mb-3 text-center fw-normal">Bienvenue <?= $_SESSION['name'] ?>, qu'allez-vous faire aujourd'hui ?</h2>
             <div class="container d-flex flex-wrap row-gap-2 column-gap-2 justify-content-center">
                 <?= $_SESSION['role'] && $_SESSION['role'] > 0 ?  '<a class="btn btn-outline-danger" href="../view/admin.php">Espace modérateur ' . $badge . '</a>' : "" ?>
                 <a class="btn btn-outline-primary" href="../view/index_articles.php">Explorer les spots</a>

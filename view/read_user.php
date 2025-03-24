@@ -19,16 +19,17 @@
         exit();
     }
 ?>
-<div class="section home col-xxl-7 col-md-10 col-12 mx-auto px-5 py-4">
-    <div class="container user-container d-flex flex-column align-items-center">
-        <div class="container-fluid text-center fade-rotate">
-            <img src="../assets/img_profil/<?= $user['img'] ?>" alt="Photo de profil" class="rounded-circle" style="width: 30%;">
-        </div>
+<div class="section p-1 col-xxl-7 col-md-10 col-sm-11 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
+    <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 mb-3 mb-md-4 home fading user">        
+        <img src="../assets/img_profil/<?= $user['img'] ?>" alt="Photo de profil" class="rounded-circle fade-rotate profil-pic">
         <div class="fade-up">
-            <h1 class="text-center my-4"><?= htmlspecialchars_decode($user["name"]) ?></h1>
+            <h1 class="text-center mt-4 mb-2 pt-5"><?= htmlspecialchars_decode($user["name"]) ?></h1>
+            <p class="text-center"><?= htmlentities($user["mail"]) ?></p>
+           
+<!--            
             <ul class="list-group list-group-flush px-5 rounded">
                 <li class="list-group-item bg-light-subtle">
-                    Mail : <?= htmlentities($user["mail"]) ?>
+                    Mail : 
                 </li>
                 <li class="list-group-item bg-light-subtle">
                     Nombre de post : <?= htmlentities($user["total_articles"]) ?>
@@ -39,7 +40,7 @@
                 <li class='list-group-item bg-light-subtle'>
                     Dernière connexion : <?= date("d/m/Y", strtotime($user['last_co'])) ?>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </div>

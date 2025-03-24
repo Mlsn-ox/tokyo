@@ -37,8 +37,7 @@ function checkForm() {
     return input.value.trim() !== ""; // retourne true si tous les champs sont remplis
   });
   submit.disabled = !allFilled; // Désactive le bouton submit si un champ est vide
-  if (allFilled && checkPsw(psw1.value, psw2.value)) {
-    // Vérifie si les psw correspondent
+  if (allFilled && checkPsw(psw1.value, psw2.value)) { // Vérifie si les psw correspondent
     submit.innerHTML = "S'inscrire";
     submit.classList.add("notif-bounce", "btn-success");
     submit.classList.remove("btn-outline-success");

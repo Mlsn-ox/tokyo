@@ -25,15 +25,15 @@
     <div class="collapse <?= filterSet() ? "show" : "" ?>" id="collapseExample">
         <div class="container col-8 mb-5">
             <form method="GET" class="d-flex flex-column align-items-center" id="filter">
-                <div class="d-flex justify-content-around my-3">
+                <div class="container row my-3">
                     <?php try {
                         $sql = "SELECT DISTINCT category FROM articles ORDER BY category ASC;";
                         $stmt = $pdo->query($sql);
                         while ($cat = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <div class="form-check form-switch me-4">
+                            <div class="form-check form-switch col-12 col-md-6 col-xl-3 d-flex justify-content-center catego-filter me-4">
                                 <input class="form-check-input" type="checkbox" role="switch" name="category[]" id="<?= $cat["category"] ?>" 
                                     value="<?= $cat["category"] ?>" <?= in_array($cat["category"], $categories) ? "checked" : "" ?>>
-                                <label class="form-check-label" for="<?= $cat["category"] ?>">
+                                <label class="ms-2 form-check-label" for="<?= $cat["category"] ?>">
                                     <?= ucfirst($cat["category"]) ?>
                                 </label>
                             </div>
