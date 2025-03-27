@@ -1,21 +1,49 @@
 <?php
+session_start();
 require_once "../includes/pdo.php";
 
-if (isset($_POST["id"])) {
-    $id = $_POST["id"];
-    $sql = "SELECT trottinette_like FROM trottinette WHERE trottinette_id=?";
+if ($_POST["user_id"] != $_SESSION['id'] || $_POST["token"] != $_SESSION['token']){
+    echo json_encode([
+        "status" => "error",
+        "message" => "Accès non autorisé"
+    ]);
+    exit();
+}
+try {
+    $sql = "SELECT * FROM favorite WHERE fav_art_id=? AND fav_user_id=?";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
-    $like = $stmt->fetch(PDO::FETCH_ASSOC);
-    $likePlusOne = $like["trottinette_like"] + 1;
-    $sqlLike = "UPDATE trottinette SET trottinette_like=? WHERE trottinette_id=?";
-    $stmtLike = $pdo->prepare($sqlLike);
-    $verif = $stmtLike->execute([$likePlusOne, $id]);
-    if ($verif) {
-        $response = [
-            "like" => $likePlusOne,
-            "id" => $id
-        ];
-        echo json_encode($response);
+    $stmt->execute([
+        $_POST["art_id"],
+        $_POST["user_id"]
+    ]);
+    $fav = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($fav) {
+        $sql = "DELETE FROM favorite WHERE fav_art_id=? AND fav_user_id=?";
+        $stmt = $pdo->prepare($sql);
+        $verif = $stmt->execute([
+            $_POST["art_id"],
+            $_POST["user_id"]
+        ]);
+    } else {
+        $today = date('Y-m-d');
+        $sql = "INSERT INTO favorite (fav_art_id, fav_user_id, fav_added_at) VALUES (?,?,?);";
+        $stmt = $pdo->prepare($sql);
+        $verif = $stmt->execute([
+            $_POST["art_id"],
+            $_POST["user_id"],
+            $today
+        ]);
     }
+    $message = $fav ? "Favori supprimé" : "Favori ajouté";
+    $added = $fav ? false : true ;
+    echo json_encode([
+        "status" => "success",
+        "message" => $message,
+        "added" => $added,
+    ]);
+} catch (PDOException $e) {
+    echo json_encode([
+        "status" => "Erreur: " . $e->getMessage(),
+        "message" => "Échec de la mise à jour des favoris"
+    ]);
 }

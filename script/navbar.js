@@ -7,3 +7,7 @@ navLink.forEach((a) => {
     a.setAttribute("aria-current", "page"); // Accessibilité
   }
 });
+
+if (!window.location.pathname.endsWith("add_article_form.php")) {
+  sessionStorage.removeItem("formData");
+}

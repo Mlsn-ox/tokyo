@@ -7,17 +7,13 @@ const lng = document.getElementById("lng");
 const locate = document.querySelector(".localise");
 const adress = document.querySelector(".adress");
 const spinny = document.querySelector(".loading-icon");
+const form = document.querySelector("form");
 const inputs = document.querySelectorAll("input, textarea, select");
 const submit = document.querySelector(".submit");
 let image = document.createElement("img");
 image.src = "";
 
 cat[0].selected = true; // Sélectionne la première option de la liste déroulante
-
-document.addEventListener("DOMContentLoaded", function () {
-  var myModal = new bootstrap.Modal(document.getElementById("confirmModal"));
-  myModal.show();
-});
 
 // Tooltip Bootstrap
 const tooltipTriggerList = [].slice.call(
@@ -158,8 +154,6 @@ async function getAdresse(x, y) {
  * @returns {boolean}
  */
 function isInTokyo(x, y) {
-  // Ici on définit une "fourchette" approximative pour Tokyo.
-  // Ces valeurs peuvent être ajustées en fonction de vos critères.
   return x >= 35.52 && x <= 35.8 && y >= 139.46 && y <= 139.91;
 }
 

@@ -1,60 +1,8 @@
 <?php
-    include "../includes/message.php";
     require_once "../includes/navbar.php";
-
-    if (!isset($_SESSION['role']) || $_SESSION['role'] == 0){
+    if ($_SESSION['role'] !== "admin"){
         header("Location: ../view/homepage.php");
         exit;
-    }
-    try {
-        $sqlStat = "SELECT 
-                    (SELECT COUNT(*) FROM articles WHERE status = 'approved') AS total_approved,
-                    (SELECT COUNT(*) FROM articles WHERE status = 'pending') AS total_pending,
-                    (SELECT COUNT(*) FROM articles WHERE status = 'rejected') AS total_rejected, 
-                    articles.category, COUNT(*) AS total_by_category,
-                    (SELECT MAX(create_date) FROM articles WHERE status = 'approved') AS latest_article_date
-                    FROM articles WHERE status = 'approved' GROUP BY articles.category ;";
-        $stmtStat = $pdo->prepare($sqlStat);
-        $stmtStat->execute();
-        $articlesStat= $stmtStat->fetchAll(PDO::FETCH_ASSOC);
-
-        $sqlUserStat = "SELECT 
-                        (SELECT name FROM users ORDER BY start_date DESC LIMIT 1) AS newest_user,
-                        (SELECT start_date FROM users ORDER BY start_date DESC LIMIT 1) AS newest_user_date,
-                        (SELECT COUNT(id) FROM users) AS total_users,
-                        (SELECT users.name FROM users 
-                        LEFT JOIN articles ON users.id = articles.user_ide 
-                        GROUP BY users.id 
-                        ORDER BY COUNT(articles.id) DESC LIMIT 1) AS top_poster;";
-        $stmtUserStat = $pdo->prepare($sqlUserStat);
-        $stmtUserStat->execute();
-        $usersStat = $stmtUserStat->fetchAll(PDO::FETCH_ASSOC);
-
-        $sqlNews = "SELECT COUNT(*) as total_abo, 
-                    (SELECT COUNT(*) FROM newsletters WHERE newsletters.user_ide IS NOT NULL) AS users_abo 
-                    FROM newsletters";
-        $stmtNews = $pdo->prepare($sqlNews);
-        $stmtNews->execute();
-        $news = $stmtNews->fetchAll(PDO::FETCH_ASSOC);
-
-        $sqlPending = "SELECT articles.*, users.id AS ide, users.name AS author FROM articles 
-                        LEFT JOIN users ON articles.user_ide = users.id WHERE articles.status = 'pending' ORDER BY articles.id ASC ;";
-        $stmtPending = $pdo->prepare($sqlPending);
-        $stmtPending->execute();
-        $articlesPending = $stmtPending->fetchAll(PDO::FETCH_ASSOC);
-
-        $sqlUser = "SELECT users.id, users.name, users.mail, users.newsletter, users.start_date, users.last_co, 
-					MAX(users.start_date) AS newest_user, 
-                    COUNT(articles.id) AS total_articles,
-                    (SELECT COUNT(users.id) FROM users) AS total_users
-                    FROM users LEFT JOIN articles ON users.id = articles.user_ide 
-                    GROUP BY users.id ORDER BY total_articles DESC ;";
-        $stmtUser = $pdo->prepare($sqlUser);
-        $stmtUser->execute();
-        $users = $stmtUser->fetchAll(PDO::FETCH_ASSOC);
-        
-    } catch (PDOException $e) {
-        echo "Erreur : " . $e->getMessage();
     }
     // echo "<pre>";
     // print_r($news);
@@ -164,7 +112,7 @@
                             </th>
                             <td><?= $user["mail"] ?></td>
                             <td><?= $user["newsletter"] ? "✅" : "❌"?></td>
-                            <td><?= date("d-m-Y", strtotime($user['start_date'])) ?></td>
+                            <td><?= date("d-m-Y", strtotime($user['user_ins'])) ?></td>
                             <td><?= $user['last_co'] ? date("d-m-Y", strtotime($user['last_co'])) : "/" ?></td>
                         </tr>
                     <?php } ?>
@@ -175,4 +123,5 @@
         <?php } ?>
     </div>
 </div>
+<script src="../script/admin.js"></script>
 <?php require_once "../includes/footer.php" ?>

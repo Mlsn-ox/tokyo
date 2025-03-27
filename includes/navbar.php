@@ -18,10 +18,10 @@
 
 <?php
   require_once "../includes/pdo.php";
+  require_once "../includes/message.php";
+  require_once "../includes/icon_category.php";
   try {
-    $sql = "SELECT DISTINCT category FROM articles ORDER BY category ASC;";
-    $stmt = $pdo->query($sql);
-    $sqlNotif = "SELECT COUNT(*) FROM articles WHERE articles.status = 'pending';";
+    $sqlNotif = "SELECT COUNT(*) FROM article WHERE art_status = 'pending';";
     $stmtNotif = $pdo->query($sqlNotif);
     $notif = $stmtNotif->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
@@ -39,6 +39,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
+        <a href="/TokyoSpot/view/homepage.php" class="nav-link">
+          Accueil
+        </a>
         <a href="/TokyoSpot/view/index_articles.php" class="nav-link">
           Les spots
         </a>
@@ -56,11 +59,11 @@
             Connexion
           </a>
         <?php } else { ?>
-          <a href="/TokyoSpot/view/read_user.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil d-flex align-items-center">
+          <a href="/TokyoSpot/view/read_user.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil d-flex align-items-center justify-content-center">
             <img src="../assets/img_profil/<?= $_SESSION['img'] ?>" alt="Photo de profil" class="px-1">
             <span>Profil</span>
           </a>
-          <?php if ($_SESSION['role']) { ?>
+          <?php if ($_SESSION['role'] === "admin") { ?>
             <a href="/TokyoSpot/view/admin.php" class="nav-link page-profil">
               Modération
               <?= $notif['COUNT(*)'] > 0 ? "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : "" ?>

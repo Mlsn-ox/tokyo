@@ -1,5 +1,4 @@
 <?php
-    require_once "../includes/message.php";
     require_once "../includes/navbar.php";
     try {
         if (!isset($_GET["id"])) {
@@ -25,7 +24,6 @@
         <div class="fade-up">
             <h1 class="text-center mt-4 mb-2 pt-5"><?= htmlspecialchars_decode($user["name"]) ?></h1>
             <p class="text-center"><?= htmlentities($user["mail"]) ?></p>
-           
 <!--            
             <ul class="list-group list-group-flush px-5 rounded">
                 <li class="list-group-item bg-light-subtle">

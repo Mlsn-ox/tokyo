@@ -57,9 +57,12 @@ body {
     .nav-link {
       transition: 0.2s;
       position: relative;
-      display: inline-block;
       z-index: 1;
       padding: 0.5rem 0.5rem;
+      text-align: center;
+      @include media(lt-lg) {
+        border-top: 1px solid $gray-500;
+      }
       &::after {
         content: "";
         position: absolute;
@@ -238,10 +241,25 @@ body {
 
 .read-title {
   .favorite {
-    height: 40px;
-    .heart {
-      width: 40px;
-      height: 40px;
+    text-decoration: none;
+    font-size: 2.5rem;
+    position: relative;
+    @include media(lt-md) {
+      font-size: 1.8rem;
+      order: 1;
+    }
+    .text-fav {
+      position: absolute;
+      text-align: center;
+      font-size: 0.8rem;
+      width: 120px;
+      left: calc(50% - 60px);
+      bottom: -1.3rem;
+      color: $secondary;
+      pointer-events: none;
+      background-color: $white;
+      border-radius: 12px;
+      padding: 2px;
     }
   }
   h1 {
@@ -255,6 +273,7 @@ body {
 
 .img-clickable-container {
   height: 40vh;
+  min-height: 300px;
   overflow: hidden;
   .img-clickable {
     width: 100%;

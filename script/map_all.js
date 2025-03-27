@@ -12,21 +12,21 @@ function markerAll() {
     .then((response) => response.json())
     .then((data) => {
       data.forEach((article) => {
-        let gpsLat = Number(article.lat);
-        let gpsLng = Number(article.lng);
-        let words = article.content.split(" "); // Sépare le texte en mots
+        let gpsLat = Number(article.art_lat);
+        let gpsLng = Number(article.art_lng);
+        let words = article.art_content.split(" "); // Sépare le texte en mots
         if (words.length > 14) {
-          article.content = words.slice(0, 14).join(" ") + "..."; // Prend les 14 premiers mots et ajoute "..."
+          article.art_content = words.slice(0, 14).join(" ") + "..."; // Prend les 14 premiers mots et ajoute "..."
         }
         let marker = L.marker([gpsLat, gpsLng]).addTo(map);
         marker.bindPopup(
-          `<a href="read_article.php?id=${article.id}" class="pop-up">
-            <h5>${article.title}</h5>
-            <p class="categorie">${article.category}</p>
+          `<a href="read_article.php?id=${article.art_id}" class="pop-up">
+            <h5>${article.art_title}</h5>
+            <p class="categorie">${article.cat}</p>
             <div class="img-contain">
             <img src="../assets/img_articles/${article.img}" class="text-center" alt="Photo de l'article">
             </div>
-            <p>${article.content}</p>
+            <p>${article.art_content}</p>
           </a>`
         );
       });

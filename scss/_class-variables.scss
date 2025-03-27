@@ -248,6 +248,10 @@ $background: url(../assets/tokyo-sakura.png);
   animation: beats 2s linear;
 }
 
+.disappear {
+  animation: fade 0.3s ease-out 2s forwards 1 reverse;
+}
+
 // BUTTONS
 
 .btn {

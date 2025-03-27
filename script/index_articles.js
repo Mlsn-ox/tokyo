@@ -1,12 +1,10 @@
 let html = document.querySelector("#articles");
 let form = document.querySelector("#filter");
 const collapse = document.querySelector("#collapseExample");
-
 const params = new URLSearchParams(window.location.search);
 let order = params.get("order"); // Récupère la valeur de order
 let categories = params.getAll("category[]"); // Renvoie un array categories
-
-let offset = 6; // Nombre d'articles déjà affichés
+let offset = 0; // Nombre d'articles déjà affichés
 const limit = 6; // Nombre d'articles à charger à chaque fois
 let loading = false;
 
@@ -24,6 +22,8 @@ if (categories) {
 if (order) {
   ajaxURL += `&order=${encodeURIComponent(order)}`;
 }
+
+loadMoreArticles();
 
 window.addEventListener("scroll", handleScroll);
 
@@ -50,16 +50,16 @@ function loadMoreArticles() {
         window.removeEventListener("scroll", handleScroll); // Désactiver le scroll si plus d'articles
       } else {
         data.forEach((article) => {
+          let emoji = getEmojiCategory(article.cat);
           let articleHTML = `
-            <a href="read_article.php?id=${article.id}" class="article mb-3" style="background-image: url('../assets/img_articles/${article.img}');">
+            <a href="read_article.php?id=${article.art_id}" class="article mb-3" style="background-image: url('../assets/img_articles/${article.img}');">
                 <div class="article-content text-dark">
-                    <h2 class="mx-1">${article.title}</h2>
+                    <h2 class="mx-1">${article.art_title}</h2>
                     <div class="content">
                         <p class="m-0 categorie">
-                            <img src="../assets/logo_category/${article.category}.svg" alt="Catégorie ${article.category}">
-                            ${article.category}
+                            ${emoji} ${article.cat}
                         </p>
-                        <p>${article.content}</p>
+                        <p>${article.art_content}</p>
                     </div>
                 </div>
             </a>`;
@@ -74,4 +74,24 @@ function loadMoreArticles() {
       console.error("Erreur:", error);
       loading = false;
     });
+}
+
+/**
+ * Retourne un émoji en fonction de la catégorie
+ * @param string catégorie
+ * @return string émoji
+ */
+function getEmojiCategory(cat) {
+  switch (cat) {
+    case "gastronomie":
+      return "🍜";
+    case "loisir":
+      return "🎳";
+    case "shopping":
+      return "🛍";
+    case "panorama":
+      return "📷";
+    default:
+      return "🎎";
+  }
 }

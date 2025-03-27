@@ -2,6 +2,7 @@
 $messages = [
     'form_error' => 'Veuillez renseigner toutes les informations demandées.',
     'article_added' => 'Spot ajouté avec succès.',
+    'comment_added' => 'Commentaire ajouté avec succès.',
     'article_updated' => 'Spot mis à jour.',
     'article_error' => "Erreur lors de l'ajout du spot, veuillez réessayer plus tard.",
     'user_added' => 'Inscription terminée, connectez-vous !',
@@ -9,11 +10,13 @@ $messages = [
     'mail_error' => 'Email incorrect.',
     'login_error' => 'Mot de passe incorrect.',
     'img_error' => "Erreur lors du chargement de l'image.",
+    'img_too_big' => "Image trop volumineuse.",
+    'img_wrong_ext' => "Le format de l'image n'est pas valide.",
     'map_error' => "Erreur lors de l'enregistrement des coordonnées.",
     'connect_error' => "Veuillez vous connecter.",
     'article_not_find' => "Erreur : spot introuvable",
     'user_not_find' => "Erreur : utilisateur inconnu.",
-    'param_not_find' => "Erreur lors de la récupération des données.",
+    'param_not_found' => "Erreur lors de la récupération des données.",
     'server_error' => 'Erreur serveur, veuillez réessayer.',
     'generic_error' => 'Une erreur est survenue. Veuillez réessayer plus tard.',
 ];
@@ -23,4 +26,5 @@ function getMessage($code) {
     global $messages; // Permet d'accéder au tableau défini hors de la fonction
     return isset($messages[$code]) ? $messages[$code] : $messages['generic_error'];  // Message générique si le code n'existe pas
 }
+
 ?>

@@ -20,4 +20,42 @@
       @content;
     }
   }
+
+  // Moins que (lt = less than)
+  @else if $breakpoint == lt-sm {
+    @media (max-width: 575px) {
+      @content;
+    }
+  } @else if $breakpoint == lt-md {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if $breakpoint == lt-lg {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if $breakpoint == lt-xl {
+    @media (max-width: 1199px) {
+      @content;
+    }
+  }
+
+  // Plus que (gt = greater than)
+  @else if $breakpoint == gt-xs {
+    @media (min-width: 576px) {
+      @content;
+    }
+  } @else if $breakpoint == gt-sm {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == gt-md {
+    @media (min-width: 992px) {
+      @content;
+    }
+  } @else if $breakpoint == gt-lg {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
 }

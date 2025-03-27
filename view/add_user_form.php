@@ -1,5 +1,4 @@
 <?php
-    include "../includes/message.php";
     require_once "../includes/navbar.php";
 ?>
 <div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-md-4 p-3">
