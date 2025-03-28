@@ -179,7 +179,7 @@ body {
   padding-top: 0.5rem;
   cursor: pointer;
   max-width: 360px;
-  height: 380px;
+  height: 360px;
   transform: translateY(20px);
   animation: fadeInRotate 0.4s ease-out forwards;
   @for $i from 1 through 6 {
@@ -240,30 +240,48 @@ body {
 // READ ARTICLE
 
 .read-title {
-  .favorite {
-    text-decoration: none;
-    font-size: 2.5rem;
-    position: relative;
-    @include media(lt-md) {
-      font-size: 1.8rem;
-      order: 1;
-    }
-    .text-fav {
-      position: absolute;
-      text-align: center;
-      font-size: 0.8rem;
-      width: 120px;
-      left: calc(50% - 60px);
-      bottom: -1.3rem;
-      color: $secondary;
-      pointer-events: none;
-      background-color: $white;
-      border-radius: 12px;
-      padding: 2px;
-    }
-  }
+  position: relative; // Ajouté pour contexte
+  align-items: flex-start; // pour éviter que le h1 pousse le bouton
   h1 {
     flex: 1;
+  }
+  #favorite {
+    width: 200px;
+    top: 1rem;
+    border-radius: 30px;
+    box-shadow: var(--box-shadow) !important;
+    @include media(lt-lg) {
+      border-radius: 50%;
+      width: 50px;
+    }
+    .heart {
+      text-shadow: 0 0 5px $gray-900;
+      font-size: 1.7rem;
+      @include media(lt-lg) {
+        font-size: 1.5rem;
+      }
+    }
+    span {
+      color: $gray-700;
+      text-shadow: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    &:hover {
+      .heart {
+        animation: notif 1s linear 2;
+      }
+    }
+  }
+  .fav-text {
+    position: absolute;
+    width: 130px;
+    top: -24px;
+    right: 10px;
+    z-index: -1;
+    @include media(lt-lg) {
+      display: none;
+    }
   }
 }
 

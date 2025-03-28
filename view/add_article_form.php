@@ -1,6 +1,6 @@
 <?php
     require_once "../includes/navbar.php";
-    if (!$_SESSION['id']){
+    if (empty($_SESSION['id'])){
         header("Location: ../view/login.php?message_code=connect_error&status=success");
         exit();
     }

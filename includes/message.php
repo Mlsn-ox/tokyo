@@ -14,10 +14,12 @@ $messages = [
     'img_wrong_ext' => "Le format de l'image n'est pas valide.",
     'map_error' => "Erreur lors de l'enregistrement des coordonnées.",
     'connect_error' => "Veuillez vous connecter.",
-    'article_not_find' => "Erreur : spot introuvable",
-    'user_not_find' => "Erreur : utilisateur inconnu.",
+    'article_not_found' => "Erreur : spot introuvable",
+    'user_not_found' => "Erreur : utilisateur inconnu.",
     'param_not_found' => "Erreur lors de la récupération des données.",
     'server_error' => 'Erreur serveur, veuillez réessayer.',
+    'redirect_error' => 'Déconnexion requise pour accéder à cette page.',
+    'deconnected' => 'Vous avez été déconnecté.',
     'generic_error' => 'Une erreur est survenue. Veuillez réessayer plus tard.',
 ];
 

@@ -123,5 +123,5 @@
         <?php } ?>
     </div>
 </div>
-<script src="../script/admin.js"></script>
+<script type="module" src="../script/admin.js"></script>
 <?php require_once "../includes/footer.php" ?>

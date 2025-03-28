@@ -1,6 +1,6 @@
+import { getEmojiCategory } from "./functions.js";
+import { escapeHTML } from "./functions.js";
 let html = document.querySelector("#articles");
-let form = document.querySelector("#filter");
-const collapse = document.querySelector("#collapseExample");
 const params = new URLSearchParams(window.location.search);
 let order = params.get("order"); // Récupère la valeur de order
 let categories = params.getAll("category[]"); // Renvoie un array categories
@@ -52,14 +52,18 @@ function loadMoreArticles() {
         data.forEach((article) => {
           let emoji = getEmojiCategory(article.cat);
           let articleHTML = `
-            <a href="read_article.php?id=${article.art_id}" class="article mb-3" style="background-image: url('../assets/img_articles/${article.img}');">
+            <a href="read_article.php?id=${escapeHTML(
+              article.art_id
+            )}" class="article mb-3" style="background-image: url('../assets/img_articles/${escapeHTML(
+            article.img
+          )}');">
                 <div class="article-content text-dark">
-                    <h2 class="mx-1">${article.art_title}</h2>
+                    <h2 class="mx-1">${escapeHTML(article.art_title)}</h2>
                     <div class="content">
                         <p class="m-0 categorie">
-                            ${emoji} ${article.cat}
+                            ${emoji} ${escapeHTML(article.cat)}
                         </p>
-                        <p>${article.art_content}</p>
+                        <p>${escapeHTML(article.art_content)}</p>
                     </div>
                 </div>
             </a>`;
@@ -74,24 +78,4 @@ function loadMoreArticles() {
       console.error("Erreur:", error);
       loading = false;
     });
-}
-
-/**
- * Retourne un émoji en fonction de la catégorie
- * @param string catégorie
- * @return string émoji
- */
-function getEmojiCategory(cat) {
-  switch (cat) {
-    case "gastronomie":
-      return "🍜";
-    case "loisir":
-      return "🎳";
-    case "shopping":
-      return "🛍";
-    case "panorama":
-      return "📷";
-    default:
-      return "🎎";
-  }
 }

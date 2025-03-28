@@ -2,7 +2,7 @@
     require_once "../includes/navbar.php";
     try {
         if (!isset($_GET["id"])) {
-            throw new Exception("article_not_find"); 
+            throw new Exception("article_not_found"); 
         }
         $id = filter_var($_GET["id"], FILTER_VALIDATE_INT);
         if (!$id) {
@@ -18,31 +18,31 @@
         $stmt->execute(['id' => $id]);
         $article = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$article){
-            throw new Exception("article_not_find");
+            throw new Exception("article_not_found");
         }
         if ($article['art_status'] !== 'approved' && $_SESSION['role'] !== "admin"){
-            throw new Exception("article_not_find");
+            throw new Exception("article_not_found");
         }
         if(!$article['author']){
             $author = "";
         } else {
             $author = htmlentities($article['author']);
         }
-        $sql = "SELECT * FROM favorite WHERE fav_art_id=? AND fav_user_id=?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            $article['art_id'],
-            $_SESSION['id']
-        ]);
-        $fav = $stmt->fetch(PDO::FETCH_ASSOC);
+        $fav="";
+        if (!empty($_SESSION['id'])){
+            $sql = "SELECT * FROM favorite WHERE fav_art_id=? AND fav_user_id=?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                $article['art_id'],
+                $_SESSION['id']
+            ]);
+            $fav = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     } catch (Exception $e) {
         $error_code = urlencode($e->getMessage());
         header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
         exit();
     } 
-    // echo "<pre>";
-    // print_r($article);
-    // echo "</pre>";
 ?>
 <!-- Modale pour afficher l'image en taille originale -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
@@ -54,28 +54,34 @@
         </div>
     </div>
 </div>
-<div class="section home col-xxl-8 col-md-10 col-12 mx-auto px-xl-4 py-4">
+<div class="section home col-12 col-lg-10 col-xxl-8  mx-auto px-xl-4 py-4">
     <div class="container-fluid fade-up">
-        <div class="container-fluid title read-title d-flex flex-column flex-md-row justify-content-center align-items-center pe-3 my-2">
+        <div class="container-fluid pe-0 title read-title d-flex flex-md-row justify-content-center align-items-center my-2">
             <h1 class="text-center">
-                <?= htmlspecialchars_decode($article['art_title']) ?>
+                <?= htmlentities($article['art_title']) ?>
             </h1>
-            <?php if($_SESSION){ ?> 
-                <a href="../controller/favorite_controller.php" class="favorite mb-2" data-post="<?= $article["art_id"] ?>" 
-                data-user="<?= $_SESSION["id"] ?>" data-token="<?= $_SESSION["token"] ?>">
-                <?= $fav ? "💙" : "🤍" ?>
+            <a class="btn btn-light d-flex align-items-center justify-content-center justify-content-lg-between ms-3" id="favorite"
+                <?php if (!empty($_SESSION['id'])){ ?> 
+                    data-post="<?= $article["art_id"] ?>" data-user="<?= $_SESSION["id"] ?>" data-token="<?= $_SESSION["token"] ?>" 
+                <?php } else { ?>
+                    href="../view/login.php?message_code=connect_error&status=success"
+                <?php } ?>>
+                <?= $fav 
+                    ? "<span class='heart'>❤️</span><span class='d-none d-lg-inline'>Retirer des favoris</span>" 
+                    : "<span class='heart'>🤍</span><span class='d-none d-lg-inline'>Ajouter aux favoris</span>" 
+                ?>
             </a>
-            <?php } ?>
+            <p class="m-0 fav-text"></p>
         </div>
         <div class="container-fluid">
             <h4 class="categorie">
-                <?= getEmojiCategory($article['cat']) . " " . ucfirst(htmlspecialchars_decode($article['cat'])) ?>
+                <?= getEmojiCategory($article['cat']) . " " . ucfirst(htmlentities($article['cat'])) ?>
             </h4>
         </div>
     </div>
     <div class="container-fluid d-md-flex justify-content-between pt-3">
         <div class="container-fluid col-12 col-md-6 fade-right pt-md-4 d-flex flex-column">
-            <p><?= htmlspecialchars_decode($article['art_content']) ?></p>
+            <p><?= htmlentities($article['art_content']) ?></p>
             <p>
                 Posté le <?= date("d/m/Y", strtotime($article['art_created_at'])) ?><?= $author ? ", par " : "" ?>
                 <a href="read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">
@@ -83,7 +89,7 @@
                 </a>
             </p>
             <?php 
-            if (!empty($_SESSION) && $_SESSION['role'] === "admin") { ?>
+            if (!empty($_SESSION['id']) && $_SESSION['role'] === "admin") { ?>
                 <div class="moderation my-2 d-flex justify-content-evenly align-items-center flex-wrap">
                 <?php if ($article["art_status"] === "pending") { ?>
                     <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=approved&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-success">Valider</a>
@@ -122,7 +128,7 @@
                         $comment['commenter_id'] = "";
                     } ?>
                     <li class="list-group-item py-3 d-flex flex-column">
-                        <span><?= htmlspecialchars_decode($comment['com_content']) ?></span>
+                        <span><?= htmlentities($comment['com_content']) ?></span>
                         <span class="fst-italic">
                             <a href="./read_user.php?id=<?= $comment['commenter_id'] ?>"><?= $comment['commenter'] ?></a>,
                             le <?= $comment['com_posted_at'] ?></span>
@@ -132,7 +138,7 @@
                 <p class="text-center">Personne n'a encore commenté ce spot.</p>
             <?php } ?>
         </ul>
-        <?php if($_SESSION){ ?>
+        <?php if (!empty($_SESSION['id'])){ ?>
             <form method="POST" action="../controller/add_comment_controller.php" aria-label="Formulaire d'ajout d'un commentaire">
                 <input type="hidden" name="user_comment" value="<?= $_SESSION['id'] ?>">
                 <input type="hidden" name="art_id" value="<?= $article['art_id'] ?>">
@@ -148,16 +154,16 @@
                     </p>
                 </div>
                 <div class="container mx-auto mt-4 mb-2 d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center">
-                    <button type="submit" class="btn btn-outline-success rounded-pill mb-3 col-11 col-sm-4 col-md-4 submit" 
+                    <button type="submit" class="btn btn-outline-success rounded-pill mb-3 col-11 col-sm-4 submit" 
                         aria-label="Envoyer le commentaire">Envoyer</button>
-                    <a href="./index_articles.php" class="btn btn-outline-danger rounded-pill mb-3 col-11 col-sm-4 col-md-4" 
+                    <a href="./index_articles.php" class="btn btn-outline-danger rounded-pill mb-3 col-11 col-sm-4" 
                         aria-label="Retourner à la page précédente">Retour</a>
                 </div>
             </form>
         <?php } else { ?>
             <div class="text-center mt-3">
                 <p>Connectez-vous pour pouvoir commenter !</p>
-                <div class="container mx-auto mt-4 mb-2 d-flex flex-wrap justify-content-center align-items-center">
+                <div class="container mx-auto mt-4 mb-2 d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center">
                     <a href="./login.php" class="btn btn-outline-primary rounded-pill mb-3 col-11 col-sm-4 col-md-5 col-xl-4" 
                     aria-label="Retourner à la page d'accueil">Se connecter</a>
                     <a href="./index_articles.php" class="btn btn-outline-danger rounded-pill mb-3 col-11 col-sm-4 col-md-4" 
@@ -167,5 +173,6 @@
         <?php } ?>
     </div>
 </div>
+
 <script type="module" src="../script/read_article.js"></script>
 <?php require_once "../includes/footer.php" ?>

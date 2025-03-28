@@ -4,7 +4,7 @@
 ?>
 <div class="section p-1 col-xxl-8 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
     <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fading">
-    <?php if (!isset($_SESSION['name'])) { ?>
+    <?php if (empty($_SESSION['id'])){ ?>
         <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>
         <p class="d-none d-sm-block">
             Tokyo est une ville aux mille visages, entre tradition et modernité, temples centenaires et gratte-ciels futuristes,
@@ -83,5 +83,5 @@
         </div>
     </div>
 </div>
-<script defer src="../script/homepage.js"></script>
+<script type="module" src="../script/homepage.js"></script>
 <?php require_once "../includes/footer.php" ?>

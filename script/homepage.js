@@ -1,3 +1,4 @@
+import { escapeHTML } from "./functions.js";
 const openWeather = document.getElementById("meteo-tokyo");
 const horaire = document.getElementById("heure-tokyo");
 const webcam = document.getElementById("cam");
@@ -10,11 +11,13 @@ setInterval(updateTime, 1000);
 window.addEventListener("resize", handlePetalEffect);
 handlePetalEffect();
 
-// Gestion pétales
+/**
+ * Crée une pétale animée qui tombe depuis une position aléatoire du haut de l’écran.
+ */
 function createPetal() {
   const petal = document.createElement("div");
   petal.classList.add("petal");
-  let startPosition = Math.random() * (window.innerWidth - 25);
+  let startPosition = Math.random() * (window.innerWidth - 30);
   let duration = Math.random() * 5 + 5;
   let size = Math.random() * 10 + 10;
   petal.style.left = `${startPosition}px`;
@@ -27,7 +30,9 @@ function createPetal() {
   }, duration * 1000);
 }
 
-// Gestion de l'arrêt des pétales si l'écran diminue
+/**
+ * Active ou désactive l’effet de pétales en fonction de la largeur de l’écran.
+ */
 function handlePetalEffect() {
   if (window.innerWidth > 992) {
     if (!petalInterval) {
@@ -41,7 +46,10 @@ function handlePetalEffect() {
   }
 }
 
-// Heure à Tokyo
+/**
+ * Met à jour dynamiquement l’heure actuelle à Tokyo, au format `HH:MM:SS`,
+ * Fonction réactualisée toutes les secondes.
+ */
 function updateTime() {
   const options = {
     timeZone: "Asia/Tokyo",
@@ -53,7 +61,12 @@ function updateTime() {
   horaire.textContent = time;
 }
 
-// Api openweather pour la météo
+/**
+ * Récupère les données météorologiques actuelles de Tokyo via l'API OpenWeatherMap.
+ * - Affiche la température arrondie en °C
+ * - Affiche la description météo (capitalisée)
+ * - Affiche une icône correspondante
+ */
 const apiKeyOpenW = "e1edbd55f7fda615ba1c2906bf6454e9";
 const urlOpenW = `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=${apiKeyOpenW}&units=metric&lang=fr`;
 fetch(urlOpenW)
@@ -71,10 +84,11 @@ fetch(urlOpenW)
     } else {
       iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
     }
-    openWeather.innerHTML = `<p>🌡️ ${temperature}°c &nbsp;</p><p> - &nbsp; ${meteoCapital} &nbsp;</p><img src="${iconUrl}" alt="${meteo}" class="icon-meteo">`;
+    openWeather.innerHTML = `<p>🌡️ ${escapeHTML(
+      temperature
+    )}°c &nbsp;</p><p> - &nbsp; ${escapeHTML(meteoCapital)} &nbsp;</p>
+      <img src="${escapeHTML(iconUrl)}" alt="${escapeHTML(
+      meteo
+    )}" class="icon-meteo">`;
   })
   .catch((error) => console.error("Erreur :", error));
-
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}

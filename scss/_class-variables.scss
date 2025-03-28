@@ -249,7 +249,7 @@ $background: url(../assets/tokyo-sakura.png);
 }
 
 .disappear {
-  animation: fade 0.3s ease-out 2s forwards 1 reverse;
+  animation: fadeOut 0.3s ease-out 2s forwards 1;
 }
 
 // BUTTONS
@@ -268,7 +268,7 @@ $background: url(../assets/tokyo-sakura.png);
 // MAP
 
 #map {
-  height: 40vh;
+  height: 50vh;
   min-height: 250px;
   width: 100%;
   border-radius: 10px;

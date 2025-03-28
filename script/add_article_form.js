@@ -1,4 +1,4 @@
-import { mapping } from "./map.js";
+import { mapping } from "./functions.js";
 const inputFiles = document.querySelector(".files");
 const preview = document.querySelector(".preview");
 const cat = document.querySelector(".category");

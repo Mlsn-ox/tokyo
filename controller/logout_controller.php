@@ -1,6 +1,6 @@
 <?php
 session_start();
+$_SESSION = [];
 session_destroy();
-unset($_SESSION['name']);
-unset($_SESSION['role']);
-header('Location: ../view/homepage.php');
+header('Location: ../view/homepage.php?message_code=deconnected&status=success');
+exit();

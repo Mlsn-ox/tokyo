@@ -1,4 +1,5 @@
-import { mapping } from "./map.js";
+import { mapping } from "./functions.js";
+import { escapeHTML } from "./functions.js";
 const map = mapping(35.679432, 139.763259);
 const locate = document.querySelector(".localise");
 const adress = document.querySelector(".adress");
@@ -20,13 +21,17 @@ function markerAll() {
         }
         let marker = L.marker([gpsLat, gpsLng]).addTo(map);
         marker.bindPopup(
-          `<a href="read_article.php?id=${article.art_id}" class="pop-up">
-            <h5>${article.art_title}</h5>
-            <p class="categorie">${article.cat}</p>
+          `<a href="read_article.php?id=${escapeHTML(
+            article.art_id
+          )}" class="pop-up">
+            <h5>${escapeHTML(article.art_title)}</h5>
+            <p class="categorie">${escapeHTML(article.cat)}</p>
             <div class="img-contain">
-            <img src="../assets/img_articles/${article.img}" class="text-center" alt="Photo de l'article">
+            <img src="../assets/img_articles/${escapeHTML(
+              article.img
+            )}" class="text-center" alt="Photo de l'article">
             </div>
-            <p>${article.art_content}</p>
+            <p>${escapeHTML(article.art_content)}</p>
           </a>`
         );
       });

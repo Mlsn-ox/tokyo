@@ -1,5 +1,9 @@
 <?php
-    require_once "../includes/navbar.php";
+require_once "../includes/navbar.php";
+if (!empty($_SESSION['id'])){
+    header("Location: ../view/homepage.php?message_code=redirect_error&status=error");
+    exit();
+}
 ?>
 <div class="section col-xxl-7 col-md-9 col-12 mx-auto p-4 home">
     <form method="POST" action="../controller/login_controller.php" class="fade-up">

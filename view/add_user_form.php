@@ -1,5 +1,9 @@
 <?php
     require_once "../includes/navbar.php";
+    if (!empty($_SESSION['id'])){
+        header("Location: ../view/homepage.php?message_code=redirect_error&status=error");
+        exit();
+    }
 ?>
 <div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-md-4 p-3">
     <div class="container p-0 fade-up">
@@ -94,5 +98,5 @@
         </form>
     </div>
 </div>
-<script defer src="../script/add_user_form.js"></script>
+<script type="module" src="../script/add_user_form.js"></script>
 <?php require_once "../includes/footer.php" ?>
