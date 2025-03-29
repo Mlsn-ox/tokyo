@@ -79,7 +79,7 @@
             <div id="meteo-tokyo" class="d-flex align-items-center justify-content-center mx-3 mx-sm-auto text-center flex-wrap"></div>
         </div>
         <div class="iframe-container">
-            <iframe class="rounded-4" src="https://www.youtube.com/embed/tujkoXI8rWM?autoplay=1&mute=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+            <iframe class="rounded-4" src="https://www.youtube.com/embed/tujkoXI8rWM?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 </div>

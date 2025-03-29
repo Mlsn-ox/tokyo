@@ -33,10 +33,11 @@ export function mapping(lat, lng) {
 
 /**
  * Échappe les caractères HTML spéciaux dans une chaîne de caractères.
- * @param {string} str - La chaîne à sécuriser
+ * @param {any} input - La chaîne/nombre à sécuriser
  * @returns {string} - La chaîne échappée, prête à être injectée dans le DOM
  */
-export function escapeHTML(str) {
+export function escapeHTML(input) {
+  const str = String(input); // Conversion en chaîne au cas où
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")

@@ -1,4 +1,4 @@
-import { mapping } from "./map.js";
+import { mapping } from "./functions.js";
 const gps = document.querySelector("#map");
 let lat = gps.dataset.lat;
 let lng = gps.dataset.lng;

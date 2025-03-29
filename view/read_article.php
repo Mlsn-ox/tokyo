@@ -81,7 +81,7 @@
     </div>
     <div class="container-fluid d-md-flex justify-content-between pt-3">
         <div class="container-fluid col-12 col-md-6 fade-right pt-md-4 d-flex flex-column">
-            <p><?= htmlentities($article['art_content']) ?></p>
+            <p><?= $article['art_content'] ?></p>
             <p>
                 Posté le <?= date("d/m/Y", strtotime($article['art_created_at'])) ?><?= $author ? ", par " : "" ?>
                 <a href="read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">

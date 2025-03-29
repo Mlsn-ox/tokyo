@@ -24,11 +24,19 @@ $success: #116933;
 $info: #6d16b4;
 $warning: #dfc845;
 $danger: #dc3545;
-$background: url(../assets/tokyo-sakura.png);
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 :root {
-  --white: #fff;
+  --white: #ffff;
+  --gray-100: #f1f1f1;
+  --gray-200: #d0d0d0;
+  --gray-300: #a0a0a0;
+  --gray-400: #7d7d7d;
+  --gray-500: #5c5c5c;
+  --gray-600: #3a3a3a;
+  --gray-700: #2a2a2a;
+  --gray-800: #1a1a1a;
+  --gray-900: #121212;
   --black: #000;
   --font-family: "Quick";
   --card-bg: #ffffff56;
@@ -36,6 +44,32 @@ $background: url(../assets/tokyo-sakura.png);
   --box-shadow: 0 1px 2px 0 #3c40444d, 0 1px 3px 1px #3c404326;
   --shadow: 4px 4px 7px #bbb, -3px -3px 6px #fff;
   --inner-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
+  --background: url(../assets/tokyo-sakura.png);
+  --back-color: #ffffffb6;
+  --pink: #f9c8d2da;
+}
+
+[data-theme="dark"] {
+  --white: #000;
+  --gray-100: #121212;
+  --gray-200: #1a1a1a;
+  --gray-300: #2a2a2a;
+  --gray-400: #3a3a3a;
+  --gray-500: #5c5c5c;
+  --gray-600: #7d7d7d;
+  --gray-700: #a0a0a0;
+  --gray-800: #d0d0d0;
+  --gray-900: #f1f1f1;
+  --black: #fff;
+  --font-family: "Quick";
+  --card-bg: #00000056;
+  --shadow-color: #1b1b1b1a;
+  --box-shadow: 0 1px 2px 0 #a7b2bd4d, 0 1px 3px 1px #a7b4bd26;
+  --shadow: 4px 4px 7px #444, -3px -3px 6px #000;
+  --inner-shadow: inset 3px 3px 6px #444, inset -3px -3px 6px #000;
+  --background: url(../assets/tokyo-night.avif);
+  --back-color: #272727b6;
+  --pink: #ff839cda;
 }
 
 // RESET

@@ -36,7 +36,7 @@ function createPetal() {
 function handlePetalEffect() {
   if (window.innerWidth > 992) {
     if (!petalInterval) {
-      petalInterval = setInterval(createPetal, 700);
+      petalInterval = setInterval(createPetal, 1300);
     }
   } else {
     if (petalInterval) {
@@ -72,10 +72,12 @@ const urlOpenW = `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=
 fetch(urlOpenW)
   .then((response) => response.json())
   .then((data) => {
-    const temperature = Math.round(data.main.temp);
-    let meteo = data.weather[0].description;
-    meteoCapital = meteo.charAt(0).toUpperCase() + meteo.slice(1);
-    const iconCode = data.weather[0].icon;
+    const temperature = escapeHTML(Math.round(data.main.temp));
+    let meteo = escapeHTML(data.weather[0].description);
+    let meteoCapital = escapeHTML(
+      meteo.charAt(0).toUpperCase() + meteo.slice(1)
+    );
+    const iconCode = escapeHTML(data.weather[0].icon);
     let iconUrl = "";
     if (iconCode === "01n") {
       iconUrl = `../assets/logo_category/clear-night.png`;
@@ -84,11 +86,7 @@ fetch(urlOpenW)
     } else {
       iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
     }
-    openWeather.innerHTML = `<p>🌡️ ${escapeHTML(
-      temperature
-    )}°c &nbsp;</p><p> - &nbsp; ${escapeHTML(meteoCapital)} &nbsp;</p>
-      <img src="${escapeHTML(iconUrl)}" alt="${escapeHTML(
-      meteo
-    )}" class="icon-meteo">`;
+    openWeather.innerHTML = `<p>🌡️ ${temperature}°c &nbsp;</p><p> - &nbsp; ${meteoCapital} &nbsp;</p>
+      <img src="${iconUrl}" alt="${meteo}" class="icon-meteo">`;
   })
   .catch((error) => console.error("Erreur :", error));

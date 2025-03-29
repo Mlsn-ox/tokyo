@@ -1,5 +1,4 @@
 import { getEmojiCategory } from "./functions.js";
-import { escapeHTML } from "./functions.js";
 let html = document.querySelector("#articles");
 const params = new URLSearchParams(window.location.search);
 let order = params.get("order"); // Récupère la valeur de order
@@ -52,18 +51,14 @@ function loadMoreArticles() {
         data.forEach((article) => {
           let emoji = getEmojiCategory(article.cat);
           let articleHTML = `
-            <a href="read_article.php?id=${escapeHTML(
-              article.art_id
-            )}" class="article mb-3" style="background-image: url('../assets/img_articles/${escapeHTML(
-            article.img
-          )}');">
+            <a href="read_article.php?id=${article.art_id}" class="article mb-3" style="background-image: url('../assets/img_articles/${article.img}');">
                 <div class="article-content text-dark">
-                    <h2 class="mx-1">${escapeHTML(article.art_title)}</h2>
+                    <h2 class="mx-1">${article.art_title}</h2>
                     <div class="content">
                         <p class="m-0 categorie">
-                            ${emoji} ${escapeHTML(article.cat)}
+                            ${emoji} ${article.cat}
                         </p>
-                        <p>${escapeHTML(article.art_content)}</p>
+                        <p>${article.art_content}</p>
                     </div>
                 </div>
             </a>`;

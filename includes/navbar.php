@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="">
+<html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,10 +30,11 @@
 ?>
 
 <body>
+<button class="theme-switch" id="toggle-theme" aria-label="Activer le mode sombre"><span id="theme-icon">☀️</span></button>
   <nav class="home navbar navbar-expand-lg">
     <div class="container-fluid">
       <a href="/TokyoSpot/view/homepage.php" class="navbar-brand">
-        <img src="../assets/logo_category/Torii.png" alt="Torii">
+        <img src="../assets/logo_category/Torii-dark.png" alt="Torii">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -51,7 +52,7 @@
         <a href="/TokyoSpot/view/add_article_form.php" class="nav-link">
           Ajouter un spot
         </a>
-        <?php if (!isset($_SESSION['name'])) { ?>
+        <?php if (empty($_SESSION['id'])) { ?>
           <a href="/TokyoSpot/view/add_user_form.php" class="nav-link">
             S'inscrire
           </a>
@@ -61,7 +62,7 @@
         <?php } else { ?>
           <a href="/TokyoSpot/view/read_user.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil d-flex align-items-center justify-content-center">
             <img src="../assets/img_profil/<?= $_SESSION['img'] ?>" alt="Photo de profil" class="px-1">
-            <span>Profil</span>
+            <span id="id-giver" data-id="<?= $_SESSION['id'] ?>">Profil</span>
           </a>
           <?php if ($_SESSION['role'] === "admin") { ?>
             <a href="/TokyoSpot/view/admin.php" class="nav-link page-profil">
