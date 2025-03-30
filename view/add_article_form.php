@@ -78,7 +78,7 @@
             <div class="mb-4">
                 <input class="files d-none" type="file" name="image" id="formFile image_uploads" 
                     accept=".png, .jpg, .jpeg, .webp, .avif, .tiff" aria-describedby="imageHelp" required>
-                <label for="formFile image_uploads" class="form-label btn btn-warning rounded-0 col-8 col-sm-6 col-md-4 col-xl-3" 
+                <label for="formFile image_uploads" class="form-label btn btn-primary rounded-0 col-8 col-sm-6 col-md-4 col-xl-3" 
                     aria-label="Ajouter une photo">Ajouter une photo</label>
                 <p class="fst-italic" id="imageHelp">Photo de 10Mo maximum au format .png, .jpg, .jpeg, .webp, .avif, .tiff.</p>
                 <div class="preview text-center my-2" aria-live="polite"></div>

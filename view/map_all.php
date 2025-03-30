@@ -10,7 +10,7 @@
             <div class="spinner"></div>
         </div>
     </div>
-    <div id="map" class="container-fluid mx-auto p-0 my-3 all fade-up"></div>
+    <div id="map" class="container-fluid mx-auto p-0 mt-3 all fade-up"></div>
 </div>
 <script type="module" src="../script/map_all.js"></script>
 <?php require_once "../includes/footer.php" ?>

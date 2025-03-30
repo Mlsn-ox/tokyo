@@ -1,11 +1,6 @@
 @use "class-variables" as *;
 @use "media-queries" as *;
 
-html.theme-transition,
-body.theme-transition {
-  transition: all 0.3 ease;
-}
-
 body {
   font-family: var(--font-family);
   font-weight: 500;
@@ -55,6 +50,14 @@ body {
   z-index: 1;
   font-size: 1.1rem;
   font-weight: 600;
+  .navbar-brand {
+    width: 100px;
+    height: 60px;
+    background-image: var(--torii);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
   .container-fluid {
     .nav-link {
       transition: 0.2s;
@@ -74,7 +77,7 @@ body {
         top: 0;
         right: 20px;
         opacity: 0;
-        background-image: url(../assets/hover-bg.svg);
+        background-image: var(--active-bg);
         background-position: center;
         background-repeat: no-repeat;
         background-size: 74px 44px;
@@ -210,7 +213,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    text-shadow: 2px 2px 2px #ffffff;
+    color: var(--black);
+    text-shadow: 1px 1px 1px var(--white);
     h2 {
       font-size: 1.9rem;
     }
@@ -262,7 +266,7 @@ body {
       width: 50px;
     }
     .heart {
-      text-shadow: 0 0 5px var(--gray-900);
+      text-shadow: 0 0 5px var(--gray-500);
       font-size: 1.7rem;
       @include media(lt-lg) {
         font-size: 1.5rem;
@@ -348,11 +352,11 @@ select.form-select {
   border-radius: 10px;
   padding-left: 15px;
   background-color: transparent;
-  box-shadow: inset 2px 2px 5px var(--gray-200),
-    inset -2px -2px 5px var(--white);
+  box-shadow: inset 1px 1px 4px var(--gray-200),
+    inset -1px -1px 4px var(--white);
   &:focus {
     outline: none;
-    box-shadow: 3px 3px 6px var(--gray-200), -2px -2px 5px var(--white);
+    box-shadow: 2px 2px 4px var(--gray-200), -2px -2px 4px var(--white);
   }
 }
 
@@ -448,8 +452,8 @@ select.form-select {
 }
 .leaflet-popup-content-wrapper {
   font-family: "Quick";
-  background: var(--gray-200);
-  background: linear-gradient(180deg, var(--gray-100) 0%, var(--white) 100%);
+  backdrop-filter: opacity(0.8);
+  background: linear-gradient(180deg, var(--gray-400) 0%, var(--gray-200) 100%);
   .leaflet-popup-content {
     margin: 5px 7px !important;
   }

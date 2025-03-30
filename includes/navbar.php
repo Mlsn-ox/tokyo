@@ -33,9 +33,7 @@
 <button class="theme-switch" id="toggle-theme" aria-label="Activer le mode sombre"><span id="theme-icon">☀️</span></button>
   <nav class="home navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a href="/TokyoSpot/view/homepage.php" class="navbar-brand">
-        <img src="../assets/logo_category/Torii-dark.png" alt="Torii">
-      </a>
+      <a href="/TokyoSpot/view/homepage.php" class="navbar-brand"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

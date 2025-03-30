@@ -45,8 +45,16 @@ $danger: #dc3545;
   --shadow: 4px 4px 7px #bbb, -3px -3px 6px #fff;
   --inner-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
   --background: url(../assets/tokyo-sakura.png);
+  --torii: url(../assets/logo_category/Torii.png);
   --back-color: #ffffffb6;
   --pink: #f9c8d2da;
+  --active-bg: url(../assets/hover-bg.svg);
+  --btn-bg-primary: transparent;
+  --btn-color-primary: #1a6a99;
+  --btn-bg-success: transparent;
+  --btn-color-success: #116933;
+  --btn-bg-danger: transparent;
+  --btn-color-danger: #dc3545;
 }
 
 [data-theme="dark"] {
@@ -64,12 +72,35 @@ $danger: #dc3545;
   --font-family: "Quick";
   --card-bg: #00000056;
   --shadow-color: #1b1b1b1a;
-  --box-shadow: 0 1px 2px 0 #a7b2bd4d, 0 1px 3px 1px #a7b4bd26;
-  --shadow: 4px 4px 7px #444, -3px -3px 6px #000;
+  --box-shadow: 0 1px 2px 0 #000000be;
+  --shadow: 1px 1px 4px #000000be, -1px -1px 2px #000000be;
   --inner-shadow: inset 3px 3px 6px #444, inset -3px -3px 6px #000;
   --background: url(../assets/tokyo-night.avif);
+  --torii: url(../assets/logo_category/Torii-dark.png);
   --back-color: #272727b6;
   --pink: #ff839cda;
+  --active-bg: url(../assets/hover-bg-dark.svg);
+  --btn-bg-primary: #1a6a99;
+  --btn-color-primary: #fff;
+  --btn-bg-success: #116933;
+  --btn-color-success: #fff;
+  --btn-bg-danger: #dc3545;
+  --btn-color-danger: #fff;
+}
+
+.btn-outline-primary {
+  color: var(--btn-color-primary) !important;
+  background-color: var(--btn-bg-primary) !important;
+}
+
+.btn-outline-success {
+  color: var(--btn-color-success) !important;
+  background-color: var(--btn-bg-success) !important;
+}
+
+.btn-outline-danger {
+  color: var(--btn-color-danger) !important;
+  background-color: var(--btn-bg-danger) !important;
 }
 
 // RESET
@@ -291,8 +322,10 @@ $danger: #dc3545;
 .btn {
   box-shadow: var(--shadow) !important;
   font-weight: 500 !important;
+  transition: all 0.3s ease;
   &:hover {
     box-shadow: var(--box-shadow) !important;
+    filter: brightness(1.4);
   }
   &:active {
     box-shadow: inset var(--inner-shadow) !important;

@@ -2,6 +2,7 @@ const navLink = document.querySelectorAll(".nav-link");
 const currentPath = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
 const toggleBtn = document.getElementById("toggle-theme");
+const themeIcon = document.getElementById("theme-icon");
 
 /**
  * Met automatiquement en surbrillance le lien actif dans la navigation.
@@ -26,44 +27,24 @@ navLink.forEach((a) => {
   }
 });
 
-toggleBtn.addEventListener("click", () => {
-  const currentTheme = document.documentElement.getAttribute("data-theme");
-  const newTheme = currentTheme === "dark" ? "light" : "dark";
-
-  // Ajoute une classe temporaire pour activer l'animation
-  document.documentElement.classList.add("theme-transition");
-
-  // Applique les nouveaux thèmes
-  document.documentElement.setAttribute("data-theme", newTheme);
-  document.documentElement.setAttribute("data-bs-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-
-  // Retire la classe une fois l'animation terminée (ex: 300ms)
-  setTimeout(() => {
-    document.documentElement.classList.remove("theme-transition");
-  }, 300);
-});
-
-// Appliquer le thème au chargement
-const savedTheme = localStorage.getItem("theme");
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-const appliedTheme = savedTheme || (prefersDark ? "dark" : "light");
-
-document.documentElement.setAttribute("data-theme", appliedTheme);
-document.documentElement.setAttribute("data-bs-theme", appliedTheme);
-
-const themeIcon = document.getElementById("theme-icon");
-
+// Fonction pour mettre à jour l’icône
 function updateIcon(theme) {
   themeIcon.textContent = theme === "dark" ? "🌙" : "☀️";
 }
 
+// Appliquer le thème au chargement
+const savedTheme = localStorage.getItem("theme");
+const appliedTheme = savedTheme || "light";
+document.documentElement.setAttribute("data-theme", appliedTheme);
+document.documentElement.setAttribute("data-bs-theme", appliedTheme);
+updateIcon(appliedTheme);
+
+// Toggle du thème
 toggleBtn.addEventListener("click", () => {
   const currentTheme = document.documentElement.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", newTheme);
+  document.documentElement.setAttribute("data-bs-theme", newTheme);
+  localStorage.setItem("theme", newTheme);
   updateIcon(newTheme);
-  // (reste du script ci-dessus)
 });
-
-// Met à jour l'icône dès le chargement
-updateIcon(appliedTheme);

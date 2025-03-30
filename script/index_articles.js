@@ -52,7 +52,7 @@ function loadMoreArticles() {
           let emoji = getEmojiCategory(article.cat);
           let articleHTML = `
             <a href="read_article.php?id=${article.art_id}" class="article mb-3" style="background-image: url('../assets/img_articles/${article.img}');">
-                <div class="article-content text-dark">
+                <div class="article-content">
                     <h2 class="mx-1">${article.art_title}</h2>
                     <div class="content">
                         <p class="m-0 categorie">

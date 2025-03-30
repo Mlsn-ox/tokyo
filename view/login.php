@@ -22,7 +22,7 @@ if (!empty($_SESSION['id'])){
         </div>
     <div class="separator my-5 text-center"></div>
         <div class="mx-auto text-center">
-            <p>Vous n'avez pas encore de compte ? c'est par ici !</p>
+            <p>Vous n'avez pas encore de compte ? C'est par ici !</p>
             <a class="rounded-pill btn btn-outline-success py-2 login-btn" href="./add_user_form.php">S'inscrire</a>
         </div>
     </form>
