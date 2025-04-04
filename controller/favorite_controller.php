@@ -4,8 +4,8 @@ require_once "../includes/pdo.php";
 
 if ($_POST["user_id"] != $_SESSION['id'] || $_POST["token"] != $_SESSION['token']){
     echo json_encode([
-        "status" => "error",
-        "message" => "Acces non autorise"
+        "status" => "Error",
+        "message" => "Accès non autorise"
     ]);
     exit();
 }

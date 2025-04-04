@@ -5,7 +5,7 @@ if (!empty($_SESSION['id'])){
     exit();
 }
 ?>
-<div class="section col-xxl-7 col-md-9 col-12 mx-auto p-4 home">
+<div class="section container mx-auto p-4 home">
     <form method="POST" action="../controller/login_controller.php" class="fade-up">
     <h1 class="m-0">Connexion</h1>
     <div class="separator my-3 text-center"></div>
@@ -15,7 +15,10 @@ if (!empty($_SESSION['id'])){
         </div>
         <div class="mb-4 mx-auto col-xl-6 col-sm-8">
             <label for="user_psw" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control ms-2" name="psw">
+            <div class="password-wrapper d-flex align-items-center">
+                <input type="password" class="form-control ms-2" name="psw" id="psw-login">
+                <span class="toggle-password fs-5 ms-1 me-sm-3" data-target="psw-login">👁️</span>
+            </div>    
         </div>
         <div class="col-xl-4 col-sm-8 mx-auto my-2 text-center">
             <input type="submit" class="form-control rounded-pill btn btn-outline-primary py-2 login-btn" value="Se connecter">
@@ -27,4 +30,14 @@ if (!empty($_SESSION['id'])){
         </div>
     </form>
 </div>
+<script>
+const toggle = document.querySelector(".toggle-password")
+toggle.addEventListener("click", () => {
+    const inputId = toggle.getAttribute("data-target");
+    const input = document.getElementById(inputId);
+    const isPassword = input.getAttribute("type") === "password";
+    input.setAttribute("type", isPassword ? "text" : "password");
+    toggle.textContent = isPassword ? "🙈" : "👁️";
+});
+</script>
 <?php require_once "../includes/footer.php" ?>

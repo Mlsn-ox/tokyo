@@ -1,4 +1,5 @@
 import { mapping } from "./functions.js";
+const modal = document.querySelector("#confirmModal");
 const inputFiles = document.querySelector(".files");
 const preview = document.querySelector(".preview");
 const cat = document.querySelector(".category");
@@ -7,7 +8,6 @@ const lng = document.getElementById("lng");
 const locate = document.querySelector(".localise");
 const adress = document.querySelector(".adress");
 const spinny = document.querySelector(".loading-icon");
-const form = document.querySelector("form");
 const inputs = document.querySelectorAll("input, textarea, select");
 const submit = document.querySelector(".submit");
 let image = document.createElement("img");
@@ -27,6 +27,11 @@ tooltipTriggerList.forEach(function (input) {
   input.addEventListener("blur", function () {
     tooltip.hide();
   });
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const maModale = new bootstrap.Modal(modal);
+  maModale.show();
 });
 
 /**

@@ -1,8 +1,12 @@
 const navLink = document.querySelectorAll(".nav-link");
 const currentPath = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
-const toggleBtn = document.getElementById("toggle-theme");
-const themeIcon = document.getElementById("theme-icon");
+const lightInput = document.getElementById("light-theme");
+const darkInput = document.getElementById("dark-theme");
+const savedTheme = localStorage.getItem("theme");
+const appliedTheme = savedTheme || "light";
+document.documentElement.setAttribute("data-theme", appliedTheme);
+document.documentElement.setAttribute("data-bs-theme", appliedTheme);
 
 /**
  * Met automatiquement en surbrillance le lien actif dans la navigation.
@@ -27,24 +31,32 @@ navLink.forEach((a) => {
   }
 });
 
-// Fonction pour mettre à jour l’icône
-function updateIcon(theme) {
-  themeIcon.textContent = theme === "dark" ? "🌙" : "☀️";
+// Appliquer le thème au chargement
+if (appliedTheme === "dark") {
+  darkInput.checked = true;
+} else {
+  lightInput.checked = true;
 }
 
-// Appliquer le thème au chargement
-const savedTheme = localStorage.getItem("theme");
-const appliedTheme = savedTheme || "light";
-document.documentElement.setAttribute("data-theme", appliedTheme);
-document.documentElement.setAttribute("data-bs-theme", appliedTheme);
-updateIcon(appliedTheme);
+// Mettre à jour le thème selon l'input choisi
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.setAttribute("data-bs-theme", theme);
+  localStorage.setItem("theme", theme);
+}
 
-// Toggle du thème
-toggleBtn.addEventListener("click", () => {
-  const currentTheme = document.documentElement.getAttribute("data-theme");
-  const newTheme = currentTheme === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", newTheme);
-  document.documentElement.setAttribute("data-bs-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-  updateIcon(newTheme);
+function changeTheme() {
+  if (lightInput.checked) {
+    applyTheme("light");
+  } else {
+    applyTheme("dark");
+  }
+}
+
+// Écouteurs sur les deux boutons
+lightInput.addEventListener("change", () => {
+  changeTheme();
+});
+darkInput.addEventListener("change", () => {
+  changeTheme();
 });

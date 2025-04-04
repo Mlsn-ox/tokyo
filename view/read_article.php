@@ -60,7 +60,7 @@
             <h1 class="text-center">
                 <?= htmlentities($article['art_title']) ?>
             </h1>
-            <a class="btn btn-light d-flex align-items-center justify-content-center justify-content-lg-between ms-3" id="favorite"
+            <a class="btn bg-light-subtle d-flex align-items-center justify-content-center justify-content-lg-between ms-3" id="favorite"
                 <?php if (!empty($_SESSION['id'])){ ?> 
                     data-post="<?= $article["art_id"] ?>" data-user="<?= $_SESSION["id"] ?>" data-token="<?= $_SESSION["token"] ?>" 
                 <?php } else { ?>
@@ -100,7 +100,7 @@
                 </div>
             <?php } ?> 
         </div>
-        <div class="container-fluid col-12 col-md-6 fade-left img-clickable-container py-1">
+        <div class="container-fluid col-12 col-md-6 fade-left img-clickable-container p-2">
             <img src="../assets/img_articles/<?= $article['img'] ?>" alt="Photo de l'article"
                 class="rounded-4 img-clickable" data-bs-toggle="modal" data-bs-target="#imageModal" />
         </div>

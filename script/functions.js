@@ -22,9 +22,19 @@ export function mapping(lat, lng) {
       maxZoom: 19,
     }
   );
+  const dark = L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+    {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & Carto',
+      subdomains: "abcd",
+      maxZoom: 19,
+    }
+  );
   const baseMaps = {
     OpenStreet: street,
     Satellite: sat,
+    DarkMap: dark,
   };
   L.control.layers(baseMaps).addTo(map);
   L.control.scale().addTo(map);

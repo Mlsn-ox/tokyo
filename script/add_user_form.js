@@ -1,7 +1,19 @@
 const inputs = document.querySelectorAll("[required]");
 const submit = document.querySelector(".submit");
+const passwords = document.querySelectorAll(".toggle-password");
 const psw1 = document.querySelector('input[name="password1"]');
 const psw2 = document.querySelector('input[name="password2"]');
+
+// Affiche le mot de passe en clair
+passwords.forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    const inputId = toggle.getAttribute("data-target");
+    const input = document.getElementById(inputId);
+    const isPassword = input.getAttribute("type") === "password";
+    input.setAttribute("type", isPassword ? "text" : "password");
+    toggle.textContent = isPassword ? "🙈" : "👁️";
+  });
+});
 
 // Tooltip Bootstrap
 const tooltipTriggerList = [].slice.call(
@@ -37,7 +49,8 @@ function checkForm() {
     return input.value.trim() !== ""; // retourne true si tous les champs sont remplis
   });
   submit.disabled = !allFilled; // Désactive le bouton submit si un champ est vide
-  if (allFilled && checkPsw(psw1.value, psw2.value)) { // Vérifie si les psw correspondent
+  if (allFilled && checkPsw(psw1.value, psw2.value)) {
+    // Vérifie si les psw correspondent
     submit.innerHTML = "S'inscrire";
     submit.classList.add("notif-bounce", "btn-success");
     submit.classList.remove("btn-outline-success");

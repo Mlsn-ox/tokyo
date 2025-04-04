@@ -70,8 +70,8 @@ try {
         $stmt = $pdo->query($sql);
         $stats['total_comments'] = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // 8. Nombre de commentaires en attente (si applicable)
-        $sql = "SELECT COUNT(*) AS pending_comments FROM comment WHERE com_status = 'pending'"; // à adapter si tu as un champ 'status'
+        // 8. Nombre de commentaires en attente
+        $sql = "SELECT COUNT(*) AS pending_comments FROM comment WHERE com_status = 'pending'";
         $stmt = $pdo->query($sql);
         $stats['pending_comments'] = $stmt->fetch(PDO::FETCH_ASSOC);
 

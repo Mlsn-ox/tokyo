@@ -11,8 +11,26 @@
             throw new Exception("form_error");
         }
         // Nettoyage des données
-        $name = htmlspecialchars(trim($_POST["name"]), ENT_QUOTES, 'UTF-8');
-        $profil = htmlspecialchars(trim($_POST["profil"]), ENT_QUOTES, 'UTF-8');
+        $name = trim($_POST["name"]);
+        if (!preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+$/u', $name)) {
+            throw new Exception("name_invalid");
+        }
+        // Vérifie que l'image de profil est respectée
+        $allowedImages = [
+            'Godzilla.png',
+            'Kanagawa.png',
+            'Neko.png',
+            'Ramen.png',
+            'Sakura.png',
+            'Shiba.png'
+        ];
+        if (!in_array($_POST["profil"], $allowedImages, true)) {
+            throw new Exception("form_error");
+        }
+        $profil = ($_POST["profil"]);
+        if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{7,}$/', $_POST["password1"])) {
+            throw new Exception("psw_invalid");
+        }
         $password = password_hash($_POST["password1"], PASSWORD_DEFAULT);
         $today = date("Y-m-d");
         $mail = filter_var(trim($_POST["mail"]), FILTER_VALIDATE_EMAIL);

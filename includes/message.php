@@ -2,8 +2,11 @@
 $messages = [
     'form_error' => 'Veuillez renseigner toutes les informations demandées.',
     'article_added' => 'Spot ajouté avec succès.',
+    'name_invalid' => 'Nom invalide.',
+    'psw_invalid' => 'Mot de passe invalide.',
     'comment_added' => 'Commentaire ajouté avec succès.',
     'article_updated' => 'Spot mis à jour.',
+    'user_updated' => 'Informations mises à jour.',
     'article_error' => "Erreur lors de l'ajout du spot, veuillez réessayer plus tard.",
     'user_added' => 'Inscription terminée, connectez-vous !',
     'signup_error' => "Cet email est déjà lié à un compte.",

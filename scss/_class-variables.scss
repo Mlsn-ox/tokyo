@@ -27,43 +27,53 @@ $danger: #dc3545;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 :root {
-  --white: #ffff;
+  --white: #fff;
   --gray-100: #f1f1f1;
   --gray-200: #d0d0d0;
   --gray-300: #a0a0a0;
   --gray-400: #7d7d7d;
-  --gray-500: #5c5c5c;
+  --gray-500: #495057;
   --gray-600: #3a3a3a;
-  --gray-700: #2a2a2a;
-  --gray-800: #1a1a1a;
+  --gray-700: #212529;
+  --gray-800: #1f1f1f;
   --gray-900: #121212;
   --black: #000;
+  --primary: #0a2e42;
   --font-family: "Quick";
   --card-bg: #ffffff56;
   --shadow-color: #ffffff1a;
-  --box-shadow: 0 1px 2px 0 #3c40444d, 0 1px 3px 1px #3c404326;
+  --box-shadow: 0 1px 8px 0 #111111bb;
   --shadow: 4px 4px 7px #bbb, -3px -3px 6px #fff;
   --inner-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
   --background: url(../assets/tokyo-sakura.png);
   --torii: url(../assets/logo_category/Torii.png);
   --back-color: #ffffffb6;
   --pink: #f9c8d2da;
-  --active-bg: url(../assets/hover-bg.svg);
+  --active-bg: url(../assets/hover-bg.png);
   --btn-bg-primary: transparent;
   --btn-color-primary: #1a6a99;
+  --btn-color-hover-primary: #fff;
+  --btn-bg-hover-primary: #1a6a99;
   --btn-bg-success: transparent;
   --btn-color-success: #116933;
+  --btn-color-hover-success: #fff;
+  --btn-bg-hover-success: #116933;
   --btn-bg-danger: transparent;
   --btn-color-danger: #dc3545;
+  --btn-color-hover-danger: #fff;
+  --btn-bg-hover-danger: #dc3545;
+  --slider-shadow: inset 0 1px 1px #b8b8b8;
+  --switcher-bg: linear-gradient(140deg, #000 35%, #1a6a99 100%);
+  --slider-bg: linear-gradient(140deg, #1a6a99 30%, #7bdaff 100%);
 }
 
 [data-theme="dark"] {
   --white: #000;
   --gray-100: #121212;
-  --gray-200: #1a1a1a;
-  --gray-300: #2a2a2a;
+  --gray-200: #1f1f1f;
+  --gray-300: #212529;
   --gray-400: #3a3a3a;
-  --gray-500: #5c5c5c;
+  --gray-500: #495057;
   --gray-600: #7d7d7d;
   --gray-700: #a0a0a0;
   --gray-800: #d0d0d0;
@@ -72,35 +82,61 @@ $danger: #dc3545;
   --font-family: "Quick";
   --card-bg: #00000056;
   --shadow-color: #1b1b1b1a;
-  --box-shadow: 0 1px 2px 0 #000000be;
+  --box-shadow: 0 1px 8px 0 #111;
   --shadow: 1px 1px 4px #000000be, -1px -1px 2px #000000be;
   --inner-shadow: inset 3px 3px 6px #444, inset -3px -3px 6px #000;
   --background: url(../assets/tokyo-night.avif);
   --torii: url(../assets/logo_category/Torii-dark.png);
   --back-color: #272727b6;
   --pink: #ff839cda;
-  --active-bg: url(../assets/hover-bg-dark.svg);
+  --active-bg: url(../assets/hover-bg-dark.png);
   --btn-bg-primary: #1a6a99;
   --btn-color-primary: #fff;
+  --btn-color-hover-primary: #1a6a99;
+  --btn-bg-hover-primary: transparent;
   --btn-bg-success: #116933;
   --btn-color-success: #fff;
+  --btn-color-hover-success: #116933;
+  --btn-bg-hover-success: transparent;
   --btn-bg-danger: #dc3545;
   --btn-color-danger: #fff;
+  --btn-color-hover-danger: #dc3545;
+  --btn-bg-hover-danger: transparent;
+  --slider-shadow: inset 0 1px 1px #e7e7e7;
+  --switcher-bg: linear-gradient(160deg, #1a6a99 0%, #7bdaff 100%);
+  --slider-bg: linear-gradient(160deg, #000 20%, #1a6a99 100%);
 }
 
 .btn-outline-primary {
-  color: var(--btn-color-primary) !important;
-  background-color: var(--btn-bg-primary) !important;
+  background-color: var(--btn-bg-primary);
+  color: var(--btn-color-primary);
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: var(--btn-bg-hover-primary);
+    color: var(--btn-color-hover-primary);
+  }
 }
 
 .btn-outline-success {
-  color: var(--btn-color-success) !important;
-  background-color: var(--btn-bg-success) !important;
+  background-color: var(--btn-bg-success);
+  color: var(--btn-color-success);
+  &:hover {
+    background-color: var(--btn-bg-hover-success);
+    color: var(--btn-color-hover-success);
+  }
 }
 
 .btn-outline-danger {
-  color: var(--btn-color-danger) !important;
-  background-color: var(--btn-bg-danger) !important;
+  background-color: var(--btn-bg-danger);
+  color: var(--btn-color-danger);
+  &:hover {
+    background-color: var(--btn-bg-hover-danger);
+    color: var(--btn-color-hover-danger);
+  }
+}
+
+.btn:disabled {
+  color: var(--gray-700);
 }
 
 // RESET
@@ -325,10 +361,11 @@ $danger: #dc3545;
   transition: all 0.3s ease;
   &:hover {
     box-shadow: var(--box-shadow) !important;
-    filter: brightness(1.4);
+    filter: brightness(1.15);
   }
   &:active {
-    box-shadow: inset var(--inner-shadow) !important;
+    box-shadow: var(--inner-shadow) !important;
+    filter: hue-rotate(30deg);
   }
 }
 
@@ -342,6 +379,7 @@ $danger: #dc3545;
 }
 
 #map.all {
+  min-height: 400px;
   height: 68vh;
 }
 

@@ -24,7 +24,7 @@
         $title = htmlspecialchars(ucfirst(trim($_POST['title'])), ENT_QUOTES, 'UTF-8'); // ENT_QUOTES : conversion des ", ', &, <, > ;
         $content = htmlspecialchars(ucfirst(trim($_POST['content'])), ENT_QUOTES, 'UTF-8');
         $category = filter_var($_POST['category'], FILTER_VALIDATE_INT);
-        $author = filter_var($_POST['author'], FILTER_VALIDATE_INT);
+        $author = $_SESSION['id'];
         $today = date('Y-m-d'); // Date du jour
         $lat = filter_var($_POST['lat'], FILTER_VALIDATE_FLOAT);
         $lng = filter_var($_POST['lng'], FILTER_VALIDATE_FLOAT);
@@ -53,9 +53,6 @@
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true); // crée le dossier récursivement
         }
-        if (!is_writable($uploadDir)) {
-            throw new Exception("upload_dir_not_writable");
-        }
         if (!move_uploaded_file($tmpName, $uploadDir . $newName)) {
             throw new Exception("img_error");
         }
@@ -74,11 +71,11 @@
             throw new Exception("server_error");
         }
         $lastArtId = $pdo->lastInsertId();
-        $sqlImg = "INSERT INTO image (img_name, img_fk_art_id) VALUES (:img_name, :img_fk_art_id)";
-        $stmtImg = $pdo->prepare($sqlImg);
-        $stmtImg->bindParam(':img_name', $newName);
-        $stmtImg->bindParam(':img_fk_art_id', $lastArtId, PDO::PARAM_INT);
-        $insert = $stmtImg->execute();
+        $sql= "INSERT INTO image (img_name, img_fk_art_id) VALUES (:img_name, :img_fk_art_id)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':img_name', $newName, PDO::PARAM_STR);
+        $stmt->bindValue(':img_fk_art_id', $lastArtId, PDO::PARAM_INT);
+        $insert = $stmt->execute();
         if (!$insert){
             throw new Exception("server_error");
         }

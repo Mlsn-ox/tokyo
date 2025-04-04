@@ -28,50 +28,94 @@
     echo "Erreur : " . $e->getMessage();
   }
 ?>
-
 <body>
-<button class="theme-switch" id="toggle-theme" aria-label="Activer le mode sombre"><span id="theme-icon">☀️</span></button>
-  <nav class="home navbar navbar-expand-lg">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-xl home">
+    <div class="container">
       <a href="/TokyoSpot/view/homepage.php" class="navbar-brand"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="btn bg-primary navbar-toggler rounded-pill px-4" type="button" data-bs-toggle="collapse" 
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <a href="/TokyoSpot/view/homepage.php" class="nav-link">
-          Accueil
-        </a>
-        <a href="/TokyoSpot/view/index_articles.php" class="nav-link">
-          Les spots
-        </a>
-        <a href="/TokyoSpot/view/map_all.php" class="nav-link">
-          Plan de Tokyo
-        </a>
-        <a href="/TokyoSpot/view/add_article_form.php" class="nav-link">
-          Ajouter un spot
-        </a>
-        <?php if (empty($_SESSION['id'])) { ?>
-          <a href="/TokyoSpot/view/add_user_form.php" class="nav-link">
-            S'inscrire
-          </a>
-          <a href="/TokyoSpot/view/login.php" class="nav-link">
-            Connexion
-          </a>
-        <?php } else { ?>
-          <a href="/TokyoSpot/view/read_user.php?id=<?= $_SESSION['id'] ?>" class="nav-link page-profil d-flex align-items-center justify-content-center">
-            <img src="../assets/img_profil/<?= $_SESSION['img'] ?>" alt="Photo de profil" class="px-1">
-            <span id="id-giver" data-id="<?= $_SESSION['id'] ?>">Profil</span>
-          </a>
-          <?php if ($_SESSION['role'] === "admin") { ?>
-            <a href="/TokyoSpot/view/admin.php" class="nav-link page-profil">
-              Modération
-              <?= $notif['COUNT(*)'] > 0 ? "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : "" ?>
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/TokyoSpot/view/homepage.php">
+              Accueil
             </a>
-          <?php } ?> 
-          <a href="../controller/logout_controller.php" class="nav-link">
-            Déconnexion
-          </a>
-        <?php } ?>
+          </li>
+          <li class="text-primary">
+            <hr class="mx-auto my-0 menu-line">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/TokyoSpot/view/index_articles.php">
+              Voir les spots
+            </a>
+          </li>
+          <li class="text-primary">
+            <hr class="mx-auto my-0 menu-line">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/TokyoSpot/view/map_all.php">
+              Explorer la map
+            </a>
+          </li>
+          <li class="text-primary">
+            <hr class="mx-auto my-0 menu-line">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/TokyoSpot/view/add_article_form.php">
+              Ajouter un spot
+            </a>
+          </li>
+          <li class="text-primary">
+            <hr class="mx-auto my-0 menu-line">
+          </li>
+          <?php if (empty($_SESSION['id'])) { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="/TokyoSpot/view/add_user_form.php">
+                S'inscrire
+              </a>
+            </li>
+            <li class="text-primary">
+              <hr class="mx-auto my-0 menu-line">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/TokyoSpot/view/login.php">
+                Se connecter
+              </a>
+            </li>
+          <?php } else { ?>
+            <li class="nav-item">
+              <a class="nav-link page-profil d-flex justify-content-center align-items-center" href="/TokyoSpot/view/read_user.php?id=<?= $_SESSION['id'] ?>">
+                <img src="../assets/img_profil/<?= $_SESSION['img'] ?>" alt="Photo de profil" class="px-2">
+                <span id="id-giver" data-id="<?= $_SESSION['id'] ?>">
+                  Profil
+                </span>
+              </a>
+            </li>
+            <li class="text-primary">
+              <hr class="mx-auto my-0 menu-line">
+            </li>
+            <?php if ($_SESSION['role'] === "admin") { ?>
+                <li class="nav-item d-flex">
+                  <a class="nav-link moderation" href="/TokyoSpot/view/admin.php">
+                    Modération 
+                  </a>
+                  <?= $notif['COUNT(*)'] > 0 
+                    ? "<span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>" . $notif['COUNT(*)'] . "</span>" 
+                    : "<span class='badge rounded-pill bg-danger'>" . 10 . "</span>" ?>
+                </li>
+                <li class="text-primary">
+                  <hr class="mx-auto my-0 menu-line">
+                </li>
+            <?php } ?>
+            <li class="nav-item">
+              <a class="nav-link" href="../controller/logout_controller.php">
+                Déconnexion
+              </a>
+            </li>
+          <?php } ?>
+        </ul>
       </div>
     </div>
   </nav>

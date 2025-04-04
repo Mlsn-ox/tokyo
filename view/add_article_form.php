@@ -29,7 +29,7 @@
                 <p>Les spots non conformes seront supprimés.</p>
             </div>
             <div class="modal-footer d-flex justify-content-center row-gap-2">
-                <button class="btn btn-outline-success rounded-pill col-8 submit-button" 
+                <button class="btn btn-outline-success rounded-pill col-8" 
                     data-bs-dismiss="modal" aria-label="Continuer vers la création d'un article">
                     Prêt ? Publier ! 📨
                 </button>
@@ -101,10 +101,10 @@
                     </div>
                 </div>
             </div>
-            <div class="container mx-auto mt-4 mb-2 row justify-content-between">
-                <button type="submit" class="btn btn-outline-success rounded-pill mb-3 col-11 col-sm-7 col-md-6 submit" disabled 
+            <div class="container mx-auto mt-4 mb-2 d-flex flex-column flex-wrap justify-content-center align-items-center flex-lg-row justify-content-lg-between">
+                <button type="submit" class="btn btn-outline-success rounded-pill mb-3 px-3 submit" disabled 
                     aria-label="Envoyer l'article">Remplissez tous les champs demandés</button>
-                <a href="./homepage.php" class="btn btn-outline-danger rounded-pill mb-3 col-11 col-sm-7 col-md-5 col-xl-4" 
+                <a href="./homepage.php" class="btn btn-outline-danger rounded-pill mb-3 px-5 col-xl-4" 
                     aria-label="Retourner à la page d'accueil">Retour à la page d'accueil</a>
             </div>
         </form>

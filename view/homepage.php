@@ -2,7 +2,7 @@
     require_once "../includes/navbar.php";
     $notif['COUNT(*)'] > 0 ? $badge = "<span class='badge text-bg-danger rounded'>" . $notif['COUNT(*)'] . "</span>" : $badge = "";
 ?>
-<div class="section p-1 col-xxl-8 col-md-10 col-12 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
+<div class="section p-1 container mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
     <div class="container-fluid p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fading">
     <?php if (empty($_SESSION['id'])){ ?>
         <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>

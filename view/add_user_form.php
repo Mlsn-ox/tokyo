@@ -5,29 +5,35 @@
         exit();
     }
 ?>
-<div class="section home col-xxl-7 col-md-9 col-12 mx-auto p-md-4 p-3">
+<div class="section home col-xxl-7 col-lg-9 col-12 mx-auto p-md-4 p-3">
     <div class="container p-0 fade-up">
         <h1 class="m-0">Rejoignez la communauté</h1>
         <div class="separator my-3 text-center"></div>
-        <form method="POST" class="mt-4 row g-3 position-relative" action="../controller/add_user_controller.php">
-            <div class="col-md-6">
+        <form method="POST" class="mt-4 row g-3" action="../controller/add_user_controller.php">
+            <div class="col-lg-6">
                 <label for="mail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="mail" name="mail" required>
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-6">
                 <label for="name" class="form-label">Nom d'utilisateur</label>
-                <input type="text" class="form-control" id="name" data-bs-toggle="tooltip" data-bs-placement="top" pattern="[A-Za-z0-9_\-]+" name="name"
+                <input type="text" class="form-control" id="name" data-bs-toggle="tooltip" data-bs-placement="top" pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+" name="name"
                     data-bs-title="Lettres, chiffres et tirets uniquement." required>
             </div>
-            <div class="col-md-6">
-                <label for="psw" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" id="psw" data-bs-toggle="tooltip" data-bs-placement="top" name="password1"
-                    data-bs-title="Au moins 7 caractères dont un chiffre et une majuscule." pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
+            <div class="col-lg-6">
+                <label for="psw1" class="form-label">Mot de passe</label>
+                <div class="password-wrapper d-flex align-items-center">
+                    <input type="password" class="form-control" id="psw1" data-bs-toggle="tooltip" data-bs-placement="top" name="password1"
+                        data-bs-title="Au moins 7 caractères dont un chiffre et une majuscule." pattern="(?=.*[A-Z])(?=.*\d).{7,}" maxlength="100" required>
+                    <span class="toggle-password fs-5 ms-1 me-sm-3" data-target="psw1">👁️</span>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label for="psw" class="form-label">Confirmer le mot de passe</label>
-                <input type="password" class="form-control" id="psw" data-bs-toggle="tooltip" data-bs-placement="top" name="password2"
-                    data-bs-title="Au moins 7 caractères dont un chiffre et une majuscule." pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
+            <div class="col-lg-6">
+                <label for="psw2" class="form-label">Confirmer le mot de passe</label>
+                <div class="password-wrapper d-flex align-items-center">
+                    <input type="password" class="form-control" id="psw2" data-bs-toggle="tooltip" data-bs-placement="top" name="password2"
+                        data-bs-title="Au moins 7 caractères dont un chiffre et une majuscule." pattern="(?=.*[A-Z])(?=.*\d).{7,}" maxlength="100" required>
+                    <span class="toggle-password fs-5 ms-1 me-sm-3" data-target="psw2">👁️</span>
+                </div>
             </div>
             <p class="mt-4">Choisissez une image de profil</p>
             <div class="col-12 d-flex row justify-content-around mb-3 mx-auto text-center avatars">
