@@ -15,7 +15,7 @@ if (favoriteBtn.dataset.token) {
     heart.style.transition = "opacity 0.2s ease";
     heart.style.opacity = "0";
     setTimeout(() => {
-      fetch("../controller/favorite_controller.php", getData(favoriteBtn))
+      fetch("../ajax/favorite_controller.php", getData(favoriteBtn))
         .then((response) => response.json())
         .then((res) => {
           text.innerHTML = res.message;

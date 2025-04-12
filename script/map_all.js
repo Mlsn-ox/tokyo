@@ -9,7 +9,7 @@ let layerGroup = L.layerGroup().addTo(map);
 markerAll();
 
 function markerAll() {
-  fetch("../controller/map_all_controller.php")
+  fetch("../ajax/map_all_controller.php")
     .then((response) => response.json())
     .then((data) => {
       data.forEach((article) => {

@@ -1,7 +1,7 @@
 <?php
 require_once "../includes/pdo.php";
 require_once "../includes/filters.php";
-require_once "../includes/icon_category.php";
+require_once "../includes/functions.php";
 
 try {
     $limitArt = isset($_GET['limit']) ? intval($_GET['limit']) : 6; // Nombre d'articles par page

@@ -1,6 +1,9 @@
-const inputs = document.querySelectorAll("[required]");
 const submit = document.querySelector(".submit");
+const inputName = document.querySelector("#name");
+const nameInfo = document.querySelector("#nameHelp");
 const passwords = document.querySelectorAll(".toggle-password");
+const pswInfo1 = document.querySelector("#passwordHelp");
+const pswInfo2 = document.querySelector("#pswHelp");
 const psw1 = document.querySelector('input[name="password1"]');
 const psw2 = document.querySelector('input[name="password2"]');
 
@@ -15,52 +18,80 @@ passwords.forEach((toggle) => {
   });
 });
 
-// Tooltip Bootstrap
-const tooltipTriggerList = [].slice.call(
-  document.querySelectorAll('[data-bs-toggle="tooltip"]') // Sélectionne attribut data-bs-toggle="tooltip"
-);
-tooltipTriggerList.forEach(function (input) {
-  let tooltip = new bootstrap.Tooltip(input, { trigger: "manual" }); // Permet l'affichage du tooltip quand l'utilisateur saisit des données
-  input.addEventListener("focus", function () {
-    tooltip.show();
-  });
-  input.addEventListener("blur", function () {
-    tooltip.hide();
-  });
-});
-
 function checkPsw(a, b) {
   return a === b ? true : false;
 }
-
-psw2.addEventListener("input", function () {
-  console.log(checkPsw(psw1.value, psw2.value));
-});
-
-/**
- * Vérification de la saisie des champs du formulaire
- * @returns {boolean} true si tous les champs sont remplis
- * @returns {boolean} false si un champ est vide
- * @returns {boolean} active submit si tous les champs sont remplis
- */
-function checkForm() {
-  // spread operator pour transformer la NodeList en tableau pour pouvoir utiliser la méthode every
-  const allFilled = [...inputs].every((input) => {
-    return input.value.trim() !== ""; // retourne true si tous les champs sont remplis
-  });
-  submit.disabled = !allFilled; // Désactive le bouton submit si un champ est vide
-  if (allFilled && checkPsw(psw1.value, psw2.value)) {
-    // Vérifie si les psw correspondent
-    submit.innerHTML = "S'inscrire";
-    submit.classList.add("notif-bounce", "btn-success");
-    submit.classList.remove("btn-outline-success");
-  } else {
-    submit.innerHTML = "Remplissez tous les champs demandés";
-    submit.classList.add("btn-outline-success");
-    submit.classList.remove("notif-bounce", "btn-success");
-  }
+function patternPsw(c) {
+  return /^(?=.*[A-Z])(?=.*\d).{7,}$/.test(c);
 }
 
-inputs.forEach((input) => {
-  input.addEventListener("input", checkForm);
+psw1.addEventListener("input", function () {
+  if (patternPsw(psw1.value)) {
+    psw1.style.border = "2px solid var(--green)";
+    pswInfo1.classList.remove("text-danger");
+    pswInfo1.classList.add("text-success");
+  } else if (psw1.value === "") {
+    psw1.style.border = "none";
+    pswInfo1.classList.remove("text-success");
+    pswInfo1.classList.remove("text-danger");
+  } else {
+    psw1.style.border = "2px solid var(--red)";
+    pswInfo1.classList.remove("text-success");
+    pswInfo1.classList.add("text-danger");
+  }
+});
+
+psw2.addEventListener("input", function () {
+  const match =
+    checkPsw(psw1.value, psw2.value) &&
+    patternPsw(psw1.value) &&
+    patternPsw(psw2.value);
+  if (match) {
+    psw2.style.border = "2px solid var(--green)";
+    pswInfo2.classList.remove("text-danger");
+    pswInfo2.textContent = "Mot de passe ✅";
+  } else if (psw2.value === "") {
+    psw2.style.border = "none";
+    pswInfo2.classList.remove("text-success");
+    pswInfo2.classList.remove("text-danger");
+    pswInfo2.textContent = "Confirmer le mot de passe.";
+  } else {
+    psw2.style.border = "2px solid var(--red)";
+    pswInfo2.classList.add("text-danger");
+    pswInfo2.textContent = "Les mots de passe ne correspondent pas.";
+  }
+});
+
+inputName.addEventListener("input", function () {
+  const name = this.value.trim();
+  if (name === "") {
+    inputName.style.border = "none";
+    nameInfo.classList.remove("text-success", "text-danger");
+    return;
+  }
+  if (/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_-]{3,}$/.test(name)) {
+    inputName.style.border = "2px solid var(--green)";
+    fetch("../ajax/check_name.php?name=" + encodeURIComponent(name))
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.taken) {
+          nameInfo.classList.remove("text-success");
+          nameInfo.classList.add("text-danger");
+          nameInfo.textContent = "Nom d'utilisateur déjà pris.";
+          inputName.style.border = "2px solid var(--red)";
+        } else {
+          nameInfo.classList.remove("text-danger");
+          nameInfo.classList.add("text-success");
+          nameInfo.textContent = "Nom d'utilisateur disponible.";
+          inputName.style.border = "2px solid var(--green)";
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur :", error);
+      });
+  } else {
+    inputName.style.border = "2px solid var(--red)";
+    nameInfo.textContent = "Nom d'utilisateur invalide.";
+    nameInfo.classList.add("text-danger");
+  }
 });

@@ -3,10 +3,8 @@ session_start();
 require_once "../includes/pdo.php";
 
 if ($_POST["id"] != $_SESSION['id'] || $_POST["token"] != $_SESSION['token']){
-    echo json_encode([
-        "status" => "Error",
-        "message" => "Accès non autorise"
-    ]);
+    session_destroy();
+    header("Location: ../view/login.php?message_code=connect_error&status=error");
     exit();
 }
 try {

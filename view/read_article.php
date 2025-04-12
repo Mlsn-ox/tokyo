@@ -84,21 +84,11 @@
             <p><?= $article['art_content'] ?></p>
             <p>
                 Posté le <?= date("d/m/Y", strtotime($article['art_created_at'])) ?><?= $author ? ", par " : "" ?>
-                <a href="read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">
+                <a href="./read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">
                     <?= $author ?>
                 </a>
             </p>
-            <?php 
-            if (!empty($_SESSION['id']) && $_SESSION['role'] === "admin") { ?>
-                <div class="moderation my-2 d-flex justify-content-evenly align-items-center flex-wrap">
-                <?php if ($article["art_status"] === "pending") { ?>
-                    <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=approved&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-success">Valider</a>
-                    <?php } else { ?> 
-                    <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=pending&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-warning">Suspendre</a>
-                    <?php } ?> 
-                    <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=rejected&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-danger">Refuser</a>
-                </div>
-            <?php } ?> 
+            
         </div>
         <div class="container-fluid col-12 col-md-6 fade-left img-clickable-container p-2">
             <img src="../assets/img_articles/<?= $article['img'] ?>" alt="Photo de l'article"
@@ -110,28 +100,68 @@
             class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom fade-up">
         </div>
     </div>
+    <?php if (!empty($_SESSION['id']) && $_SESSION['role'] === "admin") { ?>
+        <div class="container moderation mt-4 d-flex flex-column flex-sm-row justify-content-center align-items-center flex-wrap gap-2 gap-md-5">
+        <?php if ($article["art_status"] === "pending") { ?>
+            <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=approved&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-success">Valider</a>
+            <?php } else { ?> 
+            <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=pending&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-warning">Suspendre</a>
+            <?php } ?> 
+            <a href="../view/update_article_form.php?id=<?= $article['art_id'] ?>&role=<?= $_SESSION['role'] ?>" class="btn btn-lg btn-primary">Modifier</a>
+            <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=rejected&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-danger">Refuser</a>
+        </div>
+    <?php } ?> 
     <div class="container-fluid pt-4">
         <h2 class="pb-2">Commentaires</h2>
         <ul class="list-group list-group-flush rounded-4">
             <?php
-            $sql = "SELECT comment.com_content, comment.com_posted_at, user.user_name AS commenter, user.user_id AS commenter_id 
+            if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
+                $sql = "SELECT comment.com_id, comment.com_content, comment.com_status, comment.com_posted_at, 
+                    user.user_name AS commenter, user.user_id AS commenter_id FROM comment
+                    LEFT JOIN user ON comment.com_fk_user_id = user.user_id 
+                    WHERE comment.com_fk_art_id = :id";
+            } else {
+                $sql = "SELECT comment.com_id, comment.com_content, comment.com_posted_at, user.user_name AS commenter, user.user_id AS commenter_id 
                     FROM comment
                     LEFT JOIN user ON comment.com_fk_user_id = user.user_id 
                     WHERE comment.com_fk_art_id = :id AND comment.com_status = 'approved'";
+            }
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
             if($comments){
                 foreach ($comments as $comment) { 
+                    $btn = $class = "";
+                    if (isset($comment['com_status']) && !empty($_SESSION['id']) && $_SESSION['role'] === "admin") {
+                        if ($comment["com_status"] === "pending") { 
+                            $class = "bg-warning-subtle";
+                            $btn = '<a href="../controller/moderation.php?id=' . $comment['com_id'] . 
+                                    '&action=approved&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-success me-2">Valider</a>' . 
+                                    '<a href="../controller/delete_controller.php?id=' . $comment['com_id'] . 
+                                    '&element=comment&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-danger">Supprimer</a>';
+                        } else if ($comment["com_status"] === "approved") {
+                            $btn = '<a href="../controller/moderation.php?id=' . $comment['com_id'] . 
+                                    '&action=pending&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-warning">Suspendre</a>';
+                        }  else if ($comment["com_status"] === "rejected") {
+                            $class = "bg-danger-subtle";
+                            $btn = '<a href="../controller/moderation.php?id=' . $comment['com_id'] . 
+                                    '&action=pending&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-warning me-2">Suspendre</a>' . 
+                                    '<a href="../controller/delete_controller.php?id=' . $comment['com_id'] . 
+                                    '&element=comment&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-danger">Supprimer</a>';
+                        }
+                    }
                     if (!$comment['commenter']){
-                        $comment['commenter'] = "Un inconnu";
+                        $comment['commenter'] = "Visiteur";
                         $comment['commenter_id'] = "";
                     } ?>
-                    <li class="list-group-item py-3 d-flex flex-column">
-                        <span><?= htmlentities($comment['com_content']) ?></span>
+                    <li class="list-group-item py-3 d-flex flex-column <?= $class ?>">
+                        <span><?= htmlentities(htmlspecialchars_decode($comment['com_content'])) ?></span>
                         <span class="fst-italic">
                             <a href="./read_user.php?id=<?= $comment['commenter_id'] ?>"><?= $comment['commenter'] ?></a>,
-                            le <?= $comment['com_posted_at'] ?></span>
+                            le <?= $comment['com_posted_at'] ?>
+                        </span>
+                        <div class="d-flex align-items-center my-1"><?= $btn ?></div>
                     </li>
                 <?php }
             } else { ?>
@@ -148,7 +178,7 @@
                     aria-describedby="contentHelp" placeholder="Ajouter un commentaire" maxlength="300" rows="3" required></textarea>
                     <div id="contentHelp" class="form-text">300 caractères maximum.</div>
                     <p class="mt-2 fst-italic">
-                    💬 Merci de vous relire avant d’envoyer votre commentaire. Les messages haineux ou irrespectueux ne seront pas publiés. 
+                    ⚠️ Merci de vous relire avant d’envoyer votre commentaire. Les messages haineux ou irrespectueux ne seront pas publiés. 
                         Les commentaires pleins de respect et de bonne humeur sont les bienvenus ! 
                         Tous les messages sont relus avant publication pour que cet espace reste convivial pour tous.
                     </p>

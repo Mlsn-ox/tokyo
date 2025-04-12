@@ -3,7 +3,7 @@
     require_once "../includes/pdo.php";
 
     try {
-        if ($_SESSION['token'] !== $_POST['token'] || 
+        if ($_SESSION['token'] !== $_POST['token'] || $_SESSION['bloked'] ||
             !$_POST['user_comment'] || !$_POST['art_id'] || 
             $_POST['user_comment'] != $_SESSION['id']) {
             session_destroy();

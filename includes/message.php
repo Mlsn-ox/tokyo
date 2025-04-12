@@ -2,7 +2,11 @@
 $messages = [
     'form_error' => 'Veuillez renseigner toutes les informations demandées.',
     'article_added' => 'Spot ajouté avec succès.',
-    'name_invalid' => 'Nom invalide.',
+    'name_invalid' => "Nom d'utilisateur invalide.",
+    'name_taken' => "Nom d'utilisateur déjà utilisé.",
+    'identity_invalid' => "Prénom ou nom invalide.",
+    'captcha_invalid' => "Erreur de captcha.",
+    'birthdate_error' => 'Date de naissance invalide.',
     'psw_invalid' => 'Mot de passe invalide.',
     'comment_added' => 'Commentaire ajouté avec succès.',
     'article_updated' => 'Spot mis à jour.',
@@ -23,6 +27,9 @@ $messages = [
     'server_error' => 'Erreur serveur, veuillez réessayer.',
     'redirect_error' => 'Déconnexion requise pour accéder à cette page.',
     'deconnected' => 'Vous avez été déconnecté.',
+    'unauthorized' => 'Accès non autorisé.',
+    'deleted' => 'Élément supprimé',
+    'reject_first' => 'Élément en ligne, suppression impossible',
     'generic_error' => 'Une erreur est survenue. Veuillez réessayer plus tard.',
 ];
 

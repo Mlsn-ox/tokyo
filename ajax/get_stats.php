@@ -15,53 +15,39 @@ try {
         $stats['articles_global'] = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // 2. Articles approuvés par catégorie
-        $sql = "SELECT art_fk_cat_id, COUNT(*) AS total_by_category
-                FROM article
-                WHERE art_status = 'approved'
-                GROUP BY art_fk_cat_id";
+        $sql = "SELECT art_fk_cat_id, COUNT(*) AS total_by_category FROM article
+                WHERE art_status = 'approved' GROUP BY art_fk_cat_id";
         $stmt = $pdo->query($sql);
         $stats['articles_by_category'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // 3. Infos globales sur les utilisateurs
-        $sql = "SELECT 
-                COUNT(*) AS total_users,
-                MAX(user_ins) AS newest_user_date,
-                (SELECT user_name FROM user ORDER BY user_ins DESC LIMIT 1) AS newest_user
-                FROM user";
+        $sql = "SELECT COUNT(*) AS total_users, MAX(user_ins) AS newest_user_date,
+                (SELECT user_name FROM user ORDER BY user_ins DESC LIMIT 1) AS newest_user FROM user";
         $stmt = $pdo->query($sql);
         $stats['users_global'] = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // 4. Top posteur (utilisateur avec le plus d'articles)
-        $sql = "SELECT user.user_name, COUNT(article.art_id) AS article_count
-                FROM user
+        $sql = "SELECT user.user_name, COUNT(article.art_id) AS article_count FROM user
                 LEFT JOIN article ON article.art_fk_user_id = user.user_id
-                GROUP BY user.user_id
-                ORDER BY article_count DESC
-                LIMIT 1";
+                GROUP BY user.user_id ORDER BY article_count DESC LIMIT 1";
         $stmt = $pdo->query($sql);
         $stats['top_poster'] = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // 5. Utilisateurs avec nombre d’articles
-        $sql = "SELECT 
-                user.user_id, 
-                user.user_name, 
-                user.user_mail, 
-                user.user_ins, 
-                user.user_log,
-                COUNT(article.art_id) AS total_articles
-                FROM user 
+        // 5. Utilisateurs
+        $sql = "SELECT user.user_id, user.user_is_bloked, user.user_name, user.user_firstname, user.user_lastname, user.user_birthdate, user.user_mail, user.user_log FROM user 
                 LEFT JOIN article ON user.user_id = article.art_fk_user_id 
-                GROUP BY user.user_id 
-                ORDER BY total_articles DESC";
+                LEFT JOIN comment ON user.user_id = comment.com_fk_user_id 
+                GROUP BY user.user_id ORDER BY user.user_log DESC;";
         $stmt = $pdo->query($sql);
         $stats['users'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // 6. Articles en attente de modération
-        $sql = "SELECT article.*, user.user_id AS ide, user.user_name AS author
-                FROM article
+        $sql = "SELECT article.art_id, article.art_title, article.art_created_at, image.img_name, 
+                user.user_id AS ide, user.user_name AS author, category.cat_name FROM article
                 LEFT JOIN user ON article.art_fk_user_id = user.user_id
-                WHERE article.art_status = 'pending'
-                ORDER BY article.art_id ASC";
+                LEFT JOIN image ON image.img_fk_art_id = article.art_id 
+                LEFT JOIN category ON category.cat_id = article.art_fk_cat_id 
+                WHERE article.art_status = 'pending' ORDER BY article.art_id ASC";
         $stmt = $pdo->query($sql);
         $stats['articles_pending'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -76,22 +62,16 @@ try {
         $stats['pending_comments'] = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // 9. Article avec le plus de commentaires
-        $sql = "SELECT article.art_id, article.art_title, COUNT(comment.com_id) AS comment_count
-                FROM article
+        $sql = "SELECT article.art_id, article.art_title, COUNT(comment.com_id) AS comment_count FROM article
                 JOIN comment ON article.art_id = comment.com_fk_art_id
-                GROUP BY article.art_id
-                ORDER BY comment_count DESC
-                LIMIT 1";
+                GROUP BY article.art_id ORDER BY comment_count DESC LIMIT 1";
         $stmt = $pdo->query($sql);
         $stats['most_commented_article'] = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // 10. Utilisateur qui commente le plus
-        $sql = "SELECT user.user_id, user.user_name, COUNT(comment.com_id) AS comment_count
-                FROM user
+        $sql = "SELECT user.user_id, user.user_name, COUNT(comment.com_id) AS comment_count FROM user
                 JOIN comment ON comment.com_fk_user_id = user.user_id
-                GROUP BY user.user_id
-                ORDER BY comment_count DESC
-                LIMIT 1";
+                GROUP BY user.user_id ORDER BY comment_count DESC LIMIT 1";
         $stmt = $pdo->query($sql);
         $stats['top_commenter'] = $stmt->fetch(PDO::FETCH_ASSOC);
 

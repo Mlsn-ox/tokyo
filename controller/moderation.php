@@ -8,6 +8,9 @@ try {
     if ($_GET['token'] !== $_SESSION['token']){
         throw new Exception("connect_error");
     }
+    if ($_SESSION['role'] !== "admin"){
+        throw new Exception("unauthorized");
+    }
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
     $action = $_GET['action'];
     $allowedActions = ['approved', 'rejected', 'pending'];

@@ -1,3 +1,4 @@
+const toTop = document.querySelector(".to-top");
 const navLink = document.querySelectorAll(".nav-link");
 const currentPath = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
@@ -5,6 +6,7 @@ const lightInput = document.getElementById("light-theme");
 const darkInput = document.getElementById("dark-theme");
 const savedTheme = localStorage.getItem("theme");
 const appliedTheme = savedTheme || "light";
+const captcha = document.querySelector(".g-recaptcha") || false;
 document.documentElement.setAttribute("data-theme", appliedTheme);
 document.documentElement.setAttribute("data-bs-theme", appliedTheme);
 
@@ -31,17 +33,20 @@ navLink.forEach((a) => {
   }
 });
 
-// Appliquer le thème au chargement
+// Thème au chargement
 if (appliedTheme === "dark") {
   darkInput.checked = true;
 } else {
   lightInput.checked = true;
 }
 
-// Mettre à jour le thème selon l'input choisi
+// Thème selon switcher
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   document.documentElement.setAttribute("data-bs-theme", theme);
+  if (captcha) {
+    captcha.setAttribute("data-theme", theme);
+  }
   localStorage.setItem("theme", theme);
 }
 
@@ -59,4 +64,11 @@ lightInput.addEventListener("change", () => {
 });
 darkInput.addEventListener("change", () => {
   changeTheme();
+});
+
+toTop.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 });

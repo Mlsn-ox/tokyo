@@ -7,7 +7,7 @@ let offset = 0; // Nombre d'articles déjà affichés
 const limit = 6; // Nombre d'articles à charger à chaque fois
 let loading = false;
 
-let ajaxURL = `../controller/fetch_articles.php?offset=${offset}&limit=${limit}`;
+let ajaxURL = `../ajax/fetch_articles.php?offset=${offset}&limit=${limit}`;
 
 // Ajoute les catégories si présent
 if (categories) {
@@ -65,7 +65,7 @@ function loadMoreArticles() {
           html.insertAdjacentHTML("beforeend", articleHTML);
         });
         offset += limit; // Mise à jour de l'offset
-        ajaxURL = `../controller/fetch_articles.php?offset=${offset}&limit=${limit}`;
+        ajaxURL = `../ajax/fetch_articles.php?offset=${offset}&limit=${limit}`;
         loading = false;
       }
     })

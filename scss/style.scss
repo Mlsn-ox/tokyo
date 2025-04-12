@@ -36,6 +36,10 @@ body {
   font-variant: small-caps;
 }
 
+.redim {
+  max-width: 1100px;
+}
+
 // NAVBAR
 
 .navbar {
@@ -44,10 +48,10 @@ body {
   min-height: 80px;
   font-size: 1.1rem;
   font-weight: 600;
-  .container {
+  .container-xl {
     .menu-line {
       display: none;
-      @include media(lt-xl) {
+      @include media(lt-lg) {
         display: block;
         width: 50px;
       }
@@ -109,6 +113,20 @@ body {
       }
     }
   }
+  .admin {
+    width: 140px;
+    margin: 0 auto;
+    .badge {
+      position: absolute;
+      right: 7px;
+      top: 3px;
+    }
+  }
+}
+.btn-admin:hover {
+  .badge {
+    filter: hue-rotate(150deg);
+  }
 }
 
 //HOMEPAGE
@@ -148,9 +166,9 @@ body {
 }
 
 .carousel-container {
-  max-width: 850px;
+  max-width: 1320px;
   .carousel-item {
-    height: 60vh;
+    height: 65vh;
     overflow: hidden;
     @include media(lt-md) {
       height: 50vh;
@@ -341,6 +359,10 @@ body {
         font-size: 1.3rem;
         right: 10px;
         top: 80px;
+        &:hover {
+          transform: scale(1.05);
+          transition: all 0.2s ease-in-out;
+        }
         @include media(gt-md) {
           top: 155px;
         }
@@ -397,6 +419,7 @@ body {
 
 input[type="text"],
 input[type="email"],
+input[type="date"],
 input[type="password"],
 textarea[name="content"],
 select.form-select {
@@ -466,6 +489,7 @@ select.form-select {
     label {
       border-radius: 50%;
       position: relative;
+      cursor: pointer;
       .avatar {
         width: 70%;
         border-radius: 50%;
@@ -520,8 +544,11 @@ select.form-select {
 }
 .leaflet-popup-content-wrapper {
   font-family: "Quick";
-  backdrop-filter: opacity(0.8);
-  background: linear-gradient(180deg, var(--gray-400) 0%, var(--gray-200) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--back-color) 0%,
+    var(--gray-200) 100%
+  );
   .leaflet-popup-content {
     margin: 5px 7px !important;
   }
@@ -573,23 +600,49 @@ footer {
   background-color: #2a2a2ab6;
   color: #eee;
   box-shadow: -1px -1px 10px #111;
-  img {
-    height: 30px;
+  p{
+    font-size: 0.8rem;
   }
-  @include media(xs) {
-    p {
-      font-size: 0.8rem;
+  .to-top{
+    font-size: 2rem;
+  }
+  img {
+    height: 35px;
+  }
+  .list-group-horizontal-md{
+    max-width: 720px !important;
+    border-radius: 0;
+    transition: border-color 0.3 ease;
+    &:hover > :not(:hover) {
+      border-color: transparent !important;
     }
-    img {
-      height: 15px;
+    @include media (lt-md){
+      width: 250px;
     }
+    .list-group-item{
+      color: #ddd;
+      border-radius: 0 !important;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      border-color: #999;
+      background-color: transparent;
+      transition: all 0.3s ease;
+      &:hover{
+        color: #fff;
+        background: radial-gradient(circle, $primary 0%, transparent 100%);
+      }
+    }
+  }
+  .bottom{
+    max-width: 720px;
   }
 }
 
 .container-switcher {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
+  // position: fixed;
+  // bottom: 10px;
+  // right: 10px;
   z-index: 5;
   .theme-switcher {
     background: var(--switcher-bg);

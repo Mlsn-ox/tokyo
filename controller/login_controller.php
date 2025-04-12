@@ -14,6 +14,9 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         if (!$user) {
             throw new Exception("mail_error");
         }
+        if ($user['user_is_bloked']){
+            throw new Exception("unauthorized");
+        }
         $checkPsw = password_verify($_POST["psw"], $user['user_psw']);
         if (!$checkPsw) {
             throw new Exception("login_error");
@@ -32,6 +35,7 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         $_SESSION['role'] = htmlspecialchars($user['user_role'], ENT_QUOTES, 'UTF-8');
         $_SESSION['img'] = htmlspecialchars($user['user_image'], ENT_QUOTES, 'UTF-8');
         $_SESSION['role'] = htmlspecialchars($user['user_role'], ENT_QUOTES, 'UTF-8');
+        $_SESSION['bloked'] = $user['user_is_bloked'];
         $_SESSION['token'] = bin2hex(random_bytes(16));
         if ($user['user_role']=== "admin"){
             header("Location: ../view/admin.php");

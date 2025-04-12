@@ -1,9 +1,23 @@
 <?php
     require_once "../includes/pdo.php";
     try {
+        if (isset($_POST['g-recaptcha-response'])) {
+            $recaptcha = $_POST['g-recaptcha-response'];
+            $secret = "6LeBuBArAAAAAJCwjjPwIFQo43b-2XpYGNSPdmRe";
+            $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$recaptcha");
+            $responseData = json_decode($response);
+            if (!$responseData->success) {
+                throw new Exception("captcha_invalid");
+            }
+        } else {
+            throw new Exception("captcha_invalid");
+        }
         if (
+            empty($_POST['firstname']) || 
+            empty($_POST['lastname']) || 
+            empty($_POST['birthdate']) || 
             empty($_POST['mail']) || 
-            empty($_POST['name']) ||
+            empty($_POST['name']) || 
             empty($_POST['password1']) || 
             empty($_POST['password2']) || 
             ($_POST['password1'] !== $_POST['password2'])
@@ -15,7 +29,26 @@
         if (!preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+$/u', $name)) {
             throw new Exception("name_invalid");
         }
-        // Vérifie que l'image de profil est respectée
+        // Vérifie si le pseudo existe déjà
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM user WHERE user_name = ?");
+        $stmt->execute([$name]);
+        if ($stmt->fetchColumn() > 0) {
+            throw new Exception("name_taken");
+        }
+        $birthdate = str_replace('/', '-', $_POST["birthdate"]);
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $birthdate)) {
+            throw new Exception("birthdate_error");
+        }
+        function validateNames($str) {
+            return preg_match("/^[\p{L}' -]+$/u", $str);
+        }
+        $firstname = ucfirst(trim($_POST['firstname']));
+        $lastname = ucfirst(trim($_POST['lastname']));
+        if (!validateNames($firstname) || !validateNames($lastname)) {
+            throw new Exception("identity_invalid");
+        }
+        $firstname = htmlspecialchars($firstname, ENT_QUOTES, 'UTF-8');
+        $lastname = htmlspecialchars($lastname, ENT_QUOTES, 'UTF-8');
         $allowedImages = [
             'Godzilla.png',
             'Kanagawa.png',
@@ -44,10 +77,13 @@
         if ($stmt->fetchColumn() > 0) {
             throw new Exception("signup_error"); 
         }
-        $sql = "INSERT INTO `user` (user_name, user_mail, user_psw, user_image, user_ins)
-        VALUES (:name, :mail, :psw, :img, :today)";
+        $sql = "INSERT INTO `user` (user_name, user_firstname, user_lastname, user_birthdate, user_mail, user_psw, user_image, user_ins)
+        VALUES (:name, :firstname, :lastname, :birthdate, :mail, :psw, :img, :today)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':firstname', $firstname, PDO::PARAM_STR);
+        $stmt->bindValue(':lastname', $lastname, PDO::PARAM_STR);
+        $stmt->bindValue(':birthdate', $birthdate, PDO::PARAM_STR);
         $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
         $stmt->bindValue(':psw', $password, PDO::PARAM_STR);
         $stmt->bindValue(':img', $profil, PDO::PARAM_STR);

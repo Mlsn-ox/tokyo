@@ -1,75 +1,78 @@
 import { mapping } from "./functions.js";
-const modal = document.querySelector("#confirmModal");
 const inputFiles = document.querySelector(".files");
+const imgLabel = document.querySelector(".img-label");
 const preview = document.querySelector(".preview");
+const datas = document.querySelector(".data-miner");
 const cat = document.querySelector(".category");
+const mapContainer = document.querySelector(".leaflet-container");
 const lat = document.getElementById("lat");
 const lng = document.getElementById("lng");
 const locate = document.querySelector(".localise");
 const adress = document.querySelector(".adress");
 const spinny = document.querySelector(".loading-icon");
-const inputs = document.querySelectorAll("input, textarea, select");
-const submit = document.querySelector(".submit");
+const form = document.querySelector("form");
+const mode = form.dataset.mode;
+const triggerModalBtn = document.querySelector(".submit");
+const confirmModal = new bootstrap.Modal(
+  document.getElementById("confirmModal")
+);
+const confirmBtn = document.getElementById("confirmSendBtn");
 let image = document.createElement("img");
 image.src = "";
-
-cat[0].selected = true; // Sélectionne la première option de la liste déroulante
-
-// Tooltip Bootstrap
-const tooltipTriggerList = [].slice.call(
-  document.querySelectorAll('[data-bs-toggle="tooltip"]') // Sélectionne attribut data-bs-toggle="tooltip"
-);
-tooltipTriggerList.forEach(function (input) {
-  let tooltip = new bootstrap.Tooltip(input, { trigger: "manual" }); // Permet l'affichage du tooltip quand l'utilisateur saisit des données
-  input.addEventListener("focus", function () {
-    tooltip.show();
-  });
-  input.addEventListener("blur", function () {
-    tooltip.hide();
-  });
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-  const maModale = new bootstrap.Modal(modal);
-  maModale.show();
-});
-
-/**
- * Vérification de la saisie des champs du formulaire
- * @returns {boolean} true si tous les champs sont remplis
- * @returns {boolean} false si un champ est vide
- * @returns {boolean} active submit si tous les champs sont remplis
- */
-function checkForm() {
-  // spread operator pour transformer la NodeList en tableau pour pouvoir utiliser la méthode every
-  const allFilled = [...inputs].every((input) => {
-    return input.value.trim() !== ""; // retourne true si tous les champs sont remplis
-  });
-  submit.disabled = !allFilled; // Désactive le bouton submit si un champ est vide
-  if (allFilled) {
-    submit.innerHTML = "Envoyer";
-    submit.classList.add("notif-bounce", "btn-success");
-    submit.classList.remove("btn-outline-success");
-  } else {
-    submit.innerHTML = "Veuillez remplir tous les champs demandés";
-    submit.classList.add("btn-outline-success");
-    submit.classList.remove("notif-bounce", "btn-success");
-  }
-}
-
-inputs.forEach((input) => {
-  input.addEventListener("input", checkForm);
-});
 
 // Initialisation de la map
 const map = mapping(35.705, 139.74);
 let layerGroup = L.layerGroup().addTo(map);
 map.on("click", onMapClick);
+if (mode === "update") {
+  const latData = datas.dataset.lat;
+  const lngData = datas.dataset.lng;
+  let marker = L.marker([latData, lngData]).addTo(layerGroup);
+  getAdresse(latData, lngData);
+  map.setView([latData, lngData], 16); // Recentrer sur position
+  image.src = "../assets/img_articles/" + datas.dataset.img; // Récupération de l'image
+  image.alt = "Image de l'article";
+  preview.appendChild(image);
+}
 
-// Désactivation de la première option de la liste déroulante
-cat.addEventListener("change", function () {
-  cat[0].disabled = true;
+// Vérification de la validité du formulaire
+if (triggerModalBtn && form) {
+  triggerModalBtn.addEventListener("click", (e) => {
+    if (!inputFiles.files.length && mode === "add") {
+      imgLabel.classList.remove("btn-primary");
+      imgLabel.classList.add("btn-danger");
+      imgLabel.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      let p = "Veuillez ajouter une image.";
+      preview.innerHTML = `<p class='text-danger fw-bold'>${p}</p>`;
+      return;
+    }
+    if (!lat.value || !lng.value) {
+      mapContainer.style.border = "2px solid #dc3545";
+      adress.innerHTML =
+        "<span class='text-danger fw-bold'>Veuillez cliquer sur la map pour marquer l'emplacement précis de votre spot.</span>";
+      return;
+    }
+    if (form.checkValidity()) {
+      confirmModal.show();
+    } else {
+      form.reportValidity();
+    }
+  });
+}
+confirmBtn.addEventListener("click", () => {
+  form.submit();
 });
+
+if (mode === "add") {
+  cat[0].selected = true; // Sélectionne la première option de la liste déroulante
+  // Désactivation de la première option de la liste déroulante
+  cat.addEventListener("change", function () {
+    cat[0].disabled = true;
+  });
+}
 
 /**
  * Affichage de l'image miniature et contrôle de la taille du fichier
@@ -126,7 +129,6 @@ function onMapClick(e) {
   map.addLayer(layerGroup);
   lat.value = marker._latlng.lat;
   lng.value = marker._latlng.lng;
-  checkForm();
   getAdresse(marker._latlng.lat, marker._latlng.lng);
 }
 

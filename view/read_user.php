@@ -17,8 +17,11 @@
         $stmt->execute(['id' => $id]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$user){
-            throw new Exception("user_not_found");
+            header("Location: ../view/login.php?message_code=user_not_found&status=error");
+            session_destroy();
+            exit();
         }
+        $age = getAge($user["user_birthdate"]);
         $sql = "SELECT favorite.*, article.art_title, article.art_status, image.img_name FROM `favorite` 
                 LEFT JOIN article ON article.art_id = favorite.fav_art_id 
                 LEFT JOIN image ON article.art_id = image.img_fk_art_id
@@ -54,7 +57,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="imgUpdateModalLabel">Choisissez une nouvelle image</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-img" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="POST" class="d-flex flex-wrap justify-content-around img-update">
                     <div class="modal-body avatars d-flex flex-wrap justify-content-evenly gap-3">
@@ -104,7 +107,7 @@
                         </div>
                     </div>
                     <div class="modal-footer container-fluid d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary rounded-pill px-5" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-5" data-bs-dismiss="modal">Annuler</button>
                         <button type="submit" class="btn btn-outline-success rounded-pill px-4 submit">Enregistrer</button>
                     </div>
                 </form>
@@ -126,26 +129,25 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Nom d'utilisateur</label>
                             <input type="text" name="name" class="form-control form-control" id="name" required pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+"
-                            aria-label="Nom d'utilisateur" aria-describedby="nameHelp" value="<?= htmlentities($user["user_name"]) ?>" maxlength="40">
-                            <div id="nameHelp" class="form-text">Lettres, chiffres et tirets uniquement.</div>
+                            aria-label="Nom d'utilisateur" aria-describedby="nameHelp" value="<?= htmlentities($user["user_name"]) ?>" maxlength="20">
+                            <div id="nameHelp" class="form-text">Entre 3 et 20 caractères.</div>
                         </div>
                         <div class="mb-3">
                             <label for="mail" class="form-label">Adresse e-mail</label>
                             <input type="email" name="mail" class="form-control form-control" id="mail" required
                             aria-label="Adresse e-mail" aria-describedby="mailHelp" value="<?= htmlentities($user["user_mail"]) ?>" maxlength="100">
-                            <div id="mailHelp" class="form-text">100 caractères maximum.</div>
                         </div>
                         <div class="mb-3">
                             <label for="user_psw" class="form-label">Entrer votre mot de passe pour confirmer les modifications</label>
                             <div class="password-wrapper d-flex align-items-center">
                                 <input type="password" name="psw" class="form-control password-input" id="password4" maxlength="100" required>
-                                <span class="toggle-password fs-5 ms-1 me-sm-3" data-target="password4">👁️</span>
+                                <span class="toggle-password fs-5 ms-1 me-2 me-sm-3" data-target="password4">👁️</span>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-success rounded-pill btn-confirm">Sauvegarder</button>
+                        <button type="submit" class="btn btn-outline-success rounded-pill btn-confirm">Sauvegarder</button>
                     </div>
                 </form>
             </div>
@@ -167,29 +169,48 @@
                             <label for="password1" class="form-label">Votre mot de passe actuel</label>
                             <div class="password-wrapper d-flex align-items-center">
                                 <input type="password" name="current" class="form-control password-input" id="password1" required>
-                                <span class="toggle-password fs-5 ms-1 me-sm-3" data-target="password1">👁️</span>
+                                <span class="toggle-password fs-5 ms-1 me-2 me-sm-3" data-target="password1">👁️</span>
                             </div>
                         </div>
                         <div class="mb-3">
                         <label for="password3" class="form-label">Nouveau mot de passe</label>
                             <div class="password-wrapper d-flex align-items-center">
                                 <input type="password" name="psw1" class="form-control password-input verify" id="password2" maxlength="100" pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
-                                <span class="toggle-password fs-5 ms-1 me-sm-3" data-target="password2">👁️</span>
+                                <span class="toggle-password fs-5 ms-1 me-2 me-sm-3" data-target="password2">👁️</span>
                             </div>
+                            <div id="passwordHelp" class="form-text">Le mot de passe doit contenir au moins 7 caractères, une majuscule et un chiffre.</div>
                         </div>
                         <div class="mb-3">
-                        <label for="password3" class="form-label">Confirmer le nouveau mot de passe</label>
+                        <label for="password3" id="pswHelp" class="form-label">Confirmer le nouveau mot de passe</label>
                             <div class="password-wrapper d-flex align-items-center">
                                 <input type="password" name="psw2" class="form-control password-input verify" id="password3" maxlength="100" pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
-                                <span class="toggle-password fs-5 ms-1 me-sm-3" data-target="password3">👁️</span>
+                                <span class="toggle-password fs-5 ms-1 me-2 me-sm-3" data-target="password3">👁️</span>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-success rounded-pill">Sauvegarder</button>
+                        <button type="submit" class="btn btn-outline-success rounded-pill">Sauvegarder</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="artDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="artDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="artDeleteModalLabel">Supprimer le spot ?</h1>
+                <button type="button" class="btn-close btn-close-delete" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>⚠️ <span class="text-danger fw-bold">Attention</span> : la suppression est définitive. Êtes-vous sûr de vouloir continuer ?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-outline-danger rounded-pill btn-delete">Supprimer</button>
+            </div>
             </div>
         </div>
     </div>
@@ -234,6 +255,11 @@
                                     🔐 Mot de passe
                                 </button>
                             </div>
+                        <?php } else if (!empty($_SESSION['id']) && $_SESSION['role'] == "admin"){ ?>
+                            <p class="text-center border-top m-0 py-2"><?= htmlentities($user["user_mail"]) ?></p>
+                            <p class="text-center border-top m-0 py-2">
+                                <?= htmlentities($user["user_firstname"] . " " 
+                                . $user["user_lastname"]) . " (" . $age . " ans)" ?></p>
                         <?php } ?>
                         <ul class="list-group list-group-flush user-info">
                             <li class="list-group-item">
@@ -245,9 +271,11 @@
                             <li class="list-group-item">
                                 Spots publiés : <?= htmlentities($user["total_articles"]) ?>
                             </li>
+                            <?php if (intval($user["total_articles"]) > 0){ ?> 
                             <li class="list-group-item">
                                 Dernière publication le : <?= date("d/m/Y", strtotime(htmlentities($user['last_article_date']))) ?>
                             </li>
+                            <?php } ?>
                             <li class="list-group-item">
                                 Commentaires postés : <?= htmlentities($user["total_comments"]) ?>
                             </li>
@@ -317,13 +345,16 @@
                             <p class="text-center fst-italic">Aucun spots en attente de validation</p>
                         <?php } else { 
                             foreach ($pendingArticles as $pendingArticle) { ?>
-                                <div class="card pending-card">
+                                <div class="card pending-card"  id='art-<?= $pendingArticle["art_id"] ?>'>
                                     <img src="../assets/img_articles/<?= $pendingArticle["img_name"] ?>" class="card-img-top mx-auto" alt="Illustration de l'article">
                                     <div class="card-body d-flex flex-column justify-content-between align-items-center">
                                         <h5 class="card-title text-center"><?= $pendingArticle["art_title"] ?></h5>
                                         <p class="fst-italic">Spot créé le : <?= date("d/m/Y", strtotime(htmlentities($pendingArticle['art_created_at']))) ?></p>
-                                        <a href="../view/update_article.php?id=<?= $pendingArticle['art_id'] ?>" class="btn btn-outline-success rounded-pill mb-2">Modifier le spot</a>
-                                        <button class="btn btn-outline-danger rounded-pill mb-2">Annuler la publication</button>
+                                        <a href="../view/update_article_form.php?id=<?= $pendingArticle['art_id'] ?>" class="btn btn-outline-success rounded-pill mb-2">Modifier le spot</a>
+                                        <button type="button" class="btn btn-outline-danger rounded-pill mb-2 btn-delete-modal" data-id="<?= $pendingArticle["art_id"] ?>" 
+                                            data-bs-toggle="modal" data-bs-target="#artDeleteModal" data-session="<?= $_SESSION["id"] ?>" data-token="<?= $_SESSION["token"] ?>">
+                                            Annuler la publication
+                                        </button>
                                     </div>
                                 </div>
                             <?php };

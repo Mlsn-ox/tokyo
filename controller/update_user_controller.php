@@ -30,6 +30,12 @@ try {
     if (!$mail) {
         throw new Exception("mail_error");
     }
+    // Vérification du nom
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM user WHERE user_name = ? AND user_id != ?");
+    $stmt->execute([$name, $id]);
+    if ($stmt->fetchColumn() > 0) {
+        throw new Exception("name_taken");
+    }
     // Vérification du mail
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM user WHERE user_mail = ? AND user_id != ?");
     $stmt->execute([$mail, $id]);

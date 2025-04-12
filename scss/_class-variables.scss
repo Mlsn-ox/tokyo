@@ -21,9 +21,9 @@
 $enable-shadows: true;
 $blue: #1a6a99;
 $success: #116933;
-$info: #6d16b4;
-$warning: #dfc845;
 $danger: #dc3545;
+$info: #4d3861;
+$warning: #f5a623;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 :root {
@@ -38,7 +38,8 @@ $danger: #dc3545;
   --gray-800: #1f1f1f;
   --gray-900: #121212;
   --black: #000;
-  --primary: #0a2e42;
+  --red: #dc3546c5;
+  --green: #1169336e;
   --font-family: "Quick";
   --card-bg: #ffffff56;
   --shadow-color: #ffffff1a;
@@ -79,6 +80,8 @@ $danger: #dc3545;
   --gray-800: #d0d0d0;
   --gray-900: #f1f1f1;
   --black: #fff;
+  --red: #e45260ad;
+  --green: #129c47;
   --font-family: "Quick";
   --card-bg: #00000056;
   --shadow-color: #1b1b1b1a;
@@ -105,38 +108,6 @@ $danger: #dc3545;
   --slider-shadow: inset 0 1px 1px #e7e7e7;
   --switcher-bg: linear-gradient(160deg, #1a6a99 0%, #7bdaff 100%);
   --slider-bg: linear-gradient(160deg, #000 20%, #1a6a99 100%);
-}
-
-.btn-outline-primary {
-  background-color: var(--btn-bg-primary);
-  color: var(--btn-color-primary);
-  transition: all 0.3s ease;
-  &:hover {
-    background-color: var(--btn-bg-hover-primary);
-    color: var(--btn-color-hover-primary);
-  }
-}
-
-.btn-outline-success {
-  background-color: var(--btn-bg-success);
-  color: var(--btn-color-success);
-  &:hover {
-    background-color: var(--btn-bg-hover-success);
-    color: var(--btn-color-hover-success);
-  }
-}
-
-.btn-outline-danger {
-  background-color: var(--btn-bg-danger);
-  color: var(--btn-color-danger);
-  &:hover {
-    background-color: var(--btn-bg-hover-danger);
-    color: var(--btn-color-hover-danger);
-  }
-}
-
-.btn:disabled {
-  color: var(--gray-700);
 }
 
 // RESET
@@ -369,6 +340,47 @@ $danger: #dc3545;
   }
 }
 
+.btn-outline-primary {
+  background-color: var(--btn-bg-primary);
+  color: var(--btn-color-primary);
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: var(--btn-bg-hover-primary);
+    color: var(--btn-color-hover-primary);
+  }
+}
+
+.btn-outline-success {
+  background-color: var(--btn-bg-success);
+  color: var(--btn-color-success);
+  &:hover {
+    background-color: var(--btn-bg-hover-success);
+    color: var(--btn-color-hover-success);
+  }
+}
+
+.btn-outline-danger {
+  background-color: var(--btn-bg-danger);
+  color: var(--btn-color-danger);
+  &:hover {
+    background-color: var(--btn-bg-hover-danger);
+    color: var(--btn-color-hover-danger);
+  }
+}
+
+.btn:disabled {
+  color: var(--gray-700);
+}
+
+form .btn {
+  min-width: 250px;
+}
+
+.modal .btn {
+  min-width: 150px;
+  margin: 3px auto;
+}
+
 // MAP
 
 #map {
@@ -412,8 +424,3 @@ $danger: #dc3545;
   border: 1px solid $danger;
   animation: fadeMessage 0.4s ease, fadeOut 0.5s ease-in 1.8s forwards;
 }
-
-/*
-cards triés par popularité
-newsletters 
-*/

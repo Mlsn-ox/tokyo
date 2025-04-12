@@ -5,7 +5,7 @@
         return isset($_GET["category"]) || isset($_GET["order"]);
     }  
 ?>
-<div class="section col-12 col-xl-11 col-xxl-10 p-xl-3 p-lg-2 p-1 mx-auto home d-flex flex-column align-items-center">
+<div class="section container p-xl-3 p-lg-2 p-1 mx-auto home d-flex flex-column align-items-center">
     <div class="container d-flex justify-content-center my-4 filters">
         <button class="btn btn-lg btn-outline-success rounded-pill text-black d-flex align-items-center justify-content-center px-3 gap-2" 
             type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
