@@ -1,5 +1,5 @@
+import { togglePassword } from "./functions.js";
 const formUpdateImg = document.querySelector("form.img-update");
-const formUpdateUser = document.querySelector("form.user-update");
 const updateImg = document.querySelector(".update-img");
 const modalOpen = document.querySelector(".offcanvas-link");
 const psw1 = document.querySelector("#password2");
@@ -7,7 +7,6 @@ const psw2 = document.querySelector("#password3");
 const pswInfo1 = document.querySelector("#passwordHelp");
 const pswInfo2 = document.querySelector("#pswHelp");
 const passwords = document.querySelectorAll(".toggle-password");
-const confirmBtn = document.querySelector(".btn-confirm");
 const deleteBtnModal = document.querySelectorAll(".btn-delete-modal");
 const deleteBtn = document.querySelector(".btn-delete");
 const closeImgBtn = document.querySelector(".btn-close-img");
@@ -19,15 +18,8 @@ let idToDelete = null;
 let idSession = null;
 let token = null;
 
-// Affiche le mot de passe en clair
 passwords.forEach((toggle) => {
-  toggle.addEventListener("click", () => {
-    const inputId = toggle.getAttribute("data-target");
-    const input = document.getElementById(inputId);
-    const isPassword = input.getAttribute("type") === "password";
-    input.setAttribute("type", isPassword ? "text" : "password");
-    toggle.textContent = isPassword ? "🙈" : "👁️";
-  });
+  toggle.addEventListener("click", togglePassword);
 });
 
 deleteBtnModal.forEach((btn) => {

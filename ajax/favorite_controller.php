@@ -1,6 +1,5 @@
 <?php
-session_start();
-require_once "../includes/pdo.php";
+    require_once "../config.php";
 
 if ($_POST["user_id"] != $_SESSION['id'] || $_POST["token"] != $_SESSION['token']){
     echo json_encode([

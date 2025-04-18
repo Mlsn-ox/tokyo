@@ -1,6 +1,5 @@
 <?php
-session_start();
-require_once "../includes/pdo.php";
+    require_once "../config.php";
 
 if (
     empty($_SESSION['id']) || 

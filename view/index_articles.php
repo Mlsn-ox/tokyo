@@ -1,10 +1,16 @@
-<?php
-    require_once "../includes/navbar.php";
-    require_once "../includes/filters.php";
-    function filterSet() {
-        return isset($_GET["category"]) || isset($_GET["order"]);
-    }  
+<?php 
+    require_once "../config.php";
+    $menu = "index";
 ?>
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <?php require_once "../includes/head.php"; ?>
+    <title>Spots - TokyoSpot</title>
+    <meta name="description" content="Spots- TokyoSpot">
+</head>
+<body>
+<?php require_once "../includes/navbar.php";?>
 <div class="section container p-xl-3 p-lg-2 p-1 mx-auto home d-flex flex-column align-items-center">
     <div class="container d-flex justify-content-center my-4 filters">
         <button class="btn btn-lg btn-outline-success rounded-pill text-black d-flex align-items-center justify-content-center px-3 gap-2" 
@@ -44,5 +50,7 @@
     <div class="container-fluid row justify-content-around flex-wrap" id="articles"></div>
     <div class="container mx-auto text-center my-3" id="loader"></div>
 </div>
-<script type="module" src="../script/index_articles.js"></script>
+<script type="module" src="<?= $config['url'] ?>/script/index_articles.js"></script>
 <?php require_once "../includes/footer.php" ?>
+</body>
+</html>

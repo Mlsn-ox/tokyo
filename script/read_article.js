@@ -3,13 +3,13 @@ const gps = document.querySelector("#map");
 let lat = gps.dataset.lat;
 let lng = gps.dataset.lng;
 const map = mapping(lat, lng);
-let marker = L.marker([lat, lng]).addTo(map);
+L.marker([lat, lng]).addTo(map);
 const favoriteBtn = document.querySelector("#favorite");
 const text = document.querySelector(".fav-text");
 
 if (favoriteBtn.dataset.token) {
   // Vérifie que la session est bien active
-  favoriteBtn.addEventListener("click", function (event) {
+  favoriteBtn.addEventListener("click", function(event) {
     event.preventDefault();
     const heart = document.querySelector(".heart");
     heart.style.transition = "opacity 0.2s ease";

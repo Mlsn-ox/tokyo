@@ -1,7 +1,5 @@
 <?php
-    session_start();
-    require_once "../includes/pdo.php";
-
+    require_once "../config.php";
     try {
         if ($_SESSION['token'] !== $_POST['token'] || $_SESSION['bloked'] ||
             !$_POST['user_comment'] || !$_POST['art_id'] || 
@@ -17,7 +15,7 @@
         $content = htmlspecialchars(ucfirst(trim($_POST['comment_content'])), ENT_QUOTES, 'UTF-8');
         $author = filter_var($_POST['user_comment'], FILTER_VALIDATE_INT);
         $article = filter_var($_POST['art_id'], FILTER_VALIDATE_INT);
-        $today = date('Y-m-d'); // Date du jour
+        $today = date('Y-m-d');
         $sql = "INSERT INTO comment (com_posted_at, com_content, com_fk_art_id, com_fk_user_id) 
                 VALUES (:today, :content, :article, :author)";
         $stmt = $pdo->prepare($sql);

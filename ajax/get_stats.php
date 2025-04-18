@@ -1,6 +1,5 @@
 <?php
-require_once "../includes/pdo.php";
-
+require_once "../config.php";
 $stats = [];
 
 try {
@@ -34,7 +33,7 @@ try {
         $stats['top_poster'] = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // 5. Utilisateurs
-        $sql = "SELECT user.user_id, user.user_is_bloked, user.user_name, user.user_firstname, user.user_lastname, user.user_birthdate, user.user_mail, user.user_log FROM user 
+        $sql = "SELECT user.user_id, user.user_is_blocked, user.user_name, user.user_firstname, user.user_lastname, user.user_birthdate, user.user_mail, user.user_log FROM user 
                 LEFT JOIN article ON user.user_id = article.art_fk_user_id 
                 LEFT JOIN comment ON user.user_id = comment.com_fk_user_id 
                 GROUP BY user.user_id ORDER BY user.user_log DESC;";

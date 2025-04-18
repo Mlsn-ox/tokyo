@@ -48,16 +48,20 @@ function loadStats() {
     data.users.forEach(user => {
       let lastname = user.user_lastname.toUpperCase()
       let age = getAge(user.user_birthdate)
-      let bloked = user.user_is_bloked ? "table-danger" : "";
-      let interdit = user.user_is_bloked ? "⛔" : "";
+      let bloked = user.user_is_blocked ? "blocked" : "";
+      let interdit = user.user_is_blocked ? "⛔" : "🔵";
       userTable.innerHTML += `
         <tr class="${bloked}">
-          <td><a href="./read_user.php?id=${user.user_id}" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
-            ${interdit} ${user.user_name}</a></td>
-          <td class="d-none d-md-table-cell">${user.user_firstname} ${lastname}</td>
-          <td class="d-none d-md-table-cell">${age} ans</td>
-          <td>${user.user_mail}</td>
+          <td><a href="./read_user.php?id=${user.user_id}" 
+            class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+            ${user.user_name}
+            </a>
+          </td>
+          <td class="d-none d-lg-table-cell">${user.user_firstname} ${lastname}</td>
+          <td class="d-none d-lg-table-cell">${age} ans</td>
+          <td class="d-none d-sm-table-cell">${user.user_mail}</td>
           <td class="d-none d-sm-table-cell">${formatDate(user.user_log)}</td>
+          <td>${interdit}</td>
         </tr>
         `;
     })

@@ -67,8 +67,7 @@ confirmBtn.addEventListener("click", () => {
 });
 
 if (mode === "add") {
-  cat[0].selected = true; // Sélectionne la première option de la liste déroulante
-  // Désactivation de la première option de la liste déroulante
+  cat[0].selected = true; 
   cat.addEventListener("change", function () {
     cat[0].disabled = true;
   });

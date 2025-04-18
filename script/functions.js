@@ -75,3 +75,17 @@ export function getEmojiCategory(cat) {
       return "🎎";
   }
 }
+
+/**
+  * Affiche ou masque le mot de passe dans un champ de saisie.  
+  * @param {Event} event - L'événement de clic sur le bouton de basculement.
+  */
+export function togglePassword(event) {
+  const toggle = event.currentTarget;
+  const inputId = toggle.getAttribute("data-target");
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isPassword = input.getAttribute("type") === "password";
+  input.setAttribute("type", isPassword ? "text" : "password");
+  toggle.textContent = isPassword ? "🙈" : "👁️";
+}

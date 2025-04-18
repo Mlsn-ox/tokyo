@@ -1,6 +1,5 @@
 <?php
-session_start();
-require_once "../includes/pdo.php";
+require_once "../config.php";
 
 if (
     empty($_SESSION['id']) || 
@@ -15,13 +14,11 @@ if (
 try {
     $idUser = $_SESSION['id'];
     $idArticle = $_POST['art_id'];
-    // Vérification du de l'article
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM article WHERE art_id=? AND art_fk_user_id=?");
     $stmt->execute([$idArticle, $idUser]);
     if ($stmt->fetchColumn() == 0) {
         throw new Exception("article_error");
     }
-    // Suppression
     $stmt = $pdo->prepare("DELETE FROM article WHERE art_id=?");
     $verif = $stmt->execute([$idArticle]);
     if (!$verif) {

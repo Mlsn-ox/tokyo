@@ -1,26 +1,38 @@
-
-<?php if(!empty($_SESSION['id'])){ ?>
-    <script src="../script/session_timeout.js"></script>
-<?php } ?>
 <footer class="d-flex flex-column justify-content-center p-3">
-    <ul class="container list-group list-group-horizontal-md mb-2 p-0">
-        <a href="../view/homepage.php" class="list-group-item list-group-item-action text-center">Accueil</a>
-        <a href="#" class="list-group-item list-group-item-action text-center">CGU</a>
-        <a href="#" class="list-group-item list-group-item-action text-center">Mentions Légales</a>
-        <a href="#" class="list-group-item list-group-item-action text-center">Contact</a>
+    <ul class="container-xl list-group list-group-horizontal-md mb-2 p-0">
+        <a href="<?= $config['url'] ?>/view/homepage.php" 
+            class="list-group-item list-group-item-action text-center <?= $menu === "accueil" ? "active-footer" : '' ?>">
+            Accueil
+        </a>
+        <a href="<?= $config['url'] ?>/papers/cgu.php" 
+            class="list-group-item list-group-item-action text-center <?= $menu === "cgu" ? "active-footer" : '' ?>">
+            CGU
+        </a>
+        <a href="<?= $config['url'] ?>/papers/confidentialite.php" 
+            class="list-group-item list-group-item-action text-center <?= $menu === "confidentialite" ? "active-footer" : '' ?>">
+            Confidentialité
+        </a>
+        <a href="<?= $config['url'] ?>/papers/mentions_legales.php" 
+            class="list-group-item list-group-item-action text-center <?= $menu === "mentions_legales" ? "active-footer" : '' ?>">
+            Mentions Légales
+        </a>
+        <a href="<?= $config['url'] ?>/papers/contact_form.php" 
+            class="list-group-item list-group-item-action text-center <?= $menu === "contact" ? "active-footer" : '' ?>">
+            Contact
+        </a>
     </ul>
-    <div class="container bottom mx-auto mt-sm-1 d-flex flex-column flex-sm-row align-items-center flex-wrap justify-content-between">
+    <div class="container bottom mx-auto d-flex flex-column flex-sm-row align-items-center flex-wrap justify-content-between">
         <div class="d-flex flex-column flex-sm-row align-items-center">
             <div class="d-flex align-items-center">
-                <img src="../assets/logo_category/Torii-sans.png" alt="Logo TokyoSpot">
-                <p class="m-0">©TokyoSpot - 2025 -</p>
+                <img src="<?= $config['url'] ?>/assets/logo_category/Torii-sans.png" alt="Logo TokyoSpot">
+                <p class="m-0">© <?= $config['title'] ?> - <?= date('Y') ?> -</p>
             </div>
             <div class="d-flex align-items-center">
                 <p class="m-0">&nbsp Conception Mlsn</p>
-                <img src="../assets/logo_category/Mlsn-logo.png" alt="Logo Mlsn" class="ps-2">
+                <img src="<?= $config['url'] ?>/assets/logo_category/Mlsn-logo.png" alt="Logo Mlsn" class="ps-2">
             </div>
         </div>
-        <div class="d-flex align-items-center my-2">
+        <div class="d-flex align-items-center">
             <div class="container-switcher ms-3">
                 <div class="theme-switcher">
                     <input type="radio" id="light-theme" name="themes" checked />
@@ -34,5 +46,3 @@
         </div>
     </div>
 </footer>
-</body>
-</html>

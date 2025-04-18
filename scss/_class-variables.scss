@@ -20,7 +20,7 @@
 // Variable overrides bootstrap
 $enable-shadows: true;
 $blue: #1a6a99;
-$success: #116933;
+$success: #2a702a;
 $danger: #dc3545;
 $info: #4d3861;
 $warning: #f5a623;
@@ -39,7 +39,7 @@ $warning: #f5a623;
   --gray-900: #121212;
   --black: #000;
   --red: #dc3546c5;
-  --green: #1169336e;
+  --green: #2a702a6e;
   --font-family: "Quick";
   --card-bg: #ffffff56;
   --shadow-color: #ffffff1a;
@@ -48,7 +48,7 @@ $warning: #f5a623;
   --inner-shadow: inset 3px 3px 6px #bbb, inset -3px -3px 6px #fff;
   --background: url(../assets/tokyo-sakura.png);
   --torii: url(../assets/logo_category/Torii.png);
-  --back-color: #ffffffb6;
+  --back-color: #ffffffc0;
   --pink: #f9c8d2da;
   --active-bg: url(../assets/hover-bg.png);
   --btn-bg-primary: transparent;
@@ -56,9 +56,9 @@ $warning: #f5a623;
   --btn-color-hover-primary: #fff;
   --btn-bg-hover-primary: #1a6a99;
   --btn-bg-success: transparent;
-  --btn-color-success: #116933;
+  --btn-color-success: #2a702a;
   --btn-color-hover-success: #fff;
-  --btn-bg-hover-success: #116933;
+  --btn-bg-hover-success: #2a702a;
   --btn-bg-danger: transparent;
   --btn-color-danger: #dc3545;
   --btn-color-hover-danger: #fff;
@@ -90,16 +90,16 @@ $warning: #f5a623;
   --inner-shadow: inset 3px 3px 6px #444, inset -3px -3px 6px #000;
   --background: url(../assets/tokyo-night.avif);
   --torii: url(../assets/logo_category/Torii-dark.png);
-  --back-color: #272727b6;
+  --back-color: #272727d0;
   --pink: #ff839cda;
   --active-bg: url(../assets/hover-bg-dark.png);
   --btn-bg-primary: #1a6a99;
   --btn-color-primary: #fff;
   --btn-color-hover-primary: #1a6a99;
   --btn-bg-hover-primary: transparent;
-  --btn-bg-success: #116933;
+  --btn-bg-success: #2a702a;
   --btn-color-success: #fff;
-  --btn-color-hover-success: #116933;
+  --btn-color-hover-success: #2a702a;
   --btn-bg-hover-success: transparent;
   --btn-bg-danger: #dc3545;
   --btn-color-danger: #fff;
@@ -161,17 +161,6 @@ $warning: #f5a623;
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.7) translateY(20px) rotateZ(10deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0) rotateZ(0);
   }
 }
 
@@ -370,6 +359,13 @@ $warning: #f5a623;
 
 .btn:disabled {
   color: var(--gray-700);
+}
+
+.active-btn{
+  box-shadow: var(--inner-shadow) !important;
+  pointer-events: none;
+  cursor: default;
+  background-color: var(--gray-100);
 }
 
 form .btn {

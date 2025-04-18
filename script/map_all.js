@@ -1,5 +1,4 @@
 import { mapping } from "./functions.js";
-import {} from "./functions.js";
 const map = mapping(35.679432, 139.763259);
 const locate = document.querySelector(".localise");
 const adress = document.querySelector(".adress");

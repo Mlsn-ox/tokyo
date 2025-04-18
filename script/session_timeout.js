@@ -8,5 +8,4 @@ function resetTimer() {
 ["click", "mousemove", "keypress", "scroll"].forEach((e) =>
   window.addEventListener(e, resetTimer)
 );
-
 resetTimer();

@@ -1,6 +1,6 @@
 <?php
-require_once "../includes/pdo.php";
-
+    require_once "../config.php";
+    
 if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
     try {
         $mail = filter_var(trim($_POST['mail']), FILTER_VALIDATE_EMAIL);

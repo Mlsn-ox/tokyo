@@ -1,11 +1,22 @@
-<?php
-    require_once "../includes/navbar.php";
+<?php 
+    require_once "../config.php";
+    $menu = "accueil";
+?>
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <?php require_once "../includes/head.php"; ?>
+    <title>Accueil - TokyoSpot</title>
+    <meta name="description" content="Accueil - TokyoSpot">
+</head>
+<body>
+<?php require_once "../includes/navbar.php";
     $badge = $notif['COUNT(*)'] > 0 
     ? "<span class='badge text-bg-primary rounded'>" . $notif['COUNT(*)'] . "</span>" 
     : "";
 ?>
 <div class="section p-1 container-fluid mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
-    <div class="container p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fading">
+    <div class="container-xl p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fading">
     <?php if (empty($_SESSION['id'])){ ?>
         <h1 class="text-center mb-3">Bienvenue chez TokyoSpot !</h1>
         <p class="d-none d-sm-block">
@@ -23,15 +34,17 @@
             Ensemble, faisons de TokyoSpot la référence pour découvrir Tokyo sous un nouvel angle !
         </p>
         <p>
-            Une découverte à partager ? 📍 <a href="./login.php">Venez partager avec nous votre trouvaille</a> et faites voyager les autres à travers votre regard !
+            Une découverte à partager ? 📍 <a href="<?= $config['url'] ?>/view/login.php">Venez partager avec nous votre trouvaille</a> et faites voyager les autres à travers votre regard !
         </p>
         <?php } else { ?> 
             <h2 class="mb-3 text-center fw-normal">Bienvenue <?= $_SESSION['name'] ?>, qu'allez-vous faire aujourd'hui ?</h2>
             <div class="container d-flex flex-wrap row-gap-2 column-gap-2 justify-content-center">
-                <?= $_SESSION['role'] === "admin" ?  '<a class="btn btn-outline-danger btn-admin" href="../view/admin.php">Espace modérateur ' . $badge . '</a>' : "" ?>
-                <a class="btn btn-outline-primary" href="../view/index_articles.php">Explorer les spots</a>
-                <a class="btn btn-outline-primary" href="../view/add_article_form.php">Partager un nouveau lieu</a>
-                <a class="btn btn-outline-primary" href="../view/read_user.php?id=<?= $_SESSION['id'] ?>">Inspecter votre profil</a>
+                <?= $_SESSION['role'] === "admin" ? 
+                    '<a class="btn btn-outline-danger btn-admin" href="' . $config['url'] . '/view/admin.php">Espace modérateur ' . $badge . '</a>' 
+                    : "" ?>
+                <a class="btn btn-outline-primary" href="<?= $config['url'] ?>/view/index_articles.php">Explorer les spots</a>
+                <a class="btn btn-outline-primary" href="<?= $config['url'] ?>/view/add_article.php">Partager un nouveau lieu</a>
+                <a class="btn btn-outline-primary" href="<?= $config['url'] ?>/view/read_user.php?id=<?= $_SESSION['id'] ?>">Inspecter votre profil</a>
             </div>
         <?php } ?>
     </div>
@@ -49,14 +62,15 @@
         };
         if ($articles){ 
             ?>
-            <div class="container p-xl-5 p-md-3 p-2 rounded-5 home fading carousel-container">
+            <div class="container-xl p-xl-5 p-md-3 p-2 rounded-5 home fading carousel-container redim">
                 <h1 class="text-center mb-3">Explorer nos spots :</h1>
                 <div id="carouselExampleInterval" class="carousel slide carousel-fade mx-auto" data-bs-ride="carousel">
                     <div class="carousel-inner rounded-5">
                         <?php foreach ($articles as $index => $article) { ?>
                             <div class="carousel-item <?= $index === 0 ? "active" : "" ?>" data-bs-interval="4000">
                                 <a href="read_article.php?id=<?= $article['img_fk_art_id'] ?>">
-                                    <img src="../assets/img_articles/<?= $article["img_name"] ?>" class="d-block w-100 carousel-img" alt="Photo d'article">
+                                    <img src="<?= $config['url'] ?>/assets/img_articles/<?= $article["img_name"] ?>" class="d-block w-100 carousel-img" 
+                                    alt="<?= $config['alt_img'] ?>">
                                 </a>
                             </div>
                         <?php } ?> 
@@ -73,7 +87,7 @@
             </div>
         <?php } ?>
 
-    <div class="container-xxl p-xl-5 p-md-3 py-2 my-3 my-md-4 rounded-5 home direct fading">
+    <div class="container-xl p-xl-5 p-md-3 py-2 my-3 my-md-4 rounded-5 home direct fading">
         <h1 class="text-center">En direct de Tokyo : carrefour Shibuya</h1>
         <div class="d-flex justify-content-center align-items-center mb-2 flex-wrap">
             <div id="heure-tokyo" class="d-flex align-items-center justify-content-center mx-3 mx-sm-auto col-lg-2"></div>
@@ -84,5 +98,7 @@
         </div>
     </div>
 </div>
-<script type="module" src="../script/homepage.js"></script>
+<script type="module" src="<?= $config['url'] ?>/script/homepage.js"></script>
 <?php require_once "../includes/footer.php" ?>
+</body>
+</html>

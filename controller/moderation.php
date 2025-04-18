@@ -1,8 +1,8 @@
 <?php
-    session_start();
-    require_once "../includes/pdo.php";
+    require_once "../config.php";
+    
 try {
-    if (!isset($_GET['id'], $_GET['action'], $_GET['token'])) {  
+    if (!isset($_GET['id'], $_GET['action'],$_GET['element'], $_GET['token'])) {  
         throw new Exception("server_error");
     }
     if ($_GET['token'] !== $_SESSION['token']){
@@ -17,13 +17,27 @@ try {
     if (!$id || !in_array($action, $allowedActions)) {
         throw new Exception("param_not_found");
     }
-    $sql = "UPDATE article SET art_status = :action WHERE art_id = :id";
+    $element = $_GET['element'];
+    $articleId = $location = "";
+    if ($element === "article"){
+        $sql = "UPDATE article SET art_status = :action WHERE art_id = :id";
+        $location = "Location: ../view/admin.php?message_code=article_updated&status=success";
+    } else if ($element === "comment"){
+        $sql = "SELECT com_fk_art_id FROM comment WHERE com_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $articleId = $stmt->fetch(PDO::FETCH_ASSOC);
+        $location = "Location: ../view/read_article.php?id=" . $articleId['com_fk_art_id'] . "&message_code=comment_updated&status=success";
+        $sql = "UPDATE comment SET com_status = :action WHERE com_id = :id";
+    } else {
+        throw new Exception("param_not_found");
+    }
     $stmt = $pdo->prepare($sql);
     $verif = $stmt->execute(['action' => $action, 'id' => $id]);
     if (!$verif) {
         throw new Exception("server_error"); 
     } 
-    header("Location: ../view/admin.php?message_code=article_updated&status=success");
+    header($location);
     exit;    
 } catch (Exception $e) {
     $error_code = urlencode($e->getMessage());

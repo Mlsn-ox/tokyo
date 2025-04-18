@@ -1,17 +1,26 @@
-<?php
-    require_once "../includes/navbar.php";
-    if ($_SESSION['role'] !== "admin"){
-        header("Location: ../view/homepage.php");
-        exit;
+<?php 
+    require_once "../config.php";
+    $menu = "admin";
+?>
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <?php require_once "../includes/head.php"; ?>
+    <title>Admin - TokyoSpot</title>
+    <meta name="description" content="Administration - TokyoSpot">
+</head>
+<body>
+<?php require_once "../includes/navbar.php"; 
+    if (!isset($_SESSION['id']) || $_SESSION['role'] !== "admin"){
+        header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
+        exit();
     }
     // echo "<pre>";
     // print_r($news);
     // echo "</pre>";
 ?>
-
-<div class="section container-fluid p-0 mx-auto d-flex flex-column justify-content-center overflow-hidden token"  data-token="<?= $_SESSION["token"] ?>">
-
-    <div class="container p-xl-5 p-sm-3 p-1 rounded-5 my-3 my-md-4 home fading user">
+<div class="section home col-12 col-xl-10 col-lg-11 p-0 mx-auto d-flex token"  data-token="<?= $_SESSION["token"] ?>">
+    <div class="container-fluid px-xl-4 p-sm-3 p-1 rounded-5 my-3 fading user">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link fw-bold active" id="active-tab" data-bs-toggle="tab" href="#active" role="tab"
@@ -57,12 +66,13 @@
             <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab" >
                 <table class="table table-striped text-center">
                     <thead>
-                        <tr class="en-tete">
+                        <tr class="en-tete table-info">
                             <th>Pseudo</th>
-                            <th class="d-none d-md-table-cell">Nom Complet</th>
-                            <th class="d-none d-md-table-cell">Âge</th>
-                            <th>Email</th>
+                            <th class="d-none d-lg-table-cell">Nom Complet</th>
+                            <th class="d-none d-lg-table-cell">Âge</th>
+                            <th class="d-none d-sm-table-cell">Email</th>
                             <th class="d-none d-sm-table-cell">Connexion</th>
+                            <th>Statut</th>
                         </tr>
                         <tbody id="table-user"></tbody>
                     </thead>
@@ -75,5 +85,7 @@
         </div>
     </div>
 </div>
-<script type="module" src="../script/admin.js"></script>
+<script type="module" src="<?= $config['url'] ?>/script/admin.js"></script>
 <?php require_once "../includes/footer.php" ?>
+</body>
+</html>

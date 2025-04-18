@@ -1,15 +1,27 @@
-<?php
-require_once "../includes/navbar.php";
-if (empty($_SESSION['id'])){
-    header("Location: ../view/login.php?message_code=connect_error&status=success");
-    exit();
-}
-$buttonSubmit = "Publier mon spot";
-$buttonPrevious = "Retour à la page d'accueil";
-$href = "./homepage.php";
-$mode = "add";
+<?php 
+    require_once "../config.php";
+    $menu = "add_article";
+    $buttonSubmit = "Publier mon spot";
+    $buttonPrevious = "Retour à la page d'accueil";
+    $href = "./homepage.php";
+    $mode = "add";
 ?>
-<div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true" >
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <?php require_once "../includes/head.php"; ?>
+    <title>Inscription - TokyoSpot</title>
+    <meta name="description" content="Inscription - TokyoSpot">
+</head>
+<body>
+<?php require_once "../includes/navbar.php"; 
+    if (empty($_SESSION['id'])){
+        header("Location: ../view/login.php?message_code=connect_error&status=success");
+        exit();
+    }
+?>
+<div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" 
+    tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable mt-5">
         <div class="modal-content">
             <div class="modal-header">
@@ -54,5 +66,7 @@ $mode = "add";
         ?>
     </div>
 </div>
-<script type="module" src="../script/article_form.js"></script>
+<script type="module" src="<?= $config['url'] ?>/script/article_form.js"></script>
 <?php require_once "../includes/footer.php" ?>
+</body>
+</html>

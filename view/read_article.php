@@ -1,5 +1,6 @@
-<?php
-    require_once "../includes/navbar.php";
+<?php 
+    require_once "../config.php";
+    $menu = "read_article";
     try {
         if (!isset($_GET["id"])) {
             throw new Exception("article_not_found"); 
@@ -44,17 +45,27 @@
         exit();
     } 
 ?>
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <?php require_once "../includes/head.php"; ?>
+    <title><?= $article['art_title'] ?> - TokyoSpot</title>
+    <meta name="description" content="<?= $article['art_title'] ?> - TokyoSpot">
+</head>
+<body>
+<?php require_once "../includes/navbar.php"; ?>
 <!-- Modale pour afficher l'image en taille originale -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content bg-transparent shadow-none border-0">
             <div class="modal-body text-center">
-                <img id="modalImage" src="../assets/img_articles/<?= $article['img'] ?>" class="img-fluid" alt="Image en taille réelle">
+                <img id="modalImage" src="<?= $config['url'] ?>/assets/img_articles/<?= $article['img'] ?>" 
+                class="img-fluid" alt="<?= $config['alt_img'] ?>"<?= $config['alt_img'] ?>">
             </div>
         </div>
     </div>
 </div>
-<div class="section home col-12 col-lg-10 col-xxl-8  mx-auto px-xl-4 py-4">
+<div class="section home container-lg mx-auto px-xl-4 py-4">
     <div class="container-fluid fade-up">
         <div class="container-fluid pe-0 title read-title d-flex flex-md-row justify-content-center align-items-center my-2">
             <h1 class="text-center">
@@ -64,7 +75,7 @@
                 <?php if (!empty($_SESSION['id'])){ ?> 
                     data-post="<?= $article["art_id"] ?>" data-user="<?= $_SESSION["id"] ?>" data-token="<?= $_SESSION["token"] ?>" 
                 <?php } else { ?>
-                    href="../view/login.php?message_code=connect_error&status=success"
+                    href="<?= $config['url'] ?>/view/login.php?message_code=connect_error&status=success"
                 <?php } ?>>
                 <?= $fav 
                     ? "<span class='heart'>❤️</span><span class='d-none d-lg-inline'>Retirer des favoris</span>" 
@@ -84,15 +95,15 @@
             <p><?= $article['art_content'] ?></p>
             <p>
                 Posté le <?= date("d/m/Y", strtotime($article['art_created_at'])) ?><?= $author ? ", par " : "" ?>
-                <a href="./read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">
+                <a href="<?= $config['url'] ?>/view/read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">
                     <?= $author ?>
                 </a>
             </p>
             
         </div>
         <div class="container-fluid col-12 col-md-6 fade-left img-clickable-container p-2">
-            <img src="../assets/img_articles/<?= $article['img'] ?>" alt="Photo de l'article"
-                class="rounded-4 img-clickable" data-bs-toggle="modal" data-bs-target="#imageModal" />
+            <img src="<?= $config['url'] ?>/assets/img_articles/<?= $article['img'] ?>" alt="<?= $config['alt_img'] ?>" 
+            class="rounded-4 img-clickable" data-bs-toggle="modal" data-bs-target="#imageModal" />
         </div>
     </div>
     <div class="container-fluid mx-auto my-4 mb-2">
@@ -103,12 +114,15 @@
     <?php if (!empty($_SESSION['id']) && $_SESSION['role'] === "admin") { ?>
         <div class="container moderation mt-4 d-flex flex-column flex-sm-row justify-content-center align-items-center flex-wrap gap-2 gap-md-5">
         <?php if ($article["art_status"] === "pending") { ?>
-            <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=approved&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-success">Valider</a>
+            <a href="<?= $config['url'] ?>/controller/moderation.php?id=<?= $article['art_id'] ?>&action=approved&element=article&token=<?= $_SESSION['token'] ?>" 
+                class="btn btn-lg btn-success">Valider</a>
             <?php } else { ?> 
-            <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=pending&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-warning">Suspendre</a>
+            <a href="<?= $config['url'] ?>/controller/moderation.php?id=<?= $article['art_id'] ?>&action=pending&element=article&token=<?= $_SESSION['token'] ?>" 
+                class="btn btn-lg btn-warning">Suspendre</a>
             <?php } ?> 
-            <a href="../view/update_article_form.php?id=<?= $article['art_id'] ?>&role=<?= $_SESSION['role'] ?>" class="btn btn-lg btn-primary">Modifier</a>
-            <a href="../controller/moderation.php?id=<?= $article['art_id'] ?>&action=rejected&token=<?= $_SESSION['token'] ?>" class="btn btn-lg btn-danger">Refuser</a>
+            <a href="<?= $config['url'] ?>/view/update_article_form.php?id=<?= $article['art_id'] ?>&role=<?= $_SESSION['role'] ?>" class="btn btn-lg btn-primary">Modifier</a>
+            <a href="<?= $config['url'] ?>/controller/moderation.php?id=<?= $article['art_id'] ?>&action=rejected&element=article&token=<?= $_SESSION['token'] ?>" 
+                class="btn btn-lg btn-danger">Refuser</a>
         </div>
     <?php } ?> 
     <div class="container-fluid pt-4">
@@ -129,7 +143,6 @@
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
             if($comments){
                 foreach ($comments as $comment) { 
                     $btn = $class = "";
@@ -137,18 +150,23 @@
                         if ($comment["com_status"] === "pending") { 
                             $class = "bg-warning-subtle";
                             $btn = '<a href="../controller/moderation.php?id=' . $comment['com_id'] . 
-                                    '&action=approved&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-success me-2">Valider</a>' . 
+                                    '&action=approved&element=comment&token=' . $_SESSION['token'] . 
+                                    '" class="btn btn-sm btn-outline-success me-2">Valider</a>' . 
                                     '<a href="../controller/delete_controller.php?id=' . $comment['com_id'] . 
-                                    '&element=comment&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-danger">Supprimer</a>';
+                                    '&element=comment&element=comment&token=' . $_SESSION['token'] . 
+                                    '" class="btn btn-sm btn-outline-danger">Supprimer</a>';
                         } else if ($comment["com_status"] === "approved") {
                             $btn = '<a href="../controller/moderation.php?id=' . $comment['com_id'] . 
-                                    '&action=pending&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-warning">Suspendre</a>';
+                                    '&action=pending&element=comment&token=' . $_SESSION['token'] . 
+                                    '" class="btn btn-sm btn-outline-warning">Suspendre</a>';
                         }  else if ($comment["com_status"] === "rejected") {
                             $class = "bg-danger-subtle";
                             $btn = '<a href="../controller/moderation.php?id=' . $comment['com_id'] . 
-                                    '&action=pending&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-warning me-2">Suspendre</a>' . 
+                                    '&action=pending&element=comment&token=' . $_SESSION['token'] . 
+                                    '" class="btn btn-sm btn-outline-warning me-2">Suspendre</a>' . 
                                     '<a href="../controller/delete_controller.php?id=' . $comment['com_id'] . 
-                                    '&element=comment&token=' . $_SESSION['token'] . '" class="btn btn-sm btn-outline-danger">Supprimer</a>';
+                                    '&element=comment&element=comment&token=' . $_SESSION['token'] . 
+                                    '" class="btn btn-sm btn-outline-danger">Supprimer</a>';
                         }
                     }
                     if (!$comment['commenter']){
@@ -158,7 +176,7 @@
                     <li class="list-group-item py-3 d-flex flex-column <?= $class ?>">
                         <span><?= htmlentities(htmlspecialchars_decode($comment['com_content'])) ?></span>
                         <span class="fst-italic">
-                            <a href="./read_user.php?id=<?= $comment['commenter_id'] ?>"><?= $comment['commenter'] ?></a>,
+                            <a href="<?= $config['url'] ?>/read_user.php?id=<?= $comment['commenter_id'] ?>"><?= $comment['commenter'] ?></a>,
                             le <?= $comment['com_posted_at'] ?>
                         </span>
                         <div class="d-flex align-items-center my-1"><?= $btn ?></div>
@@ -169,7 +187,8 @@
             <?php } ?>
         </ul>
         <?php if (!empty($_SESSION['id'])){ ?>
-            <form method="POST" action="../controller/add_comment_controller.php" aria-label="Formulaire d'ajout d'un commentaire">
+            <form method="POST" action="<?= $config['url'] ?>/controller/add_comment_controller.php" 
+                aria-label="Formulaire d'ajout d'un commentaire">
                 <input type="hidden" name="user_comment" value="<?= $_SESSION['id'] ?>">
                 <input type="hidden" name="art_id" value="<?= $article['art_id'] ?>">
                 <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
@@ -204,5 +223,7 @@
     </div>
 </div>
 
-<script type="module" src="../script/read_article.js"></script>
+<script type="module" src="<?= $config['url'] ?>/script/read_article.js"></script>
 <?php require_once "../includes/footer.php" ?>
+</body>
+</html>

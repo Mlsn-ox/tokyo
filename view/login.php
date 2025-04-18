@@ -1,10 +1,16 @@
-<?php
-require_once "../includes/navbar.php";
-if (!empty($_SESSION['id'])){
-    header("Location: ../view/homepage.php?message_code=redirect_error&status=error");
-    exit();
-}
+<?php 
+    require_once "../config.php";
+    $menu = "login";
 ?>
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <?php require_once "../includes/head.php"; ?>
+    <title>Connexion - TokyoSpot</title>
+    <meta name="description" content="Connexion - TokyoSpot">
+</head>
+<body>
+<?php require_once "../includes/navbar.php";?>
 <div class="section container mx-auto p-4 home">
     <form method="POST" action="../controller/login_controller.php" class="fade-up">
     <h1 class="m-0">Connexion</h1>
@@ -26,18 +32,11 @@ if (!empty($_SESSION['id'])){
     <div class="separator my-5 text-center"></div>
         <div class="mx-auto text-center">
             <p>Vous n'avez pas encore de compte ? C'est par ici !</p>
-            <a class="rounded-pill btn btn-outline-success py-2 login-btn" href="./add_user_form.php">S'inscrire</a>
+            <a class="rounded-pill btn btn-outline-success py-2 login-btn" href="./add_user.php">S'inscrire</a>
         </div>
     </form>
 </div>
-<script>
-const toggle = document.querySelector(".toggle-password")
-toggle.addEventListener("click", () => {
-    const inputId = toggle.getAttribute("data-target");
-    const input = document.getElementById(inputId);
-    const isPassword = input.getAttribute("type") === "password";
-    input.setAttribute("type", isPassword ? "text" : "password");
-    toggle.textContent = isPassword ? "🙈" : "👁️";
-});
-</script>
+<script type="module" src="<?= $config['url'] ?>/script/login.js"></script>
 <?php require_once "../includes/footer.php" ?>
+</body>
+</html>

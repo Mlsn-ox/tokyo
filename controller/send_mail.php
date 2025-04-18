@@ -49,51 +49,6 @@
         }
         $firstname = htmlspecialchars($firstname, ENT_QUOTES, 'UTF-8');
         $lastname = htmlspecialchars($lastname, ENT_QUOTES, 'UTF-8');
-        $allowedImages = [
-            'Godzilla.png',
-            'Kanagawa.png',
-            'Neko.png',
-            'Ramen.png',
-            'Sakura.png',
-            'Shiba.png'
-        ];
-        if (!in_array($_POST["profil"], $allowedImages, true)) {
-            throw new Exception("form_error");
-        }
-        $profil = ($_POST["profil"]);
-        if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{7,}$/', $_POST["password1"])) {
-            throw new Exception("psw_invalid");
-        }
-        $password = password_hash($_POST["password1"], PASSWORD_DEFAULT);
-        $today = date("Y-m-d");
-        $mail = filter_var(trim($_POST["mail"]), FILTER_VALIDATE_EMAIL);
-        // Vérifie email valide
-        if (!$mail) {
-            throw new Exception("mail_error");
-        }
-        // Vérifie si l'email existe déjà
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM user WHERE user_mail = ?");
-        $stmt->execute([$mail]);
-        if ($stmt->fetchColumn() > 0) {
-            throw new Exception("signup_error"); 
-        }
-        $sql = "INSERT INTO `user` (user_name, user_firstname, user_lastname, user_birthdate, user_mail, user_psw, user_image, user_ins)
-        VALUES (:name, :firstname, :lastname, :birthdate, :mail, :psw, :img, :today)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-        $stmt->bindValue(':firstname', $firstname, PDO::PARAM_STR);
-        $stmt->bindValue(':lastname', $lastname, PDO::PARAM_STR);
-        $stmt->bindValue(':birthdate', $birthdate, PDO::PARAM_STR);
-        $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
-        $stmt->bindValue(':psw', $password, PDO::PARAM_STR);
-        $stmt->bindValue(':img', $profil, PDO::PARAM_STR);
-        $stmt->bindValue(':today', $today, PDO::PARAM_STR);
-        $verif = $stmt->execute();
-        if (!$verif) {
-            throw new Exception("server_error"); 
-        }
-        header("Location: ../view/login.php?message_code=user_added&status=success");
-        exit();
 
     } catch (Exception $e) {
         $error_code = urlencode($e->getMessage());

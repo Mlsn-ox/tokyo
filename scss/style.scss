@@ -166,7 +166,6 @@ body {
 }
 
 .carousel-container {
-  max-width: 1320px;
   .carousel-item {
     height: 65vh;
     overflow: hidden;
@@ -422,6 +421,7 @@ input[type="email"],
 input[type="date"],
 input[type="password"],
 textarea[name="content"],
+textarea[name="message"],
 select.form-select {
   border: none;
   border-radius: 10px;
@@ -562,18 +562,11 @@ select.form-select {
 
 // ADMIN
 
-.list-stat {
-  .list-group-item {
-    background-color: transparent;
-    border-color: var(--$gray-200);
-    span {
-      font-weight: 700;
-      color: var(--$gray-800);
-      + span {
-        font-weight: 500;
-        color: var(--$gray-900);
-      }
-    }
+
+.blocked {
+  background: linear-gradient(270deg, var(--gray-100) 33%, var(--red) 100%) !important;
+  td{
+    background: transparent !important;
   }
 }
 
@@ -610,7 +603,6 @@ footer {
     height: 35px;
   }
   .list-group-horizontal-md{
-    max-width: 720px !important;
     border-radius: 0;
     transition: border-color 0.3 ease;
     &:hover > :not(:hover) {
@@ -621,6 +613,7 @@ footer {
     }
     .list-group-item{
       color: #ddd;
+      font-size: 0.9rem;
       border-radius: 0 !important;
       border-top: none;
       border-right: none;
@@ -634,8 +627,8 @@ footer {
       }
     }
   }
-  .bottom{
-    max-width: 720px;
+  .active-footer{
+    background: radial-gradient(circle, $primary 0%, transparent 100%);
   }
 }
 

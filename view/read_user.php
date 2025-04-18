@@ -1,11 +1,12 @@
-<?php
-    require_once "../includes/navbar.php";
+<?php 
+    require_once "../config.php";
+    $menu = "";
     try {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         if (!$id) {
             throw new Exception("user_not_found");
         }
-        $id = $_GET["id"];
+        $id = intval($_GET["id"]);
         $sql = "SELECT user.*,
                 (SELECT COUNT(*) FROM article WHERE art_fk_user_id = user.user_id AND art_status = 'approved') AS total_articles,
                 (SELECT COUNT(*) FROM comment WHERE com_fk_user_id = user.user_id) AS total_comments,
@@ -43,13 +44,19 @@
         header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
         exit();
     }
-    // echo "<pre>";
-    // print_r($user);
-    // echo "</pre>";
-    // echo "<pre>";
-    // print_r($_SESSION);
-    // echo "</pre>";
+    if (isset($_SESSION['id']) && $_SESSION['id'] == $user['user_id']) {
+        $menu = "profil";
+    }
 ?>
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <?php require_once "../includes/head.php"; ?>
+    <title><?= $user['user_name'] ?> - TokyoSpot</title>
+    <meta name="description" content="Profil de <?= $user['user_name'] ?> - TokyoSpot">
+</head>
+<body>
+<?php require_once "../includes/navbar.php";?>
 <div class="section container-fluid p-0 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
 
     <div class="modal fade" id="imgUpdateModal" tabindex="-1" aria-labelledby="imgUpdateModalLabel" aria-hidden="true">
@@ -66,43 +73,43 @@
                         <div class="form-check p-0 img-select">
                             <input class="form-check-input" type="radio" name="profil" id="sakura" value="Sakura.png" checked required>
                             <label class="form-check-label" for="sakura">
-                                <img class="avatar-canva" src="../assets/img_profil/Sakura.png" alt="temple japonais et fleur de sakura">
-                                <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
+                                <img class="avatar-canva" src="<?= $config['url'] ?>/assets/img_profil/Sakura.png" alt="temple japonais et fleur de sakura">
+                                <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                             </label>
                         </div>
                         <div class="form-check p-0 img-select">
                             <input class="form-check-input" type="radio" name="profil" id="neko" value="Neko.png">
                             <label class="form-check-label" for="neko">
-                                <img class="avatar-canva" src="../assets/img_profil/Neko.png" alt="Maneki Neko">
-                                <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
+                                <img class="avatar-canva" src="<?= $config['url'] ?>/assets/img_profil/Neko.png" alt="Maneki Neko">
+                                <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                             </label>
                         </div>
                         <div class="form-check p-0 img-select">
                             <input class="form-check-input" type="radio" name="profil" id="godzilla" value="Godzilla.png">
                             <label class="form-check-label" for="godzilla">
-                                <img class="avatar-canva" src="../assets/img_profil/Godzilla.png" alt="Kawaii Godzilla">
-                                <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
+                                <img class="avatar-canva" src="<?= $config['url'] ?>/assets/img_profil/Godzilla.png" alt="Kawaii Godzilla">
+                                <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                             </label>
                         </div>
                         <div class="form-check p-0 img-select">
                             <input class="form-check-input" type="radio" name="profil" id="ramen" value="Ramen.png">
                             <label class="form-check-label" for="ramen">
-                                <img class="avatar-canva" src="../assets/img_profil/Ramen.png" alt="Bol de ramen">
-                                <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
+                                <img class="avatar-canva" src="<?= $config['url'] ?>/assets/img_profil/Ramen.png" alt="Bol de ramen">
+                                <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                             </label>
                         </div>
                         <div class="form-check p-0 img-select">
                             <input class="form-check-input" type="radio" name="profil" id="Kanagawa" value="Kanagawa.png">
                             <label class="form-check-label" for="Kanagawa">
-                                <img class="avatar-canva" src="../assets/img_profil/Kanagawa.png" alt="Grande vague de Kanagawa">
-                                <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
+                                <img class="avatar-canva" src="<?= $config['url'] ?>/assets/img_profil/Kanagawa.png" alt="Grande vague de Kanagawa">
+                                <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                             </label>
                         </div>
                         <div class="form-check p-0 img-select">
                             <input class="form-check-input" type="radio" name="profil" id="shiba" value="Shiba.png">
                             <label class="form-check-label" for="shiba">
-                                <img class="avatar-canva" src="../assets/img_profil/Shiba.png" alt="Shiba inu">
-                                <img class="check" src="../assets/img_profil/check-circle.svg" alt="checked">
+                                <img class="avatar-canva" src="<?= $config['url'] ?>/assets/img_profil/Shiba.png" alt="Shiba inu">
+                                <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                             </label>
                         </div>
                     </div>
@@ -119,17 +126,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="userUpdateModalLabel">Modifier vos informations</h1>
+                    <h1 class="modal-title fs-5" id="userUpdateModalLabel">
+                        Modifier vos informations
+                    </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="../controller/update_user_controller.php" class="user-update">
+                <form method="POST" action="<?= $config['url'] ?>/controller/update_user_controller.php" class="user-update">
                     <div class="modal-body">
                         <input type="hidden" name="id" value="<?= $_SESSION['id'] ?>">
                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nom d'utilisateur</label>
                             <input type="text" name="name" class="form-control form-control" id="name" required pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+"
-                            aria-label="Nom d'utilisateur" aria-describedby="nameHelp" value="<?= htmlentities($user["user_name"]) ?>" maxlength="20">
+                                aria-label="Nom d'utilisateur" aria-describedby="nameHelp" value="<?= htmlentities($user["user_name"]) ?>" maxlength="20">
                             <div id="nameHelp" class="form-text">Entre 3 et 20 caractères.</div>
                         </div>
                         <div class="mb-3">
@@ -161,7 +170,7 @@
                     <h1 class="modal-title fs-5" id="pswUpdateModalLabel">Modifier vos informations</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="../controller/update_psw_controller.php" class="user-update">
+                <form method="POST" action="<?= $config['url'] ?>/controller/update_psw_controller.php" class="user-update">
                     <div class="modal-body">
                         <input type="hidden" name="id" value="<?= $_SESSION['id'] ?>">
                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
@@ -175,15 +184,19 @@
                         <div class="mb-3">
                         <label for="password3" class="form-label">Nouveau mot de passe</label>
                             <div class="password-wrapper d-flex align-items-center">
-                                <input type="password" name="psw1" class="form-control password-input verify" id="password2" maxlength="100" pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
+                                <input type="password" name="psw1" class="form-control password-input verify" id="password2" 
+                                maxlength="100" pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
                                 <span class="toggle-password fs-5 ms-1 me-2 me-sm-3" data-target="password2">👁️</span>
                             </div>
-                            <div id="passwordHelp" class="form-text">Le mot de passe doit contenir au moins 7 caractères, une majuscule et un chiffre.</div>
+                            <div id="passwordHelp" class="form-text">
+                                Le mot de passe doit contenir au moins 7 caractères, une majuscule et un chiffre.
+                            </div>
                         </div>
                         <div class="mb-3">
                         <label for="password3" id="pswHelp" class="form-label">Confirmer le nouveau mot de passe</label>
                             <div class="password-wrapper d-flex align-items-center">
-                                <input type="password" name="psw2" class="form-control password-input verify" id="password3" maxlength="100" pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
+                                <input type="password" name="psw2" class="form-control password-input verify" id="password3" 
+                                maxlength="100" pattern="(?=.*[A-Z])(?=.*\d).{7,}" required>
                                 <span class="toggle-password fs-5 ms-1 me-2 me-sm-3" data-target="password3">👁️</span>
                             </div>
                         </div>
@@ -197,7 +210,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="artDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="artDeleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="artDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" 
+        tabindex="-1" aria-labelledby="artDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
@@ -287,13 +301,13 @@
                     <?php if (!empty($_SESSION['id']) && $_SESSION['id'] == $user['user_id']){ ?>
                     <div class="container-img bg-update order-1 order-md-2">
                         <a data-bs-toggle="modal" data-bs-target="#imgUpdateModal" class="offcanvas-link">
-                            <img src="../assets/img_profil/<?= htmlentities($user['user_image']) ?>" alt="Photo de profil" 
+                            <img src="<?= $config['url'] ?>/assets/img_profil/<?= htmlentities($user['user_image']) ?>" alt="Photo de profil" 
                             class="rounded-circle fade-rotate profil-pic update-img">
                         </a>
                     </div>
                     <?php } else { ?>
                     <div class="container-img order-1 order-md-2">
-                        <img src="../assets/img_profil/<?= htmlentities($user['user_image']) ?>" alt="Photo de profil" 
+                        <img src="<?= $config['url'] ?>/assets/img_profil/<?= htmlentities($user['user_image']) ?>" alt="Photo de profil" 
                         class="rounded-circle fade-rotate profil-pic mt-3">
                     </div>
                     <?php } ?>
@@ -308,11 +322,13 @@
                     <?php } else { 
                         foreach ($favorites as $favorite) { ?>
                             <div class="card">
-                                <img src="../assets/img_articles/<?= $favorite["img_name"] ?>" class="card-img-top mx-auto" alt="Illustration de l'article">
+                                <img src="<?= $config['url'] ?>/assets/img_articles/<?= $favorite["img_name"] ?>" 
+                                    class="card-img-top mx-auto" alt="Illustration de l'article">
                                 <div class="card-body d-flex flex-column justify-content-between align-items-center">
                                     <h5 class="card-title text-center"><?= $favorite["art_title"] ?></h5>
                                     <p class="fst-italic">Favoris ajouté le : <?= date("d/m/Y", strtotime(htmlentities($favorite['fav_added_at']))) ?></p>
-                                    <a href="../view/read_article.php?id=<?= $favorite['fav_art_id'] ?>" class="btn btn-outline-primary rounded-pill mb-2">Voir le spot</a>
+                                    <a href="<?= $config['url'] ?>/view/read_article.php?id=<?= $favorite['fav_art_id'] ?>" 
+                                        class="btn btn-outline-primary rounded-pill mb-2">Voir le spot</a>
                                 </div>
                             </div>
                         <?php }
@@ -328,11 +344,13 @@
                     <?php } else { 
                         foreach ($approvedArticles as $approvedArticle) { ?>
                             <div class="card">
-                                <img src="../assets/img_articles/<?= $approvedArticle["img_name"] ?>" class="card-img-top mx-auto" alt="Illustration de l'article">
+                                <img src="<?= $config['url'] ?>/assets/img_articles/<?= $approvedArticle["img_name"] ?>" 
+                                class="card-img-top mx-auto" alt="Illustration de l'article">
                                 <div class="card-body d-flex flex-column justify-content-between align-items-center">
                                     <h5 class="card-title text-center"><?= $approvedArticle["art_title"] ?></h5>
                                     <p class="fst-italic">Spot créé le : <?= date("d/m/Y", strtotime(htmlentities($approvedArticle['art_created_at']))) ?></p>
-                                    <a href="../view/read_article.php?id=<?= $approvedArticle['art_id'] ?>" class="btn btn-outline-primary rounded-pill mb-2">Voir le spot</a>
+                                    <a href="<?= $config['url'] ?>/view/read_article.php?id=<?= $approvedArticle['art_id'] ?>" 
+                                    class="btn btn-outline-primary rounded-pill mb-2">Voir le spot</a>
                                 </div>
                             </div>
                         <?php };
@@ -346,13 +364,16 @@
                         <?php } else { 
                             foreach ($pendingArticles as $pendingArticle) { ?>
                                 <div class="card pending-card"  id='art-<?= $pendingArticle["art_id"] ?>'>
-                                    <img src="../assets/img_articles/<?= $pendingArticle["img_name"] ?>" class="card-img-top mx-auto" alt="Illustration de l'article">
+                                    <img src="<?= $config['url'] ?>/assets/img_articles/<?= $pendingArticle["img_name"] ?>" 
+                                    class="card-img-top mx-auto" alt="Illustration de l'article">
                                     <div class="card-body d-flex flex-column justify-content-between align-items-center">
                                         <h5 class="card-title text-center"><?= $pendingArticle["art_title"] ?></h5>
                                         <p class="fst-italic">Spot créé le : <?= date("d/m/Y", strtotime(htmlentities($pendingArticle['art_created_at']))) ?></p>
-                                        <a href="../view/update_article_form.php?id=<?= $pendingArticle['art_id'] ?>" class="btn btn-outline-success rounded-pill mb-2">Modifier le spot</a>
+                                        <a href="<?= $config['url'] ?>/view/update_article.php?id=<?= $pendingArticle['art_id'] ?>" 
+                                        class="btn btn-outline-success rounded-pill mb-2">Modifier le spot</a>
                                         <button type="button" class="btn btn-outline-danger rounded-pill mb-2 btn-delete-modal" data-id="<?= $pendingArticle["art_id"] ?>" 
-                                            data-bs-toggle="modal" data-bs-target="#artDeleteModal" data-session="<?= $_SESSION["id"] ?>" data-token="<?= $_SESSION["token"] ?>">
+                                            data-bs-toggle="modal" data-bs-target="#artDeleteModal" 
+                                            data-session="<?= $_SESSION["id"] ?>" data-token="<?= $_SESSION["token"] ?>">
                                             Annuler la publication
                                         </button>
                                     </div>
@@ -365,7 +386,7 @@
         </div>
     </div>
 </div>
-<script type="module" src="../script/read_user.js"></script>
-<?php 
-
-require_once "../includes/footer.php" ?>
+<script type="module" src="<?= $config['url'] ?>/script/read_user.js"></script>
+<?php require_once "../includes/footer.php" ?>
+</body>
+</html>
