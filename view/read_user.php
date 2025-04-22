@@ -23,6 +23,7 @@
             exit();
         }
         $age = getAge($user["user_birthdate"]);
+        $status = $user["user_is_blocked"] ? "blocked" : "unblocked";
         $sql = "SELECT favorite.*, article.art_title, article.art_status, image.img_name FROM `favorite` 
                 LEFT JOIN article ON article.art_id = favorite.fav_art_id 
                 LEFT JOIN image ON article.art_id = image.img_fk_art_id
@@ -56,8 +57,11 @@
     <meta name="description" content="Profil de <?= $user['user_name'] ?> - TokyoSpot">
 </head>
 <body>
-<?php require_once "../includes/navbar.php";?>
-<div class="section container-fluid p-0 mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
+<?php require_once "../includes/navbar.php";
+    //echo "<script>console.log(" . json_encode($user) . ");</script>";
+?>
+<div class="section container-fluid p-0 mx-auto d-flex flex-column justify-content-center overflow-hidden token petales" 
+    data-token="<?= $_SESSION["token"] ?>" data-status="<?= $status ?>" data-id="<?= $id ?>">
 
     <div class="modal fade" id="imgUpdateModal" tabindex="-1" aria-labelledby="imgUpdateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -256,7 +260,12 @@
             <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
                 <div class="d-flex flex-wrap flex-column flex-sm-row justify-content-around align-items-center">
                     <div class="container-text d-flex flex-column align-items-center order-2 order-md-1 mt-3 mt-md-0">
-                        <h1 class="user-name"><?= htmlentities($user["user_name"]) ?></h1>
+                        <h1 class="user-name">
+                            <?= htmlentities($user["user_name"]) ?>
+                            <?php if ($_SESSION["role"] == "admin") { 
+                                echo $user["user_is_blocked"] ? "<span class='blocked-icon'>⛔</span>" : "<span class='blocked-icon'>🔵</span>";
+                            } ?>
+                        </h1>
                         <?php if (!empty($_SESSION['id']) && $_SESSION['id'] == $user['user_id']){ ?>
                             <p class="text-center border-top m-0 py-2"><?= htmlentities($user["user_mail"]) ?></p>
                             <div class="btn-container d-flex flex-wrap justify-content-center gap-2">

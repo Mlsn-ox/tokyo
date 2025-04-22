@@ -4,7 +4,7 @@
     $status = $_GET["status"];
     echo "<div class='message-code'>
             <h3 class='text-center rounded-5 home p-3 $status'>$message</h3>
-            </div>";
+          </div>";
   } 
   try {
     $sql = "SELECT COUNT(*) FROM article WHERE art_status = 'pending';";

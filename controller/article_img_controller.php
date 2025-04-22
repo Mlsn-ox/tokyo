@@ -39,6 +39,7 @@ function handleImageUpload($title, $articleId, $pdo) {
     $stmt->bindValue(':img_name', $newName, PDO::PARAM_STR);
     $stmt->bindValue(':articleId', $articleId, PDO::PARAM_INT);
     $stmt->execute();
+    $_SESSION["temp_image"] = $newName;
     return $newName;
 }
 ?>

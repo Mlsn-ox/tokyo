@@ -177,7 +177,6 @@ function success(pos) {
   }
   lat.value = geolat; // Mise à jour valeurs des inputs
   lng.value = geolng;
-  checkForm();
   getAdresse(geolat, geolng); // Appel de la fonction pour récupérer l'adresse
   layerGroup.clearLayers();
   map.setView([geolat, geolng], 16); // Recentrer sur position géolocalisée

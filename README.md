@@ -17,7 +17,7 @@
   - HTML5
   - SCSS
   - JavaScript Vanilla
-  - Bootstrap (via npm)
+  - Bootstrap 5.3
 
 - **Backend** :
   - PHP

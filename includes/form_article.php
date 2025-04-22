@@ -1,6 +1,5 @@
 <?php
 if ($_SESSION['bloked']) {
-    session_destroy();
     header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
     exit();
 }
@@ -10,6 +9,12 @@ $buttonSubmit = $buttonSubmit ?? 'Publier mon spot';
 $buttonPrevious = $buttonPrevious ?? 'Retour';
 $href = $href ?? './homepage.php';
 $mode = $mode ?? 'add';
+if ($mode === "update") {
+    $title = htmlspecialchars($article['art_title'] ?? '', ENT_QUOTES, 'UTF-8');
+    $content = htmlspecialchars($article['art_content'] ?? '', ENT_QUOTES, 'UTF-8');
+    $lat = htmlspecialchars($article['art_lat'] ?? '', ENT_QUOTES, 'UTF-8');
+    $lng = htmlspecialchars($article['art_lng'] ?? '', ENT_QUOTES, 'UTF-8');
+}
 ?>
 
 <form method="POST" action="../controller/article_controller.php" enctype="multipart/form-data" 
@@ -21,7 +26,7 @@ $mode = $mode ?? 'add';
     <?php } ?>
     <div class="mb-3">
         <input type="text" name="title" class="form-control form-control-lg"
-            value="<?= htmlspecialchars($article['art_title'] ?? '') ?>"
+            value="<?= $title ?>"
             placeholder="Titre" maxlength="40" required
             aria-label="Titre de l'article" aria-describedby="titleHelp"
             data-bs-toggle="tooltip" data-bs-placement="top"
@@ -52,7 +57,7 @@ $mode = $mode ?? 'add';
             placeholder="Décrivez le lieu en quelques mots"
             aria-label="Contenu de l'article" aria-describedby="contentHelp"
             data-bs-toggle="tooltip" data-bs-placement="top"
-            data-bs-title="300 caractères maximum."><?= htmlspecialchars_decode($article['art_content'] ?? '') ?></textarea>
+            data-bs-title="300 caractères maximum."><?= $content ?></textarea>
         <div id="contentHelp" class="form-text">300 caractères maximum.</div>
     </div>
     <div class="mb-4">
@@ -69,9 +74,9 @@ $mode = $mode ?? 'add';
             aria-label="Carte interactive pour sélectionner un emplacement"></div>
         <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-2">
             <input class="form-control text-primary" type="text" id="lat" name="lat"
-                value="<?= htmlspecialchars($article['art_lat'] ?? '') ?>" hidden required>
+                value="<?= $lat ?>" hidden required>
             <input class="form-control text-success" type="text" id="lng" name="lng"
-                value="<?= htmlspecialchars($article['art_lng'] ?? '') ?>" hidden required>
+                value="<?= $lng ?>" hidden required>
         </div>
         <div class="container-fluid d-flex flex-column justify-content-center">
             <p class="adress text-center">ou</p>

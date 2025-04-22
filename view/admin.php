@@ -15,9 +15,6 @@
         header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
         exit();
     }
-    // echo "<pre>";
-    // print_r($news);
-    // echo "</pre>";
 ?>
 <div class="section home col-12 col-xl-10 col-lg-11 p-0 mx-auto d-flex token"  data-token="<?= $_SESSION["token"] ?>">
     <div class="container-fluid px-xl-4 p-sm-3 p-1 rounded-5 my-3 fading user">
@@ -60,19 +57,21 @@
             </div>
             
             <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab" >
-                <p>plop2</p>
+                <h2 class="mb-3">Commentaires en attente</h2>
+                <div class="d-flex flex-wrap justify-content-around gap-2" id="pending-com">
+                </div>
             </div>
             
             <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab" >
-                <table class="table table-striped text-center">
+                <table class="table table-hover text-center">
                     <thead>
-                        <tr class="en-tete table-info">
-                            <th>Pseudo</th>
-                            <th class="d-none d-lg-table-cell">Nom Complet</th>
-                            <th class="d-none d-lg-table-cell">Âge</th>
-                            <th class="d-none d-sm-table-cell">Email</th>
-                            <th class="d-none d-sm-table-cell">Connexion</th>
-                            <th>Statut</th>
+                        <tr class="en-tete text-success-emphasis">
+                            <th class="text-success-emphasis">Pseudo</th>
+                            <th class="text-success-emphasis d-none d-lg-table-cell">Nom Complet</th>
+                            <th class="text-success-emphasis d-none d-lg-table-cell">Âge</th>
+                            <th class="text-success-emphasis d-none d-sm-table-cell">Email</th>
+                            <th class="text-success-emphasis d-none d-sm-table-cell">Connexion</th>
+                            <th class="text-success-emphasis">Bloqué?</th>
                         </tr>
                         <tbody id="table-user"></tbody>
                     </thead>
@@ -80,7 +79,20 @@
             </div>
 
             <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab" >
-                <p>plop4</p>
+                <div class="d-flex flex-wrap justify-content-around gap-2 mt-lg-5" id="stats-container">
+                    <div class="card card-stats">
+                        <div class="card-header">
+                            Articles par catégorie : 
+                        </div>
+                        <ul class="list-group list-group-flush cat-list"></ul>
+                    </div>
+                    <div class="card card-stats">
+                        <div class="card-header">
+                            Tops : 
+                        </div>
+                        <ul class="list-group list-group-flush top-list"></ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

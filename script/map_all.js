@@ -4,6 +4,11 @@ const locate = document.querySelector(".localise");
 const adress = document.querySelector(".adress");
 const spinny = document.querySelector(".loading-icon");
 let layerGroup = L.layerGroup().addTo(map);
+let redIcon = L.icon({
+  iconUrl: '../assets/logo_category/red-mark.png',
+  iconSize:     [44, 45], // size of the icon
+  iconAnchor:   [22, 45], // point of the icon which will correspond to marker's location
+});
 
 markerAll();
 
@@ -46,6 +51,28 @@ function isInTokyo(lat, lng) {
   return lat >= 35.52 && lat <= 35.8 && lng >= 139.46 && lng <= 139.91;
 }
 
+/**
+ * Récupération de l'adresse à partir des coordonnées GPS via API OpenStreetMap Nominatim
+ * @param {number} x latitude
+ * @param {number} y longitude
+ * @returns {string} adresse
+ */
+async function getAdresse(x, y) {
+  const url = `https://nominatim.openstreetmap.org/reverse?lat=${x}&lon=${y}&format=json`;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": "MonApplication/1.0", // Obligatoire
+      },
+    });
+    const data = await response.json();
+    adress.innerHTML =
+      "Adresse : " + data.display_name || "Adresse non trouvée";
+  } catch (error) {
+    console.error("Erreur :", error);
+  }
+}
+
 // Géolocalisation
 function success(pos) {
   var crd = pos.coords;
@@ -58,9 +85,10 @@ function success(pos) {
     spinny.classList.add("d-none");
     return; // Arrête la fonction si on n'est pas dans la zone de Tokyo
   }
+  getAdresse(geolat, geolng); // Récupération de l'adresse
   layerGroup.clearLayers();
   map.setView([geolat, geolng], 16); // Recentrer sur position géolocalisée
-  L.marker([geolat, geolng]).addTo(layerGroup); // Ajout marker
+  L.marker([geolat, geolng], {icon: redIcon}).addTo(layerGroup); // Ajout marker
   spinny.classList.add("d-none"); // Disparition du spinner, remise du bouton
   locate.classList.remove("d-none");
 }

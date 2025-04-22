@@ -1,6 +1,11 @@
 <?php 
     require_once "../config.php";
     $menu = "login";
+    if (isset($_COOKIE["email_temp"])) {
+        $mail = htmlspecialchars($_COOKIE["email_temp"], ENT_QUOTES, 'UTF-8');
+    } else {
+        $mail = "";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr" data-bs-theme="light">
@@ -17,7 +22,7 @@
     <div class="separator my-3 text-center"></div>
         <div class="mb-4 mx-auto col-xl-6 col-sm-8">
             <label for="user_mail" class="form-label">E-Mail</label>
-            <input type="email" class="form-control ms-2" name="mail" placeholder="Votre email de connexion">
+            <input type="email" class="form-control ms-2" name="mail" placeholder="@" value="<?= htmlspecialchars($mail) ?>">
         </div>
         <div class="mb-4 mx-auto col-xl-6 col-sm-8">
             <label for="user_psw" class="form-label">Mot de passe</label>

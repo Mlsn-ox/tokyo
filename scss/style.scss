@@ -152,17 +152,7 @@ body {
     font-size: 2.3rem;
     font-family: "Digits";
   }
-  .iframe-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* Ratio 16:9 */
-    height: 0;
-    iframe {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-  }
+
 }
 
 .carousel-container {
@@ -182,11 +172,8 @@ body {
 
 // AFFICHAGE INDEX ARTICLES
 
-.filters {
-  button {
-    width: 90%;
-    max-width: 250px;
-  }
+#reset {
+  min-width: 100px !important;
 }
 
 .article {
@@ -253,11 +240,6 @@ body {
       transition: all 0.4s ease;
     }
   }
-}
-
-#loader {
-  font-size: 1.3rem;
-  font-variant: small-caps;
 }
 
 // READ ARTICLE
@@ -337,6 +319,13 @@ body {
     border-radius: 20px;
     font-weight: 600;
     font-size: 3rem;
+    @include flex(center, center, center, nowrap);
+    gap: 10px;
+    .blocked-icon {
+      font-size: 1.5rem;
+      padding-top: 7px;
+      cursor: pointer;
+    }
   }
   .container-img {
     border-radius: 5px;
@@ -584,6 +573,16 @@ select.form-select {
   a {
     text-decoration: none;
   }
+  &.comment{
+    width: 500px;
+    @include media(lt-sm) {
+      width: 100%;
+    }
+  }
+}
+
+.card-stats{
+  max-width: 300px;
 }
 
 // FOOTER

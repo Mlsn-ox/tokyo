@@ -1,6 +1,11 @@
 <?php 
     require_once "../config.php";
     $menu = "add_article";
+    $id = intval($_GET['id']);
+    if (!$id) {
+        header("Location: ../view/homepage.php?message_code=param_not_found&status=error");
+        exit();
+    }
     $stmt = $pdo->prepare("SELECT *, img_name FROM article LEFT JOIN image ON img_fk_art_id = art_id WHERE art_id =?");
     $stmt->execute([$id]);
     $article = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -67,7 +72,7 @@
         <h1 class="m-0 pt-2 data-miner" data-lat="<?= htmlspecialchars($article['art_lat']) ?>" 
             data-lng="<?= htmlspecialchars($article['art_lng']) ?>" 
             data-img="<?= htmlspecialchars($article['img_name']) ?>">
-            Modifier votre article
+            Modifier votre spot
         </h1>
         <div class="separator my-3 text-center"></div>
         <?php

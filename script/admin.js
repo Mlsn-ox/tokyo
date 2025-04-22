@@ -1,4 +1,9 @@
 const pendingContainer = document.querySelector("#pending")
+const pendingComContainer = document.querySelector("#pending-com")
+const statsContainer = document.querySelector("#stats-container")
+const catContainer = document.querySelector(".cat-list")
+const topList = document.querySelector(".top-list")
+
 const userTable = document.querySelector("#table-user")
 const token = document.querySelector(".token").dataset.token;
 
@@ -21,11 +26,27 @@ function getAge(birthdate) {
   return age;
 }
 
+function getEmojiCategory(cat) {
+  switch (cat) {
+    case 'gastronomie':
+      return "🍜";
+    case 'loisir':
+      return "🎳";
+    case 'shopping':
+      return "🛍";
+    case 'panorama':
+      return "📷";
+    default:
+      return "🎎";
+  }
+}
+
+
 function loadStats() {
   fetch("../ajax/get_stats.php")
   .then((res) => res.json())
   .then((data) => {
-    console.log(data.users);
+    console.log(data);
     if (data.articles_pending.length > 0) {
       data.articles_pending.forEach(art => {
         pendingContainer.innerHTML += `
@@ -37,18 +58,37 @@ function loadStats() {
                 <a href="./read_user.php?id=${art.ide}" class="card-text">Par ${art.author} le ${formatDate(art.art_created_at)}</a>
             </div>
             <div class="buttons d-flex justify-content-around ">
-                <a href="./read_article.php?id=${art.art_id}" class="btn btn-outline-primary">Inspecter</a>
-                <a href="../controller/moderation.php?id=${art.art_id}&action=rejected&token=${token}" class="btn btn-danger">Refuser</a>
+                <a href="./read_article.php?id=${art.art_id}" class="btn btn-sm btn-outline-primary">Inspecter</a>
+                <a href="../controller/moderation.php?id=${art.art_id}&element=article&action=rejected&token=${token}" class="btn btn-sm btn-danger">Refuser</a>
             </div>
           </div>`;
       });
     } else {
       pendingContainer.innerHTML = "<p>Tous les spots sont à jours</p>"
     }
+    if (data.comments_pending.length > 0) {
+      data.comments_pending.forEach(com => {
+        pendingComContainer.innerHTML += `
+          <div class="card admin-card comment p-1 pb-sm-3 pb-2 p-sm-2 g-1 d-flex flex-column justify-content-between fade-rotate">
+            <div class="card-body">
+                <p class="card-title">Spot : <em>${com.art_title}</em></p>
+                <p class="card-text fs-5">${com.com_content}</p>
+                <a href="./read_user.php?id=${com.user_id}" class="card-text">Par ${com.author} le ${formatDate(com.com_posted_at)}</a>
+            </div>
+            <div class="buttons d-flex justify-content-around ">
+                <a href="./read_article.php?id=${com.art_id}" class="btn btn-sm btn-outline-primary">Inspecter</a>
+                <a href="../controller/moderation.php?id=${com.com_id}&element=comment&action=rejected&token=${token}" class="btn btn-sm btn-danger">Refuser</a>
+            </div>
+          </div>`;
+      });
+    } else {
+      pendingComContainer.innerHTML = "<p>Tous les commentaires sont à jours</p>"
+    }
     data.users.forEach(user => {
       let lastname = user.user_lastname.toUpperCase()
       let age = getAge(user.user_birthdate)
       let bloked = user.user_is_blocked ? "blocked" : "";
+      let status = user.user_is_blocked ? "unblocked" : "blocked";
       let interdit = user.user_is_blocked ? "⛔" : "🔵";
       userTable.innerHTML += `
         <tr class="${bloked}">
@@ -61,9 +101,99 @@ function loadStats() {
           <td class="d-none d-lg-table-cell">${age} ans</td>
           <td class="d-none d-sm-table-cell">${user.user_mail}</td>
           <td class="d-none d-sm-table-cell">${formatDate(user.user_log)}</td>
-          <td>${interdit}</td>
+          <td><a type="button" data-id="${user.user_id}" data-status="${status}" class="text-decoration-none toggle-block">
+                ${interdit}
+              </a></td>
         </tr>
         `;
-    })
+    });
+    data.articles_by_category.forEach(cat => {
+      catContainer.innerHTML += `
+        <li class="list-group-item">${getEmojiCategory(cat.cat_name)} ${cat.cat_name} : ${cat.total_by_category}</li>
+      `;
+    });
+    let topCommenter = data.top_commenter;
+    let topArticleCom = data.most_commented_article;
+    let topPoster = data.top_poster;
+    topList.innerHTML += `
+      <li class="list-group-item">🥇 Top poster : ${topPoster.user_name} (${topPoster.article_count})</li>
+      <li class="list-group-item">⭐ Top commenter : ${topCommenter.user_name} (${topCommenter.comment_count})</li>
+      <li class="list-group-item">🏆 Article le plus commenté : ${topArticleCom.art_title} (${topArticleCom.comment_count})</li>
+      `
+    let userStats = data.users_global;
+    statsContainer.innerHTML += `
+      <div class="card card-stats">
+        <div class="card-header">
+          Utilisateurs
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">👥 Inscrits : ${userStats.total_users}</li>
+          <li class="list-group-item">🔴 En attente : ${userStats.total_bloked}</li>
+          <li class="list-group-item">🐥 Dernier inscrit : ${userStats.newest_user} (${userStats.newest_user_date})</li>
+
+        </ul>
+      </div>
+    `;
+    let artStats = data.articles_global;
+    statsContainer.innerHTML += `
+      <div class="card card-stats">
+        <div class="card-header">
+          Articles
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">✅ Approuvés : ${artStats.total_approved}</li>
+          <li class="list-group-item">⚪ En attente : ${artStats.total_pending}</li>
+          <li class="list-group-item">❌ Refusés : ${artStats.total_rejected}</li>
+          <li class="list-group-item">🗓 Dernier article : ${artStats.latest_article_date}</li>
+        </ul>
+      </div>
+    `;
+    let comStats = data.comments_global;
+    statsContainer.innerHTML += `
+      <div class="card card-stats">
+        <div class="card-header">
+          Commentaires
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">✅ Approuvés : ${comStats.total_approved}</li>
+          <li class="list-group-item">⚪ En attente : ${comStats.total_pending}</li>
+          <li class="list-group-item">❌ Refusés : ${comStats.total_rejected}</li>
+          <li class="list-group-item">🗓 Dernier com : ${comStats.latest_com_date}</li>
+        </ul>
+      </div>
+    `;
   });
 }
+
+setTimeout(() => {
+  document.querySelectorAll('.toggle-block').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const userId = link.dataset.id;
+      const status = link.dataset.status;
+      fetch(`../ajax/user_bloker.php?id=${userId}&status=${status}&token=${token}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          if (data.status === "Success") {
+            const tr = link.closest("tr");
+            if (status === "blocked") {
+              link.dataset.status = "unblocked";
+              link.textContent = "⛔";
+              tr.classList.add("blocked");
+            } else {
+              link.dataset.status = "blocked";
+              link.textContent = "🔵";
+              tr.classList.remove("blocked");
+            }
+          } else {
+            console.error("Erreur : " + data.message);
+          }
+        })
+        .catch(err => {
+          console.error("Erreur AJAX :", err);
+        });
+    });
+  });
+}, 1000); // Délai de 1 seconde
+

@@ -34,7 +34,10 @@
             Ensemble, faisons de TokyoSpot la référence pour découvrir Tokyo sous un nouvel angle !
         </p>
         <p>
-            Une découverte à partager ? 📍 <a href="<?= $config['url'] ?>/view/login.php">Venez partager avec nous votre trouvaille</a> et faites voyager les autres à travers votre regard !
+            Une découverte à partager ? 📍 
+            <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="<?= $config['url'] ?>/view/login.php">
+                Venez partager avec nous votre trouvaille
+            </a> et faites voyager les autres à travers votre regard !
         </p>
         <?php } else { ?> 
             <h2 class="mb-3 text-center fw-normal">Bienvenue <?= $_SESSION['name'] ?>, qu'allez-vous faire aujourd'hui ?</h2>
@@ -93,7 +96,7 @@
             <div id="heure-tokyo" class="d-flex align-items-center justify-content-center mx-3 mx-sm-auto col-lg-2"></div>
             <div id="meteo-tokyo" class="d-flex align-items-center justify-content-center mx-3 mx-sm-auto text-center flex-wrap"></div>
         </div>
-        <div class="iframe-container">
+        <div class="w-100 ratio ratio-16x9">
             <iframe class="rounded-4" src="https://www.youtube.com/embed/tujkoXI8rWM?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>

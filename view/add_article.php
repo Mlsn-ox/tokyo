@@ -1,17 +1,13 @@
 <?php 
     require_once "../config.php";
     $menu = "add_article";
-    $buttonSubmit = "Publier mon spot";
-    $buttonPrevious = "Retour à la page d'accueil";
-    $href = "./homepage.php";
-    $mode = "add";
 ?>
 <!DOCTYPE html>
 <html lang="fr" data-bs-theme="light">
 <head>
     <?php require_once "../includes/head.php"; ?>
-    <title>Inscription - TokyoSpot</title>
-    <meta name="description" content="Inscription - TokyoSpot">
+    <title>Ajouter un spot - TokyoSpot</title>
+    <meta name="description" content="Ajouter un spot - TokyoSpot">
 </head>
 <body>
 <?php require_once "../includes/navbar.php"; 
@@ -19,6 +15,15 @@
         header("Location: ../view/login.php?message_code=connect_error&status=success");
         exit();
     }
+    $buttonSubmit = "Publier mon spot";
+    $buttonPrevious = "Retour à la page d'accueil";
+    $href = "./homepage.php";
+    $mode = "add";
+    $title = $_SESSION["temp_titre"] ?? "";
+    $content = $_SESSION["temp_contenu"] ?? "";
+    $image = $_SESSION["temp_image"] ?? "";
+    $lat = $_SESSION["temp_lat"] ?? "";
+    $lng = $_SESSION["temp_lng"] ?? "";
 ?>
 <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" 
     tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true" >
@@ -59,7 +64,11 @@
 </div>
 <div class="section home container mx-auto p-1 p-md-3 p-xl-4">
     <div class="container fade-up redim">
-        <h1 class="m-0 pt-2">Partager un spot</h1>
+        <h1 class="m-0 pt-2 data-miner" data-lat="<?= $lat ?>" 
+            data-lng="<?= $lng ?>" 
+            data-img="<?= $image ?>">
+            Partager un spot
+        </h1>
         <div class="separator my-3 text-center"></div>
         <?php
         require_once "../includes/form_article.php";

@@ -99,7 +99,6 @@
                     <?= $author ?>
                 </a>
             </p>
-            
         </div>
         <div class="container-fluid col-12 col-md-6 fade-left img-clickable-container p-2">
             <img src="<?= $config['url'] ?>/assets/img_articles/<?= $article['img'] ?>" alt="<?= $config['alt_img'] ?>" 
@@ -120,7 +119,7 @@
             <a href="<?= $config['url'] ?>/controller/moderation.php?id=<?= $article['art_id'] ?>&action=pending&element=article&token=<?= $_SESSION['token'] ?>" 
                 class="btn btn-lg btn-warning">Suspendre</a>
             <?php } ?> 
-            <a href="<?= $config['url'] ?>/view/update_article_form.php?id=<?= $article['art_id'] ?>&role=<?= $_SESSION['role'] ?>" class="btn btn-lg btn-primary">Modifier</a>
+            <a href="<?= $config['url'] ?>/view/update_article.php?id=<?= $article['art_id'] ?>&role=<?= $_SESSION['role'] ?>" class="btn btn-lg btn-primary">Modifier</a>
             <a href="<?= $config['url'] ?>/controller/moderation.php?id=<?= $article['art_id'] ?>&action=rejected&element=article&token=<?= $_SESSION['token'] ?>" 
                 class="btn btn-lg btn-danger">Refuser</a>
         </div>
@@ -203,20 +202,20 @@
                     </p>
                 </div>
                 <div class="container mx-auto mt-4 mb-2 d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center">
-                    <button type="submit" class="btn btn-outline-success rounded-pill mb-3 col-11 col-sm-4 submit" 
-                        aria-label="Envoyer le commentaire">Envoyer</button>
                     <a href="./index_articles.php" class="btn btn-outline-danger rounded-pill mb-3 col-11 col-sm-4" 
                         aria-label="Retourner à la page précédente">Retour</a>
+                    <button type="submit" class="btn btn-outline-success rounded-pill mb-3 col-11 col-sm-4 submit" 
+                        aria-label="Envoyer le commentaire">Envoyer</button>
                 </div>
             </form>
         <?php } else { ?>
             <div class="text-center mt-3">
                 <p>Connectez-vous pour pouvoir commenter !</p>
                 <div class="container mx-auto mt-4 mb-2 d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center">
-                    <a href="./login.php" class="btn btn-outline-primary rounded-pill mb-3 col-11 col-sm-4 col-md-5 col-xl-4" 
-                    aria-label="Retourner à la page d'accueil">Se connecter</a>
                     <a href="./index_articles.php" class="btn btn-outline-danger rounded-pill mb-3 col-11 col-sm-4 col-md-4" 
                     aria-label="Retourner à la page précédente">Retour</a>
+                    <a href="./login.php" class="btn btn-outline-primary rounded-pill mb-3 col-11 col-sm-4 col-md-5 col-xl-4" 
+                    aria-label="Retourner à la page d'accueil">Se connecter</a>
                 </div>
             </div>
         <?php } ?>

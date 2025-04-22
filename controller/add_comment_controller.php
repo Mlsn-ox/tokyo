@@ -1,12 +1,15 @@
 <?php
     require_once "../config.php";
     try {
-        if ($_SESSION['token'] !== $_POST['token'] || $_SESSION['bloked'] ||
+        if ($_SESSION['token'] !== $_POST['token'] ||
             !$_POST['user_comment'] || !$_POST['art_id'] || 
             $_POST['user_comment'] != $_SESSION['id']) {
             session_destroy();
             header("Location: ../view/login.php?message_code=connect_error&status=error");
             exit();
+        }
+        if ($_SESSION['bloked']) {
+            throw new Exception("unauthorized");
         }
         if (empty($_POST['comment_content'])) {
             throw new Exception("form_error");

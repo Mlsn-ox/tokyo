@@ -6,8 +6,8 @@
 <html lang="fr" data-bs-theme="light">
 <head>
     <?php require_once "../includes/head.php"; ?>
-    <title>Ajouter un spot - TokyoSpot</title>
-    <meta name="description" content="Ajouter un spot - TokyoSpot">
+    <title>Inscription - TokyoSpot</title>
+    <meta name="description" content="Inscription - TokyoSpot">
 </head>
 <body>
 <?php require_once "../includes/navbar.php"; 

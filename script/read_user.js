@@ -1,7 +1,7 @@
 import { togglePassword } from "./functions.js";
 const formUpdateImg = document.querySelector("form.img-update");
 const updateImg = document.querySelector(".update-img");
-const modalOpen = document.querySelector(".offcanvas-link");
+const modalOpen = document.querySelector(".offcanvas-link") ?? null;
 const psw1 = document.querySelector("#password2");
 const psw2 = document.querySelector("#password3");
 const pswInfo1 = document.querySelector("#passwordHelp");
@@ -14,9 +14,13 @@ const closeDeleteBtn = document.querySelector(".btn-close-delete");
 const avatars = document.querySelectorAll(".avatar-canva");
 const inputName = document.querySelector("#name");
 const nameInfo = document.querySelector("#nameHelp");
+const blocked = document.querySelector(".blocked-icon");
+const token = document.querySelector(".token").dataset.token;
+const status = document.querySelector(".token").dataset.status;
+const userId = document.querySelector(".token").dataset.id;
 let idToDelete = null;
 let idSession = null;
-let token = null;
+
 
 passwords.forEach((toggle) => {
   toggle.addEventListener("click", togglePassword);
@@ -26,7 +30,25 @@ deleteBtnModal.forEach((btn) => {
   btn.addEventListener("click", () => {
     idToDelete = btn.dataset.id;
     idSession = btn.dataset.session;
-    token = btn.dataset.token;
+  });
+});
+
+blocked.addEventListener("click", () => {
+  fetch(`../ajax/user_bloker.php?id=${userId}&status=${status}&token=${token}`)
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === "Success") {
+      if (status === "blocked") {
+        blocked.innerHTML = "🔴";
+      } else {
+        blocked.innerHTML = "🔵";
+      }
+    } else {
+      console.error("Erreur : " + data.message);
+    }
+  })
+  .catch(err => {
+    console.error("Erreur AJAX :", err);
   });
 });
 
@@ -51,16 +73,18 @@ deleteBtn.addEventListener("click", () => {
     });
 });
 
-modalOpen.addEventListener("click", () => {
-  avatars.forEach((avatar) => {
-    const input = avatar.closest(".form-check");
-    if (avatar.src === updateImg.src) {
-      input.style.display = "none";
-    } else {
-      input.style.display = "block";
-    }
+if (modalOpen) {
+  modalOpen.addEventListener("click", () => {
+    avatars.forEach((avatar) => {
+      const input = avatar.closest(".form-check");
+      if (avatar.src === updateImg.src) {
+        input.style.display = "none";
+      } else {
+        input.style.display = "block";
+      }
+    });
   });
-});
+}
 
 formUpdateImg.addEventListener("submit", (e) => {
   e.preventDefault();

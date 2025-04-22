@@ -24,6 +24,10 @@
         $category = filter_var($_POST['category'], FILTER_VALIDATE_INT);
         $lat = filter_var($_POST['lat'], FILTER_VALIDATE_FLOAT);
         $lng = filter_var($_POST['lng'], FILTER_VALIDATE_FLOAT);
+        $_SESSION["temp_title"] = $title;
+        $_SESSION["temp_content"] = $content;
+        $_SESSION["temp_lat"] = $lat;
+        $_SESSION["temp_lng"] = $lng;
         if (
             empty($title) || empty($content) || !$category || !$lat || !$lng ||
             $lat < 35.52 || $lat > 35.8 || $lng < 139.46 || $lng > 139.91
