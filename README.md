@@ -43,8 +43,8 @@ Projet développé dans le cadre d’une formation de **Développeur Web & Web M
 ## 📆 À venir
 
 - 📸 Upload multiple pour les photos
+- 📨 Formulaire de contact direct
 - 📊 Statistiques sur les articles les plus populaires
-- 🔍 Système de barre de recherche
 - 🎎 Référencement des évènements en cours ou à venir sur Tokyo
 
 ## 📬 Contact
