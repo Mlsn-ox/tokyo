@@ -1,8 +1,8 @@
 import { escapeHTML } from "./functions.js";
 const openWeather = document.getElementById("meteo-tokyo");
 const horaire = document.getElementById("heure-tokyo");
-const webcam = document.getElementById("cam");
-const sakura = document.querySelector(".petales");
+const toast = document.querySelector('.toast');
+const acceptBtn = document.getElementById('accept-cookies');
 let petalInterval;
 
 updateTime();
@@ -10,6 +10,20 @@ setInterval(updateTime, 1000);
 
 window.addEventListener("resize", handlePetalEffect);
 handlePetalEffect();
+
+if (document.cookie.includes("cookies_accepted=true")) {
+  const toastBootstrap = new bootstrap.Toast(toast, {
+    autohide: false
+  });
+  toastBootstrap.show();
+}
+acceptBtn.addEventListener("click", () => {
+  document.cookie = "cookies_accepted=true; path=/; max-age=" + 60 * 60 * 24 * 30;
+  toast.classList.add('fade');
+  setTimeout(() => {
+    toast.classList.add('hide');
+  }, 500);
+});
 
 /**
  * Crée une pétale animée qui tombe depuis une position aléatoire du haut de l’écran.

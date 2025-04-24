@@ -66,13 +66,6 @@ confirmBtn.addEventListener("click", () => {
   form.submit();
 });
 
-if (mode === "add") {
-  cat[0].selected = true; 
-  cat.addEventListener("change", function () {
-    cat[0].disabled = true;
-  });
-}
-
 /**
  * Affichage de l'image miniature et contrôle de la taille du fichier
  * @param {object} e événement change

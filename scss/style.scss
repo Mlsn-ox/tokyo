@@ -172,9 +172,23 @@ body {
 
 // AFFICHAGE INDEX ARTICLES
 
-#reset {
-  min-width: 100px !important;
+.drop-container {
+  .dropfilters{
+    width: 200px;
+    height: 2.5rem;
+    background-color: transparent;
+    border: none;
+    transition: box-shadow 0.5s ease-in-out, color 0.4s ease-in-out;
+  }
+  #collapseFilters{
+    max-width: 800px;
+    #reset {
+      min-width: 100px !important;
+    }
+  }
 }
+
+
 
 .article {
   background-position: center;

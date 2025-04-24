@@ -15,6 +15,12 @@
         header("Location: ../view/homepage.php?message_code=redirect_error&status=error");
         exit();
     }
+    $firstname = $_COOKIE["temp_first"] ?? "";
+    $lastname = $_COOKIE["temp_last"] ?? "";
+    $birthdate = $_COOKIE["temp_birth"] ?? "";
+    $mail = $_COOKIE["temp_mail"] ?? "";
+    $name = $_COOKIE["temp_name"] ?? "";
+    $avatar = $_COOKIE["temp_avatar"] ?? "Sakura.png";
 ?>
 <div class="section container home mx-auto p-md-4 p-3">
     <div class="p-0 mx-auto fade-up redim">
@@ -24,22 +30,26 @@
             <div class="col-lg-8 mb-3" aria-label="Nom complet">
                 <label for="completeName" class="form-label">Nom complet</label>
                 <div class="input-group">
-                    <input type="text" aria-label="Prénom" name="firstname" class="form-control" placeholder="Prénom" required>
-                    <input type="text" aria-label="Nom" name="lastname" class="form-control" placeholder="Nom" required>
+                    <input type="text" aria-label="Prénom" name="firstname" class="form-control" 
+                        placeholder="Prénom" value="<?= $firstname ?>" required>
+                    <input type="text" aria-label="Nom" name="lastname" class="form-control" 
+                        placeholder="Nom" value="<?= $lastname ?>" required>
                 </div>
             </div>
             <div class="col-lg-4">
                 <label for="birthdate" class="form-label">Date de naissance</label>
-                <input type="date" class="form-control" id="birthdate" name="birthdate" aria-label="Date de naissance" required/>
+                <input type="date" class="form-control" id="birthdate" name="birthdate" 
+                    aria-label="Date de naissance" value="<?= $birthdate ?>" required/>
             </div>
             <div class="col-lg-6">
                 <label for="mail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="mail" name="mail" aria-label="Adresse email" placeholder="@email.com" required>
+                <input type="email" class="form-control" id="mail" name="mail" aria-label="Adresse email" 
+                    placeholder="@email.com" value="<?= $mail ?>" required>
             </div>
             <div class="col-lg-6">
                 <label for="name" class="form-label">Nom d'utilisateur</label>
                 <input type="text" class="form-control" id="name" data-bs-toggle="tooltip" data-bs-placement="top"
-                    pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+" name="name" aria-label="Nom d'utilisateur"
+                    pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+" name="name" aria-label="Nom d'utilisateur" value="<?= $name ?>" 
                     data-bs-title="Lettres, chiffres et tirets uniquement." minlength="3" maxlength="20" required>
                 <div id="nameHelp" class="form-text">Entre 3 et 20 caractères. Pas de caractères spéciaux.</div>
             </div>
@@ -67,42 +77,48 @@
             <p class="mt-4">Choisissez une image de profil</p>
             <div class="col-12 d-flex row justify-content-around mb-3 mx-auto text-center avatars" aria-label="Choix de l'image de profil">
                 <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
-                    <input class="form-check-input" type="radio" name="profil" id="sakura" value="Sakura.png" checked required aria-label="Avatar Sakura et temple japonais">
+                    <input class="form-check-input" type="radio" name="profil" <?= ($avatar === "Sakura.png") ? "checked" : "" ?>
+                        id="sakura" value="Sakura.png" required aria-label="Avatar Sakura et temple japonais">
                     <label class="form-check-label" for="sakura">
                         <img class="avatar" src="<?= $config['url'] ?>/assets/img_profil/Sakura.png" alt="temple japonais et fleur de sakura">
                         <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
                 <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
-                    <input class="form-check-input" type="radio" name="profil" id="neko" value="Neko.png" aria-label="Avatar Maneki Neko">
+                    <input class="form-check-input" type="radio" name="profil" <?= ($avatar === "Neko.png") ? "checked" : "" ?>
+                        id="neko" value="Neko.png" aria-label="Avatar Maneki Neko">
                     <label class="form-check-label" for="neko">
                         <img class="avatar" src="<?= $config['url'] ?>/assets/img_profil/Neko.png" alt="Maneki Neko">
                         <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
                 <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
-                    <input class="form-check-input" type="radio" name="profil" id="godzilla" value="Godzilla.png" aria-label="Avatar Kawaii Godzilla">
+                    <input class="form-check-input" type="radio" name="profil" <?= ($avatar === "Godzilla.png") ? "checked" : "" ?>
+                        id="godzilla" value="Godzilla.png" aria-label="Avatar Kawaii Godzilla">
                     <label class="form-check-label" for="godzilla">
                         <img class="avatar" src="<?= $config['url'] ?>/assets/img_profil/Godzilla.png" alt="Kawaii Godzilla">
                         <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
                 <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
-                    <input class="form-check-input" type="radio" name="profil" id="ramen" value="Ramen.png" aria-label="Avatar bol de ramen">
+                    <input class="form-check-input" type="radio" name="profil" <?= ($avatar === "Ramen.png") ? "checked" : "" ?>
+                        id="ramen" value="Ramen.png" aria-label="Avatar bol de ramen">
                     <label class="form-check-label" for="ramen">
                         <img class="avatar" src="<?= $config['url'] ?>/assets/img_profil/Ramen.png" alt="Bol de ramen">
                         <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
                 <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
-                    <input class="form-check-input" type="radio" name="profil" id="Kanagawa" value="Kanagawa.png" aria-label="Avatar grande vague de Kanagawa">
+                    <input class="form-check-input" type="radio" name="profil" <?= ($avatar === "Kanagawa.png") ? "checked" : "" ?>
+                        id="Kanagawa" value="Kanagawa.png" aria-label="Avatar grande vague de Kanagawa">
                     <label class="form-check-label" for="Kanagawa">
                         <img class="avatar" src="<?= $config['url'] ?>/assets/img_profil/Kanagawa.png" alt="Grande vague de Kanagawa">
                         <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">
                     </label>
                 </div>
                 <div class="form-check p-0 p-md-2 mx-lg-1 pb-2 col-6 col-sm-5 col-lg-3 img-select">
-                    <input class="form-check-input" type="radio" name="profil" id="shiba" value="Shiba.png" aria-label="Avatar shiba Inu">
+                    <input class="form-check-input" type="radio" name="profil" <?= ($avatar === "Shiba.png") ? "checked" : "" ?>
+                        id="shiba" value="Shiba.png" aria-label="Avatar shiba Inu">
                     <label class="form-check-label" for="shiba">
                         <img class="avatar" src="<?= $config['url'] ?>/assets/img_profil/Shiba.png" alt="Shiba inu">
                         <img class="check" src="<?= $config['url'] ?>/assets/img_profil/check-circle.svg" alt="checked">

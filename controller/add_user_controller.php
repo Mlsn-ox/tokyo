@@ -92,10 +92,22 @@
         if (!$verif) {
             throw new Exception("server_error"); 
         }
+        setcookie("temp_first", "", time() - 3600, "/");
+        setcookie("temp_last", "", time() - 3600, "/");
+        setcookie("temp_birth", "", time() - 3600, "/");
+        setcookie("temp_mail", "", time() - 3600, "/");
+        setcookie("temp_name", "", time() - 3600, "/");
+        setcookie("temp_avatar", "", time() - 3600, "/");
         header("Location: ../view/login.php?message_code=user_added&status=success");
         exit();
-
     } catch (Exception $e) {
+        session_start();
+        setcookie("temp_first", $_POST["firstname"] ?? "", time() + 600, "/");
+        setcookie("temp_last", $_POST["lastname"] ?? "", time() + 600, "/");
+        setcookie("temp_birth", $_POST["birthdate"] ?? "", time() + 600, "/");
+        setcookie("temp_mail", $_POST["mail"] ?? "", time() + 600, "/");
+        setcookie("temp_name", $_POST["name"] ?? "", time() + 600, "/");
+        setcookie("temp_avatar", $_POST["profil"] ?? "Sakura.png", time() + 600, "/");
         $error_code = urlencode($e->getMessage());
         header("Location: ../view/add_user.php?message_code=" . $error_code . "&status=error");
         exit();

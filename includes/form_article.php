@@ -1,20 +1,10 @@
 <?php
-if ($_SESSION['bloked']) {
-    header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
-    exit();
-}
 // Valeurs par défaut ou écrasées
 $article = $article ?? [];
 $buttonSubmit = $buttonSubmit ?? 'Publier mon spot';
 $buttonPrevious = $buttonPrevious ?? 'Retour';
 $href = $href ?? './homepage.php';
 $mode = $mode ?? 'add';
-if ($mode === "update") {
-    $title = htmlspecialchars($article['art_title'] ?? '', ENT_QUOTES, 'UTF-8');
-    $content = htmlspecialchars($article['art_content'] ?? '', ENT_QUOTES, 'UTF-8');
-    $lat = htmlspecialchars($article['art_lat'] ?? '', ENT_QUOTES, 'UTF-8');
-    $lng = htmlspecialchars($article['art_lng'] ?? '', ENT_QUOTES, 'UTF-8');
-}
 ?>
 
 <form method="POST" action="../controller/article_controller.php" enctype="multipart/form-data" 
@@ -22,11 +12,11 @@ if ($mode === "update") {
     <input type="hidden" name="author" value="<?= $_SESSION['id'] ?>">
     <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
     <?php if ($mode === "update") { ?>
-        <input type="hidden" name="art_id" value="<?= $article['art_id'] ?>">
+        <input type="hidden" name="art_id" value="<?= htmlspecialchars($article['art_id'], ENT_QUOTES, 'UTF-8')?>">
     <?php } ?>
     <div class="mb-3">
         <input type="text" name="title" class="form-control form-control-lg"
-            value="<?= $title ?>"
+            value="<?= htmlspecialchars($article['art_title'] ?? $title, ENT_QUOTES, 'UTF-8') ?>"
             placeholder="Titre" maxlength="40" required
             aria-label="Titre de l'article" aria-describedby="titleHelp"
             data-bs-toggle="tooltip" data-bs-placement="top"
@@ -42,7 +32,13 @@ if ($mode === "update") {
                 $stmt = $pdo->query($sql);
                 $cats = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($cats as $cat) {
-                    $selected = (!empty($article['art_fk_cat_id']) && $article['art_fk_cat_id'] == $cat['cat_id']) ? 'selected' : '';
+                    if ($mode === "update"){
+                        $selected = (!empty($article['art_fk_cat_id']) && $article['art_fk_cat_id'] == $cat['cat_id']) ? 'selected' : '';
+                    } else if ($mode === "add") {
+                        $selected = (!empty($_SESSION['temp_cat']) && $_SESSION['temp_cat'] == $cat['cat_id']) ? 'selected' : '';
+                    } else {
+                        $selected = '';
+                    }
                     echo "<option value='" . $cat['cat_id'] . "' $selected>" . ucfirst($cat['cat_name']) . "</option>";
                 }
             } catch (PDOException $e) {
@@ -57,7 +53,7 @@ if ($mode === "update") {
             placeholder="Décrivez le lieu en quelques mots"
             aria-label="Contenu de l'article" aria-describedby="contentHelp"
             data-bs-toggle="tooltip" data-bs-placement="top"
-            data-bs-title="300 caractères maximum."><?= $content ?></textarea>
+            data-bs-title="300 caractères maximum."><?= htmlspecialchars($article['art_content'] ?? $content, ENT_QUOTES, 'UTF-8') ?></textarea>
         <div id="contentHelp" class="form-text">300 caractères maximum.</div>
     </div>
     <div class="mb-4">
@@ -74,9 +70,9 @@ if ($mode === "update") {
             aria-label="Carte interactive pour sélectionner un emplacement"></div>
         <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-2">
             <input class="form-control text-primary" type="text" id="lat" name="lat"
-                value="<?= $lat ?>" hidden required>
+                value="<?= htmlspecialchars($article['art_lat'] ?? $lat, ENT_QUOTES, 'UTF-8') ?>" hidden required>
             <input class="form-control text-success" type="text" id="lng" name="lng"
-                value="<?= $lng ?>" hidden required>
+                value="<?= htmlspecialchars($article['art_lng'] ?? $lng, ENT_QUOTES, 'UTF-8') ?>" hidden required>
         </div>
         <div class="container-fluid d-flex flex-column justify-content-center">
             <p class="adress text-center">ou</p>

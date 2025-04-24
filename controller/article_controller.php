@@ -25,14 +25,21 @@
         $lat = filter_var($_POST['lat'], FILTER_VALIDATE_FLOAT);
         $lng = filter_var($_POST['lng'], FILTER_VALIDATE_FLOAT);
         $_SESSION["temp_title"] = $title;
+        $_SESSION["temp_cat"] = $category;
         $_SESSION["temp_content"] = $content;
         $_SESSION["temp_lat"] = $lat;
         $_SESSION["temp_lng"] = $lng;
         if (
+            empty($title) || empty($content) ||
+            $category === false || $lat === false || $lng === false
+        ) {
+            throw new Exception("form_error");
+        }
+        if (
             empty($title) || empty($content) || !$category || !$lat || !$lng ||
             $lat < 35.52 || $lat > 35.8 || $lng < 139.46 || $lng > 139.91
         ) {
-            throw new Exception("form_error");
+            throw new Exception("map_error");
         }
         // Vérifie que l’article existe et appartient au bon utilisateur (sauf si admin)
         if ($isUpdate) {
@@ -82,13 +89,14 @@
         ) {
             handleImageUpload($title, $articleId, $pdo);
         }
+        unset($_SESSION["temp_title"], $_SESSION["temp_content"], $_SESSION["temp_image"], $_SESSION["temp_lat"], $_SESSION["temp_lng"]);
         $message = $isUpdate ? "article_updated" : "article_added";
         header("Location: ../view/read_user.php?id=$author&message_code=$message&status=success");
         exit();
     } catch (Exception $e) {
         $error_code = urlencode($e->getMessage());
         $redirectId = $articleId ?? 'new';
-        header("Location: ../view/" . ($isUpdate ? "update_article.php?id=$redirectId" : "add_article.php") . "&message_code=$error_code&status=error");
+        header("Location: ../view/" . ($isUpdate ? "update_article.php?id=$redirectId&" : "add_article.php?") . "message_code=$error_code&status=error");
         exit();
     }
 ?>

@@ -15,6 +15,20 @@
     ? "<span class='badge text-bg-primary rounded'>" . $notif['COUNT(*)'] . "</span>" 
     : "";
 ?>
+<div class="toast-container position-fixed bottom-0 start-0 p-3">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            📢
+            <strong class="mx-auto categorie">Cookies</strong>
+            <small>🍪</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body d-flex flex-column ">
+            En poursuivant votre navigation sur ce site, vous acceptez l'utilisation des cookies.
+        <button type="button" id="accept-cookies" class="btn btn-success btn-sm w-25 ms-auto mt-2" data-bs-dismiss="toast">Compris</button>
+        </div>
+    </div>
+</div>
 <div class="section p-1 container-fluid mx-auto d-flex flex-column justify-content-center overflow-hidden petales">
     <div class="container-xl p-xl-5 p-md-4 p-3 rounded-5 my-3 my-md-4 home fading">
     <?php if (empty($_SESSION['id'])){ ?>

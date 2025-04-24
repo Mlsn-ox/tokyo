@@ -1,8 +1,8 @@
 <?php 
     require_once "../config.php";
     $menu = "login";
-    if (isset($_COOKIE["email_temp"])) {
-        $mail = htmlspecialchars($_COOKIE["email_temp"], ENT_QUOTES, 'UTF-8');
+    if (isset($_COOKIE["mail"])) {
+        $mail = htmlspecialchars($_COOKIE["mail"], ENT_QUOTES, 'UTF-8');
     } else {
         $mail = "";
     }

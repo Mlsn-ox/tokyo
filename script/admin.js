@@ -128,7 +128,7 @@ function loadStats() {
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">👥 Inscrits : ${userStats.total_users}</li>
-          <li class="list-group-item">🔴 En attente : ${userStats.total_bloked}</li>
+          <li class="list-group-item">🔴 Bloqués : ${userStats.total_blocked}</li>
           <li class="list-group-item">🐥 Dernier inscrit : ${userStats.newest_user} (${userStats.newest_user_date})</li>
 
         </ul>

@@ -14,10 +14,7 @@ const closeDeleteBtn = document.querySelector(".btn-close-delete");
 const avatars = document.querySelectorAll(".avatar-canva");
 const inputName = document.querySelector("#name");
 const nameInfo = document.querySelector("#nameHelp");
-const blocked = document.querySelector(".blocked-icon");
 const token = document.querySelector(".token").dataset.token;
-const status = document.querySelector(".token").dataset.status;
-const userId = document.querySelector(".token").dataset.id;
 let idToDelete = null;
 let idSession = null;
 
@@ -30,25 +27,6 @@ deleteBtnModal.forEach((btn) => {
   btn.addEventListener("click", () => {
     idToDelete = btn.dataset.id;
     idSession = btn.dataset.session;
-  });
-});
-
-blocked.addEventListener("click", () => {
-  fetch(`../ajax/user_bloker.php?id=${userId}&status=${status}&token=${token}`)
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === "Success") {
-      if (status === "blocked") {
-        blocked.innerHTML = "🔴";
-      } else {
-        blocked.innerHTML = "🔵";
-      }
-    } else {
-      console.error("Erreur : " + data.message);
-    }
-  })
-  .catch(err => {
-    console.error("Erreur AJAX :", err);
   });
 });
 

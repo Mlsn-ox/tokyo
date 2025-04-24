@@ -8,7 +8,7 @@
             header("Location: ../view/login.php?message_code=connect_error&status=error");
             exit();
         }
-        if ($_SESSION['bloked']) {
+        if ($_SESSION['blocked']) {
             throw new Exception("unauthorized");
         }
         if (empty($_POST['comment_content'])) {

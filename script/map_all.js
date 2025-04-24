@@ -80,7 +80,7 @@ function success(pos) {
   let geolng = crd.longitude;
   // Vérifier si les coordonnées correspondent à Tokyo
   if (!isInTokyo(geolat, geolng)) {
-    adress.innerHTML = "Dommage, vous n'êtes pas à Tokyo.";
+    adress.innerHTML = "Vous n'êtes pas à Tokyo... 🙇";
     adress.classList.add("text-danger", "fw-bold");
     spinny.classList.add("d-none");
     return; // Arrête la fonction si on n'est pas dans la zone de Tokyo

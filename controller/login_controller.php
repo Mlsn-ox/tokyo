@@ -36,7 +36,7 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         $_SESSION['role'] = htmlspecialchars($user['user_role'], ENT_QUOTES, 'UTF-8');
         $_SESSION['img'] = htmlspecialchars($user['user_image'], ENT_QUOTES, 'UTF-8');
         $_SESSION['role'] = htmlspecialchars($user['user_role'], ENT_QUOTES, 'UTF-8');
-        $_SESSION['bloked'] = $user['user_is_bloked'];
+        $_SESSION['blocked'] = $user['user_is_blocked'];
         $_SESSION['token'] = bin2hex(random_bytes(16));
         setcookie("email_temp", "", time() - 3600, "/"); // Supression du cookie
         if ($user['user_role']=== "admin"){

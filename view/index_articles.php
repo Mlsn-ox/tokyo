@@ -33,44 +33,45 @@
     $stmt->execute($params);
     $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<div class="section container p-xl-3 p-lg-2 p-1 mx-auto home d-flex flex-column align-items-center">
-    <div class="container d-flex justify-content-center my-4 filters">
-        <button class="btn btn-lg btn-outline-success rounded-pill text-black d-flex align-items-center justify-content-center px-3 gap-2" 
-            type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
-            Filtrer
-        </button>
-    </div>
-    <div class="collapse <?= $keyword == '' ? "" : "show" ?>" id="collapseFilters">
-        <div class="container mb-3">
-            <form method="GET" class="d-flex flex-column align-items-center" id="filter">
-                <div class="container row mt-2 mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Rechercher par mots clés 🕵️‍♂️</label>
-                    <input type="text" class="form-control" name="search" aria-label="Rechercher un article" maxlength="50" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search'], ENT_QUOTES, 'UTF-8') : '' ?>">
-                </div>
-                <div class="container row my-1">
-                    <label for="category" class="form-label">Catégorie</label>
-                    <select id="category" class="form-select category" name="cat" aria-label="Choix de la catégorie">
-                        <option value="">Toutes</option>
-                        <?php
-                        try {
-                            $sql = "SELECT * FROM category;";
-                            $stmt = $pdo->query($sql);
-                            $cats = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            foreach ($cats as $cat) {
-                                $selected = ($cat['cat_id'] == $category) ? "selected" : "";
-                                echo "<option value='" . $cat['cat_id'] . "'" . $selected . ">" . getEmojiCategory($cat['cat_name']) . " " . ucfirst($cat['cat_name']) . "</option>";
+<div class="section container-xxl p-xl-3 p-lg-2 p-1 mx-auto home d-flex flex-column align-items-center">
+    <div class="container-fluid drop-container">
+        <div class="d-flex justify-content-center filters mt-4 mt-lg-2 mb-4">
+            <button class="d-flex align-items-center justify-content-center px-3 gap-2 dropfilters rounded" 
+                type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
+                <?= ($keyword == '' && $category == '') ? 'Rechercher ⤵' : 'Fermer ⤴' ?>
+            </button>
+        </div>
+        <div class="collapse <?= ($keyword == '' && $category == '') ? '' : 'show' ?> rounded mx-auto mb-4" id="collapseFilters">
+            <div class="container-fluid mb-1">
+                <form method="GET" class="d-flex flex-wrap justify-content-evenly align-items-center" id="filter">
+                    <div class="col-md-5 col-sm-8 col-12">
+                        <label for="exampleInputEmail1" class="form-label">Rechercher par mots clés 🕵️‍♂️</label>
+                        <input type="text" class="form-control" name="search" aria-label="Rechercher un article" maxlength="50">
+                    </div>
+                    <div class="col-md-5 col-sm-8 col-12">
+                        <label for="category" class="form-label">Catégorie</label>
+                        <select id="category" class="form-select category" name="cat" aria-label="Choix de la catégorie">
+                            <option value="">Toutes</option>
+                            <?php
+                            try {
+                                $sql = "SELECT * FROM category;";
+                                $stmt = $pdo->query($sql);
+                                $cats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($cats as $cat) {
+                                    echo "<option value='" . $cat['cat_id'] . "'" . $selected . ">" . getEmojiCategory($cat['cat_name']) . " " . ucfirst($cat['cat_name']) . "</option>";
+                                }
+                            } catch (PDOException $e) {
+                                echo "<option disabled>Erreur lors du chargement des catégories</option>";
                             }
-                        } catch (PDOException $e) {
-                            echo "<option disabled>Erreur lors du chargement des catégories</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="btn-filters d-flex flex-wrap mt-3 mb-2 gap-3">
-                    <button type="submit" class="btn btn-outline-primary rounded-pill ">Trier</button>
-                    <button type="reset" class="btn btn-sm btn-outline-danger rounded-pill " id="reset">Réinitialiser</button>
-                </div>
-            </form>
+                            ?>
+                        </select>
+                    </div>
+                    <div class="btn-filters d-flex flex-wrap justify-content-center align-items-center mt-3 gap-3">
+                        <button type="submit" class="btn btn-outline-primary rounded-pill ">Afficher</button>
+                        <button type="reset" class="btn btn-sm btn-outline-danger rounded-pill " id="reset">Réinitialiser</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <div class="container-fluid row justify-content-around flex-wrap" id="articles">

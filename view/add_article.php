@@ -1,6 +1,10 @@
 <?php 
     require_once "../config.php";
     $menu = "add_article";
+    if ($_SESSION['blocked']) {
+        header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr" data-bs-theme="light">
@@ -19,11 +23,12 @@
     $buttonPrevious = "Retour à la page d'accueil";
     $href = "./homepage.php";
     $mode = "add";
-    $title = $_SESSION["temp_titre"] ?? "";
-    $content = $_SESSION["temp_contenu"] ?? "";
-    $image = $_SESSION["temp_image"] ?? "";
+    $title = $_SESSION["temp_title"] ?? "";
+    $category = $_SESSION["temp_cat"] ?? "";
+    $content = $_SESSION["temp_content"] ?? "";
     $lat = $_SESSION["temp_lat"] ?? "";
     $lng = $_SESSION["temp_lng"] ?? "";
+    //echo "<script>console.log(" . json_encode($_SESSION) . ");</script>";
 ?>
 <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" 
     tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true" >
