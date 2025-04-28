@@ -1,11 +1,9 @@
 <?php
-    require_once "../config.php";
+require_once "../config.php";
 
 if (
-    empty($_SESSION['id']) || 
-    empty($_SESSION['token']) ||
-    $_POST['id'] != $_SESSION['id'] || 
-    $_POST['token'] != $_SESSION['token']
+    !isConnected() ||
+    !isTokenValid($_POST['token'])
 ) {
     session_destroy();
     header("Location: ../view/login.php?message_code=connect_error&status=error");
@@ -13,10 +11,12 @@ if (
 }
 try {
     // Vérifie que les champs obligatoires sont présents
-    if (empty($_POST['current']) || 
-        empty($_POST['psw1']) || 
-        empty($_POST['psw2'] || 
-        $_POST['psw1'] != $_POST['psw2'])) {
+    if (
+        empty($_POST['current']) ||
+        empty($_POST['psw1']) ||
+        empty($_POST['psw2'] ||
+            $_POST['psw1'] != $_POST['psw2'])
+    ) {
         throw new Exception("form_error");
     }
     $id = $_SESSION['id'];

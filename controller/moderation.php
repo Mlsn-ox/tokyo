@@ -1,14 +1,14 @@
 <?php
-    require_once "../config.php";
-    
+require_once "../config.php";
+
 try {
-    if (!isset($_GET['id'], $_GET['action'],$_GET['element'], $_GET['token'])) {  
+    if (!isset($_GET['id'], $_GET['action'], $_GET['element'], $_GET['token'])) {
         throw new Exception("server_error");
     }
-    if ($_GET['token'] !== $_SESSION['token']){
+    if (!isTokenValid($_GET['token'])) {
         throw new Exception("connect_error");
     }
-    if ($_SESSION['role'] !== "admin"){
+    if (!isAdmin()) {
         throw new Exception("unauthorized");
     }
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
@@ -19,10 +19,10 @@ try {
     }
     $element = $_GET['element'];
     $articleId = $location = "";
-    if ($element === "article"){
+    if ($element === "article") {
         $sql = "UPDATE article SET art_status = :action WHERE art_id = :id";
         $location = "Location: ../view/admin.php?message_code=article_updated&status=success";
-    } else if ($element === "comment"){
+    } else if ($element === "comment") {
         $sql = "SELECT com_fk_art_id FROM comment WHERE com_id = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);
@@ -35,13 +35,12 @@ try {
     $stmt = $pdo->prepare($sql);
     $verif = $stmt->execute(['action' => $action, 'id' => $id]);
     if (!$verif) {
-        throw new Exception("server_error"); 
-    } 
+        throw new Exception("server_error");
+    }
     header($location);
-    exit;    
+    exit;
 } catch (Exception $e) {
     $error_code = urlencode($e->getMessage());
     header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
     exit();
 }
-?>

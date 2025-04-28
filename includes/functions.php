@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Retourne un émoji en fonction de la catégorie
  * @param string catégorie
  * @return string émoji
  */
-function getEmojiCategory($cat){
+function getEmojiCategory($cat)
+{
     switch ($cat) {
         case 'gastronomie':
             return "🍜";
@@ -19,6 +21,11 @@ function getEmojiCategory($cat){
     }
 }
 
+/**
+ *  Calculer l'âge à partir de la date de naissance
+ * @param string $birthdate Date de naissance au format YYYY-MM-DD 
+ * @return int Âge
+ */
 function getAge($birthdate)
 {
     $now = new DateTime();
@@ -34,7 +41,61 @@ function getAge($birthdate)
     return $age;
 }
 
-function getMessage($code) {
+/**
+ *  Vérifie si l'utilisateur est connecté
+ * @return bool connecté
+ */
+function isConnected()
+{
+    return isset($_SESSION['id']) && !empty($_SESSION['id']);
+}
+
+/**
+ *  Vérifie si l'utilisateur est le propriétaire de l'article
+ * @param int $id_author ID de l'article
+ * @return bool propriétaire
+ */
+function isOwner($id_author)
+{
+    return isset($_SESSION['id']) && $_SESSION['id'] == $id_author;
+}
+
+/**
+ *  Vérifie si l'utilisateur est admin
+ * @return bool admin
+ */
+
+function isAdmin()
+{
+    return isset($_SESSION['role']) && $_SESSION['role'] === "admin";
+}
+
+/**
+ *  Vérifie si le token est valide
+ * @param string $token Token à vérifier
+ * @return bool valide
+ */
+function isTokenValid($token)
+{
+    return isset($_SESSION['token']) && $_SESSION['token'] == $token;
+}
+
+/**
+ *  Vérifie si l'utilisateur est bloqué
+ * @return bool true si bloqué
+ */
+function isBlocked()
+{
+    return isset($_SESSION['blocked']) && $_SESSION['blocked'] == 1;
+}
+
+/**
+ *  Affiche un message d'erreur ou de succès
+ * @param string $code Code du message
+ * @return string Message correspondant au code
+ */
+function getMessage($code)
+{
     $messages = [
         'form_error' => 'Renseignez toutes les informations.',
         'article_added' => 'Spot ajouté avec succès.',
@@ -68,7 +129,6 @@ function getMessage($code) {
         'deleted' => 'Élément supprimé',
         'reject_first' => 'Élément en ligne, suppression impossible',
         'generic_error' => 'Une erreur est survenue. Veuillez réessayer plus tard.',
-    ];    
-    return isset($messages[$code]) ? $messages[$code] : $messages['generic_error'];  
+    ];
+    return isset($messages[$code]) ? $messages[$code] : $messages['generic_error'];
 }
-?>

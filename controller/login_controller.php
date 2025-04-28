@@ -1,6 +1,6 @@
 <?php
-    require_once "../config.php";
-    
+require_once "../config.php";
+
 if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
     try {
         $mail = filter_var(trim($_POST['mail']), FILTER_VALIDATE_EMAIL);
@@ -15,7 +15,7 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         if (!$user) {
             throw new Exception("mail_error");
         }
-        if ($user['user_is_bloked']){
+        if ($user['user_is_bloked']) {
             throw new Exception("unauthorized");
         }
         $checkPsw = password_verify($_POST["psw"], $user['user_psw']);
@@ -26,11 +26,11 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         $update = "UPDATE user SET user_log = :today WHERE user_id = :id";
         $stmtUpdate = $pdo->prepare($update);
         $stmtUpdate->execute([
-            'today' => $today, 
+            'today' => $today,
             'id' => $user['user_id']
         ]);
         session_start();
-        $_SESSION['id'] = (int) $user['user_id'];
+        $_SESSION['id'] = $user['user_id'];
         $_SESSION['name'] = htmlspecialchars($user['user_name'], ENT_QUOTES, 'UTF-8');
         $_SESSION['mail'] = filter_var($user['user_mail'], FILTER_SANITIZE_EMAIL);
         $_SESSION['role'] = htmlspecialchars($user['user_role'], ENT_QUOTES, 'UTF-8');
@@ -39,7 +39,7 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         $_SESSION['blocked'] = $user['user_is_blocked'];
         $_SESSION['token'] = bin2hex(random_bytes(16));
         setcookie("email_temp", "", time() - 3600, "/"); // Supression du cookie
-        if ($user['user_role']=== "admin"){
+        if ($user['user_role'] === "admin") {
             header("Location: ../view/admin.php");
             exit;
         } else {

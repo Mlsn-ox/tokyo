@@ -43,17 +43,23 @@ export function mapping(lat, lng) {
 
 /**
  * Échappe les caractères HTML spéciaux dans une chaîne de caractères.
- * @param {any} input - La chaîne/nombre à sécuriser
+ * @param {any} input - La chaîne/nombre à sécuriser et décoder
  * @returns {string} - La chaîne échappée, prête à être injectée dans le DOM
  */
-export function escapeHTML(input) {
+export function escapeHtml(input) {
   const str = String(input); // Conversion en chaîne au cas où
-  return str
+  const txt = document.createElement("textarea");
+  txt.innerHTML = str;
+  const strSecu = txt.value;
+  return strSecu
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(/`/g, "&#x60;")
+    .replace(/\\/g, "&#x5C;")
+    .replace(/;/g, "&#x3B;")
+    .replace(/=/g, "&#x3D;");
 }
 
 /**
@@ -77,9 +83,9 @@ export function getEmojiCategory(cat) {
 }
 
 /**
-  * Affiche ou masque le mot de passe dans un champ de saisie.  
-  * @param {Event} event - L'événement de clic sur le bouton de basculement.
-  */
+ * Affiche ou masque le mot de passe dans un champ de saisie.
+ * @param {Event} event - L'événement de clic sur le bouton de basculement.
+ */
 export function togglePassword(event) {
   const toggle = event.currentTarget;
   const inputId = toggle.getAttribute("data-target");
