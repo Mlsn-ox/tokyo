@@ -11,7 +11,7 @@ setInterval(updateTime, 1000);
 window.addEventListener("resize", handlePetalEffect);
 handlePetalEffect();
 
-if (document.cookie.includes("cookies_accepted=true")) {
+if (!document.cookie.includes("cookies_accepted=true")) {
   const toastBootstrap = new bootstrap.Toast(toast, {
     autohide: false
   });
@@ -50,7 +50,7 @@ function createPetal() {
 function handlePetalEffect() {
   if (window.innerWidth > 992) {
     if (!petalInterval) {
-      petalInterval = setInterval(createPetal, 1300);
+      petalInterval = setInterval(createPetal, 1000); // Créer une pétale toutes les secondes
     }
   } else {
     if (petalInterval) {

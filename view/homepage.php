@@ -39,7 +39,7 @@
             et c’est justement ce que nous voulons partager avec vous !
         </p>
         <p class="d-none d-sm-block">
-            TokyoSpot est un blog collaboratif où vous êtes les guides.
+            TokyoSpot est un blog collaboratif où vous êtes les guides. ⛩️
         </p>
         <p>
             Que vous ayez découvert un café caché, un point de vue spectaculaire, une boutique insolite ou une activité locale,
@@ -51,7 +51,7 @@
             Une découverte à partager ? 📍 
             <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="<?= $config['url'] ?>/view/login.php">
                 Venez partager avec nous votre trouvaille
-            </a> et faites voyager les autres à travers votre regard !
+            </a>&nbspet faites voyager les autres à travers votre regard !
         </p>
         <?php } else { ?> 
             <h2 class="mb-3 text-center fw-normal">Bienvenue <?= $_SESSION['name'] ?>, qu'allez-vous faire aujourd'hui ?</h2>

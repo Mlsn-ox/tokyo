@@ -9,4 +9,4 @@ $config = [
 
 session_start();
 include_once 'includes/pdo.php';
-require_once "includes/functions.php";
+include_once "includes/functions.php";

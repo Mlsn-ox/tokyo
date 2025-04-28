@@ -55,7 +55,7 @@
         <p class="m-0">Tokyospot collecte des données personnelles lors de l’inscription ou de l’envoi de contenu. Ces données sont utilisées uniquement pour le bon fonctionnement du site et ne sont jamais transmises à des tiers sans consentement.</p>
         <p class="m-0">Conformément au RGPD, vous pouvez exercer vos droits à l’adresse : 
             <a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
-            href="<?= $config['url'] ?>/includes/contact_form.php"><?= $config['email'] ?></a></p>
+            href="mailto:<?= $config['url'] ?>/includes/contact_form.php"><?= $config['email'] ?></a></p>
 
         <h3 class="my-3">9. Cookies</h3>
         <p class="m-0">Tokyospot peut utiliser des cookies à des fins de navigation, d’analyse ou de personnalisation. Vous pouvez à tout moment modifier les paramètres de votre navigateur pour bloquer les cookies.</p>
@@ -76,6 +76,7 @@
 
         <h3 class="my-3">13. Droit applicable</h3>
         <p class="m-0">Les présentes CGU sont régies par le droit français. En cas de litige, les parties s’engagent à rechercher une solution amiable. À défaut, les tribunaux compétents seront saisis.</p>
+        <p class="mt-3"><em>Dernière mise à jour : <?= date('m/Y') ?></em></p>
     </div>
 </div>
 <?php require_once "../includes/footer.php" ?>

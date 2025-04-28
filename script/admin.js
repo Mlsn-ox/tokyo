@@ -41,7 +41,6 @@ function getEmojiCategory(cat) {
   }
 }
 
-
 function loadStats() {
   fetch("../ajax/get_stats.php")
   .then((res) => res.json())

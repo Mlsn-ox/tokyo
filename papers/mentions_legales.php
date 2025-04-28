@@ -39,7 +39,8 @@
         <p class="m-0">Le site peut utiliser des cookies à des fins de fonctionnement, d’analyse ou de personnalisation.
         En naviguant sur Tokyospot, vous acceptez l’usage de ces cookies. Vous pouvez modifier vos préférences via votre navigateur.</p>
         <h3 class="my-3">6. Responsabilité</h3>
-        <p class="m-0">Les informations proposées sur Tokyospot sont fournies à titre indicatif. L’auteur ne saurait être tenu responsable des erreurs, omissions ou d’un mauvais usage des contenus.
+        <p class="m-0">Les informations proposées sur Tokyospot sont fournies à titre indicatif. L’auteur ne saurait être tenu responsable des erreurs, omissions ou d’un mauvais usage des contenus.</p>
+        <p class="mt-3"><em>Dernière mise à jour : <?= date('m/Y') ?></em></p>
     </div>
 </div>
 <?php require_once "../includes/footer.php" ?>

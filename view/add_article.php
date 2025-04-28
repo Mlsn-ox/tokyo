@@ -1,7 +1,7 @@
 <?php 
     require_once "../config.php";
     $menu = "add_article";
-    if ($_SESSION['blocked']) {
+    if (isset($_SESSION['blocked']) && $_SESSION['blocked'] == 1) {
         header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
         exit();
     }
@@ -15,10 +15,10 @@
 </head>
 <body>
 <?php require_once "../includes/navbar.php"; 
-    if (empty($_SESSION['id'])){
-        header("Location: ../view/login.php?message_code=connect_error&status=success");
-        exit();
-    }
+    // if (empty($_SESSION['id'])){
+    //     header("Location: ../view/login.php?message_code=connect_error&status=success");
+    //     exit();
+    // }
     $buttonSubmit = "Publier mon spot";
     $buttonPrevious = "Retour à la page d'accueil";
     $href = "./homepage.php";

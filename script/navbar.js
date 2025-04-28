@@ -1,4 +1,3 @@
-const captcha = document.querySelector(".g-recaptcha") || false;
 const toTop = document.querySelector(".to-top");
 const lightInput = document.getElementById("light-theme");
 const darkInput = document.getElementById("dark-theme");
@@ -18,9 +17,6 @@ if (appliedTheme === "dark") {
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   document.documentElement.setAttribute("data-bs-theme", theme);
-  if (captcha) {
-    captcha.setAttribute("data-theme", theme);
-  }
   localStorage.setItem("theme", theme);
 }
 

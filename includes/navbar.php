@@ -80,6 +80,9 @@
             </li>
           <?php } else {
             if ($_SESSION['role'] === "admin") { ?>
+                <li class="text-primary">
+                  <hr class="mx-auto my-0 menu-line">
+                </li>
                 <li class="nav-item d-flex position-relative admin pe-4">
                   <a class="nav-link moderation btn-admin <?= $menu === "admin" ? "active-page" : '' ?>" 
                     href="<?= $config['url'] ?>/view/admin.php">
@@ -95,6 +98,9 @@
                   <hr class="mx-auto my-0 menu-line">
                 </li>
             <?php } ?>
+            <li class="text-primary">
+              <hr class="mx-auto my-0 menu-line">
+            </li>
             <li class="nav-item">
               <a class="nav-link page-profil d-flex justify-content-center align-items-center <?= $menu === "profil" ? "active-page" : '' ?>" 
                   href="<?= $config['url'] ?>/view/read_user.php?id=<?= $_SESSION['id'] ?>">

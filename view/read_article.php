@@ -92,7 +92,7 @@
     </div>
     <div class="container-fluid d-md-flex justify-content-between pt-3">
         <div class="container-fluid col-12 col-md-6 fade-right pt-md-4 d-flex flex-column">
-            <p><?= $article['art_content'] ?></p>
+            <article class="mb-2"><?= $article['art_content'] ?></article>
             <p>
                 Posté le <?= date("d/m/Y", strtotime($article['art_created_at'])) ?><?= $author ? ", par " : "" ?>
                 <a href="<?= $config['url'] ?>/view/read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">
@@ -175,7 +175,7 @@
                     <li class="list-group-item py-3 d-flex flex-column <?= $class ?>">
                         <span><?= htmlentities(htmlspecialchars_decode($comment['com_content'])) ?></span>
                         <span class="fst-italic">
-                            <a href="<?= $config['url'] ?>/read_user.php?id=<?= $comment['commenter_id'] ?>"><?= $comment['commenter'] ?></a>,
+                            <a href="<?= $config['url'] ?>/view/read_user.php?id=<?= $comment['commenter_id'] ?>"><?= $comment['commenter'] ?></a>,
                             le <?= $comment['com_posted_at'] ?>
                         </span>
                         <div class="d-flex align-items-center my-1"><?= $btn ?></div>

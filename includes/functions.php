@@ -36,7 +36,7 @@ function getAge($birthdate)
 
 function getMessage($code) {
     $messages = [
-        'form_error' => 'Veuillez renseigner toutes les informations demandées.',
+        'form_error' => 'Renseignez toutes les informations.',
         'article_added' => 'Spot ajouté avec succès.',
         'name_invalid' => "Nom d'utilisateur invalide.",
         'name_taken' => "Nom d'utilisateur déjà utilisé.",
@@ -48,15 +48,15 @@ function getMessage($code) {
         'article_updated' => 'Spot mis à jour.',
         'user_updated' => 'Informations mises à jour.',
         'comment_updated' => 'Commentaire mis à jour.',
-        'article_error' => "Erreur lors de l'ajout du spot, veuillez réessayer plus tard.",
+        'article_error' => "Erreur, réessayer plus tard.",
         'user_added' => 'Inscription terminée, connectez-vous !',
         'signup_error' => "Cet email est déjà lié à un compte.",
         'mail_error' => 'Email incorrect.',
         'login_error' => 'Mot de passe incorrect.',
         'img_error' => "Erreur lors du chargement de l'image.",
         'img_too_big' => "Image trop volumineuse.",
-        'img_wrong_ext' => "Le format de l'image n'est pas valide.",
-        'map_error' => "Erreur lors de l'enregistrement des coordonnées.",
+        'img_wrong_ext' => "Format d'image invalide.",
+        'map_error' => "Erreur avec les coordonnées GPS.",
         'connect_error' => "Veuillez vous connecter.",
         'article_not_found' => "Erreur : spot introuvable",
         'user_not_found' => "Erreur : utilisateur inconnu.",

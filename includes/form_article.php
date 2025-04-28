@@ -9,8 +9,8 @@ $mode = $mode ?? 'add';
 
 <form method="POST" action="../controller/article_controller.php" enctype="multipart/form-data" 
     data-mode="<?= $mode ?>" aria-label="Formulaire d'article" class="redim">
-    <input type="hidden" name="author" value="<?= $_SESSION['id'] ?>">
-    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+    <input type="hidden" name="author" value="<?= $_SESSION['id'] ?? null ?>">
+    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? null ?>">
     <?php if ($mode === "update") { ?>
         <input type="hidden" name="art_id" value="<?= htmlspecialchars($article['art_id'], ENT_QUOTES, 'UTF-8')?>">
     <?php } ?>
@@ -87,7 +87,7 @@ $mode = $mode ?? 'add';
         <a href="<?= $href ?>" class="btn btn-outline-danger rounded-pill mb-3 px-5 col-xl-4" aria-label="Retourner à la page d'accueil">
             <?= $buttonPrevious ?>
         </a>
-        <button type="<?= $_SESSION['role'] === 'admin' ? 'submit' : 'button' ?>" class="btn btn-outline-success rounded-pill mb-3 px-3 submit" aria-label="Envoyer l'article">
+        <button type="<?= (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') ? 'submit' : 'button' ?>" class="btn btn-outline-success rounded-pill mb-3 px-3 submit" aria-label="Envoyer l'article">
             <?= $buttonSubmit ?>
         </button>
     </div>

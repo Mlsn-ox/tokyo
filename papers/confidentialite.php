@@ -37,7 +37,8 @@
             <li>Répondre aux demandes envoyées via le formulaire de contact</li>
         </ul>
         <h3 class="my-3">4. Stockage et durée de conservation</h3>
-        <p class="m-0">Les données sont conservées sur des serveurs sécurisés et pour une durée n’excédant pas ce qui est nécessaire au regard des finalités.</p>
+        <p class="m-0">Les données sont conservées sur des serveurs sécurisés et pour une durée n’excédant pas ce qui est nécessaire au regard des finalités. 
+            Les mots de passe sont chiffrés de manière sécurisée et ne sont jamais stockés en clair.</p>
         <p class="m-0">Les comptes inactifs peuvent être supprimés au bout de 2 ans d’inactivité.</p>
         <h3 class="my-3">5. Partage des données</h3>
         <p class="m-0">Les données ne sont jamais cédées, vendues ou transmises à des tiers sans votre consentement, sauf en cas d’obligation légale.</p>
@@ -60,7 +61,7 @@
             href="<?= $config['url'] ?>/includes/contact_form.php"><?= $config['email'] ?></a></p>
         <h3 class="my-3">9. Modification de la politique</h3>
         <p class="m-0">Cette politique peut être mise à jour à tout moment. La date de dernière mise à jour sera indiquée ci-dessous.</p>
-        <p class="mt-3"><em>Dernière mise à jour : avril 2025</em></p>
+        <p class="mt-3"><em>Dernière mise à jour : <?= date('m/Y') ?></em></p>
     </div>
 </div>
 <?php require_once "../includes/footer.php" ?>
