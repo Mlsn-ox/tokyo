@@ -5,13 +5,16 @@ const adress = document.querySelector(".adress");
 const spinny = document.querySelector(".loading-icon");
 let layerGroup = L.layerGroup().addTo(map);
 let redIcon = L.icon({
-  iconUrl: '../assets/logo_category/red-mark.png',
-  iconSize:     [44, 45], // size of the icon
-  iconAnchor:   [22, 45], // point of the icon which will correspond to marker's location
+  iconUrl: "../assets/logo_category/red-mark.png",
+  iconSize: [44, 45], // size of the icon
+  iconAnchor: [22, 45], // point of the icon which will correspond to marker's location
 });
 
 markerAll();
 
+/**
+ * Ajout de tous les markers sur la map
+ */
 function markerAll() {
   fetch("../ajax/map_all_controller.php")
     .then((response) => response.json())
@@ -19,7 +22,7 @@ function markerAll() {
       data.forEach((article) => {
         let gpsLat = Number(article.art_lat);
         let gpsLng = Number(article.art_lng);
-        let words = article.art_content.split(" "); // Sépare le texte en mots
+        let words = article.art_content.split(" ");
         if (words.length > 14) {
           article.art_content = words.slice(0, 14).join(" ") + "..."; // Prend les 14 premiers mots et ajoute "..."
         }
@@ -88,7 +91,10 @@ function success(pos) {
   getAdresse(geolat, geolng); // Récupération de l'adresse
   layerGroup.clearLayers();
   map.setView([geolat, geolng], 16); // Recentrer sur position géolocalisée
-  L.marker([geolat, geolng], {icon: redIcon}).addTo(layerGroup); // Ajout marker
+  L.marker(
+    [geolat, geolng],
+    { icon: redIcon } // Ajout marker rouge
+  ).addTo(layerGroup);
   spinny.classList.add("d-none"); // Disparition du spinner, remise du bouton
   locate.classList.remove("d-none");
 }
@@ -98,14 +104,14 @@ function error(err) {
   spinny.classList.add("d-none");
   locate.classList.remove("d-none");
 }
-var options = {
-  enableHighAccuracy: true,
-  timeout: 7000,
-  maximumAge: 0,
+const options = {
+  enableHighAccuracy: true, // Demande une position la plus précise possible
+  timeout: 7000, // Temps max d'attente
+  maximumAge: 0, // Ne pas utiliser une position mise en cache
 };
 const localisation = function () {
   locate.classList.add("d-none"); // Disparition du bouton, apparition du spinner
   spinny.classList.remove("d-none");
   navigator.geolocation.getCurrentPosition(success, error, options);
 };
-locate.addEventListener("click", localisation); // Appel de la fonction de géolocalisation
+locate.addEventListener("click", localisation);

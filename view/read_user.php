@@ -46,7 +46,7 @@ try {
     header("Location: ../view/homepage.php?message_code=" . $error_code . "&status=error");
     exit();
 }
-$token = $token ?? "";
+$token = $_SESSION['token'] ?? "";
 $id_session = $_SESSION['id'] ?? "";
 if (isset($_SESSION['id']) && $id_session == $id) {
     $menu = "profil";

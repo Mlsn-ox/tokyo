@@ -7,8 +7,8 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         if (!$mail) {
             throw new Exception("mail_error");
         }
-        setcookie("mail", $mail, time() + 600, "/");
-        $sql = "SELECT * FROM user WHERE user_mail=?";
+        setcookie("mail", $mail, time() + 604800, "/");
+        $sql = "SELECT * FROM user WHERE user_mail = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$mail]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,7 +38,6 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         $_SESSION['role'] = htmlspecialchars($user['user_role'], ENT_QUOTES, 'UTF-8');
         $_SESSION['blocked'] = $user['user_is_blocked'];
         $_SESSION['token'] = bin2hex(random_bytes(16));
-        setcookie("email_temp", "", time() - 3600, "/"); // Supression du cookie
         if ($user['user_role'] === "admin") {
             header("Location: ../view/admin.php");
             exit;

@@ -1,5 +1,6 @@
 <?php
 require_once '../vendor/autoload.php';
+
 use Dotenv\Dotenv;
 //Dotenv a besoin de savoir où se situe le fichier .env
 $dotenv = Dotenv::createImmutable("../"); // Racine du projet

@@ -34,7 +34,7 @@ $menu = "admin";
                     <a class="nav-link fw-bold" id="comments-tab" data-bs-toggle="tab" href="#comments" role="tab"
                         aria-controls="commentaires" aria-selected="false">
                         Commentaires <?= $notifCom['COUNT(*)'] > 0
-                                            ? "<span class='badge rounded bg-warning text-black'>" . $notifCom['COUNT(*)'] . "</span>"
+                                            ? "<span class='badge rounded bg-warning'>" . $notifCom['COUNT(*)'] . "</span>"
                                             : "" ?>
                     </a>
                 </li>

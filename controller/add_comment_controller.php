@@ -22,13 +22,9 @@ try {
     $article = filter_var($_POST['art_id'], FILTER_VALIDATE_INT);
     $today = date('Y-m-d');
     $sql = "INSERT INTO comment (com_posted_at, com_content, com_fk_art_id, com_fk_user_id) 
-                VALUES (:today, :content, :article, :author)";
+    VALUES (?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':today', $today, PDO::PARAM_STR);
-    $stmt->bindValue(':content', $content, PDO::PARAM_STR);
-    $stmt->bindValue(':article', $article, PDO::PARAM_INT);
-    $stmt->bindValue(':author', $author, PDO::PARAM_INT);
-    $verif = $stmt->execute();
+    $verif = $stmt->execute([$today, $content, $article, $author]);
     if (!$verif) {
         throw new Exception("server_error");
     }

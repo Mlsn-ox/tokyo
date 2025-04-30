@@ -20,7 +20,7 @@ try {
     $element = $_GET['element'];
     $articleId = $location = "";
     if ($element === "article") {
-        $sql = "UPDATE article SET art_status = :action WHERE art_id = :id";
+        $sql = "UPDATE article SET art_status = ? WHERE art_id = ?";
         $location = "Location: ../view/admin.php?message_code=article_updated&status=success";
     } else if ($element === "comment") {
         $sql = "SELECT com_fk_art_id FROM comment WHERE com_id = ?";
@@ -28,12 +28,12 @@ try {
         $stmt->execute([$id]);
         $articleId = $stmt->fetch(PDO::FETCH_ASSOC);
         $location = "Location: ../view/read_article.php?id=" . $articleId['com_fk_art_id'] . "&message_code=comment_updated&status=success";
-        $sql = "UPDATE comment SET com_status = :action WHERE com_id = :id";
+        $sql = "UPDATE comment SET com_status = ? WHERE com_id = ?";
     } else {
         throw new Exception("param_not_found");
     }
     $stmt = $pdo->prepare($sql);
-    $verif = $stmt->execute(['action' => $action, 'id' => $id]);
+    $verif = $stmt->execute([$action, $id]);
     if (!$verif) {
         throw new Exception("server_error");
     }

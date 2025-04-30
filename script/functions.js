@@ -84,7 +84,7 @@ export function getEmojiCategory(cat) {
 
 /**
  * Affiche ou masque le mot de passe dans un champ de saisie.
- * @param {Event} event - L'événement de clic sur le bouton de basculement.
+ * @param {Event} event - click sur l'emoji
  */
 export function togglePassword(event) {
   const toggle = event.currentTarget;

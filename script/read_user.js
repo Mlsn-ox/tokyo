@@ -18,7 +18,6 @@ const token = document.querySelector(".token").dataset.token;
 let idToDelete = null;
 let idSession = null;
 
-
 passwords.forEach((toggle) => {
   toggle.addEventListener("click", togglePassword);
 });

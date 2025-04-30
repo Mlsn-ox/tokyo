@@ -40,7 +40,7 @@ try {
         throw new Exception("signup_error");
     }
     // Vérification du mot de passe
-    $sql = "SELECT user_psw FROM user WHERE user_id=?";
+    $sql = "SELECT user_psw FROM user WHERE user_id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -49,13 +49,9 @@ try {
         throw new Exception("login_error");
     }
     // Mise à jour
-    $sql = "UPDATE user SET user_name=?, user_mail=? WHERE user_id=?;";
+    $sql = "UPDATE user SET user_name = ?, user_mail = ? WHERE user_id = ?";
     $stmt = $pdo->prepare($sql);
-    $verif = $stmt->execute([
-        $name,
-        $mail,
-        $id
-    ]);
+    $verif = $stmt->execute([$name, $mail, $id]);
     $_SESSION['name'] = $name;
     $_SESSION['mail'] = $mail;
     if (!$verif) {

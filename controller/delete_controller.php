@@ -26,7 +26,7 @@ try {
         if ($art['art_status'] === "approved") {
             throw new Exception("reject_first");
         }
-        $sql = "DELETE FROM article WHERE art_id = :id";
+        $sql = "DELETE FROM article WHERE art_id = ?";
     } else if ($element === "comment") {
         $sql = "SELECT com_status, com_fk_art_id FROM comment WHERE com_id = ?";
         $stmt = $pdo->prepare($sql);
@@ -37,10 +37,10 @@ try {
         }
         $articleId = $com['com_fk_art_id'];
         $location = "Location: ../view/read_article.php?id=" . $articleId . "&message_code=deleted&status=success";
-        $sql = "DELETE FROM comment WHERE com_id = :id";
+        $sql = "DELETE FROM comment WHERE com_id = ?";
     }
     $stmt = $pdo->prepare($sql);
-    $verif = $stmt->execute(['id' => $id]);
+    $verif = $stmt->execute([$id]);
     if (!$verif) {
         throw new Exception("server_error");
     }

@@ -71,6 +71,7 @@ inputName.addEventListener("input", function () {
   }
   if (/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_-]{3,}$/.test(name)) {
     inputName.style.border = "2px solid var(--green)";
+    // Vérifie que le nom d'utilisateur n'est pas déjà pris
     fetch("../ajax/check_name.php?name=" + encodeURIComponent(name))
       .then((response) => response.json())
       .then((data) => {

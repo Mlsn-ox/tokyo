@@ -21,7 +21,7 @@ try {
     }
     $id = $_SESSION['id'];
     // Vérification du mot de passe
-    $sql = "SELECT user_psw FROM user WHERE user_id=?";
+    $sql = "SELECT user_psw FROM user WHERE user_id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -35,12 +35,9 @@ try {
     }
     $psw = password_hash($_POST["psw1"], PASSWORD_DEFAULT);
     // Mise à jour
-    $sql = "UPDATE user SET user_psw=? WHERE user_id=?;";
+    $sql = "UPDATE user SET user_psw = ? WHERE user_id = ?";
     $stmt = $pdo->prepare($sql);
-    $verif = $stmt->execute([
-        $psw,
-        $id
-    ]);
+    $verif = $stmt->execute([$psw, $id]);
     if (!$verif) {
         throw new Exception("server_error");
     }

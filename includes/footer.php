@@ -1,25 +1,15 @@
 <footer class="d-flex flex-column justify-content-center p-3">
     <ul class="container-xl list-group list-group-horizontal-md mb-2 p-0">
-        <a href="<?= $config['url'] ?>/view/homepage.php" 
-            class="list-group-item list-group-item-action text-center <?= $menu === "accueil" ? "active-footer" : '' ?>">
-            Accueil
-        </a>
-        <a href="<?= $config['url'] ?>/papers/cgu.php" 
-            class="list-group-item list-group-item-action text-center <?= $menu === "cgu" ? "active-footer" : '' ?>">
-            CGU
-        </a>
-        <a href="<?= $config['url'] ?>/papers/confidentialite.php" 
-            class="list-group-item list-group-item-action text-center <?= $menu === "confidentialite" ? "active-footer" : '' ?>">
-            Confidentialité
-        </a>
-        <a href="<?= $config['url'] ?>/papers/mentions_legales.php" 
-            class="list-group-item list-group-item-action text-center <?= $menu === "mentions_legales" ? "active-footer" : '' ?>">
-            Mentions Légales
-        </a>
-        <a href="<?= $config['url'] ?>/papers/contact_form.php" 
-            class="list-group-item list-group-item-action text-center <?= $menu === "contact" ? "active-footer" : '' ?>">
-            Contact
-        </a>
+        <a href="<?= $config['url'] ?>/view/homepage.php"
+            class="list-group-item list-group-item-action text-center <?= $menu === "accueil" ? "active-footer" : '' ?>">Accueil</a>
+        <a href="<?= $config['url'] ?>/papers/cgu.php"
+            class="list-group-item list-group-item-action text-center <?= $menu === "cgu" ? "active-footer" : '' ?>">CGU</a>
+        <a href="<?= $config['url'] ?>/papers/confidentialite.php"
+            class="list-group-item list-group-item-action text-center <?= $menu === "confidentialite" ? "active-footer" : '' ?>">Confidentialité</a>
+        <a href="<?= $config['url'] ?>/papers/mentions_legales.php"
+            class="list-group-item list-group-item-action text-center <?= $menu === "mentions_legales" ? "active-footer" : '' ?>">Mentions Légales</a>
+        <a href="<?= $config['url'] ?>/papers/contact_form.php"
+            class="list-group-item list-group-item-action text-center <?= $menu === "contact" ? "active-footer" : '' ?>">Contact</a>
     </ul>
     <div class="container bottom mx-auto d-flex flex-column flex-sm-row align-items-center flex-wrap justify-content-between">
         <div class="d-flex flex-column flex-sm-row align-items-center">

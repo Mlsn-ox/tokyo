@@ -20,6 +20,8 @@ const confirmBtn = document.getElementById("confirmSendBtn");
 let image = document.createElement("img");
 image.src = "";
 
+cat.options[0].selected = true; // Sélection de la première catégorie
+
 // Initialisation de la map
 const map = mapping(35.705, 139.74);
 let layerGroup = L.layerGroup().addTo(map);
@@ -84,7 +86,8 @@ inputFiles.addEventListener("change", function () {
     this.value = "";
   } else {
     let name =
-      file.name.length > 25 ? file.name.slice(0, 22) + "..." : file.name; // Limite le nom du fichier à 25 caractères
+      file.name.length > 25 ? file.name.slice(0, 22) + "..." : file.name;
+    // Limite le nom du fichier à 25 caractères
     para.textContent = `${name}, ${size}.`;
     image.src = window.URL.createObjectURL(file);
     preview.appendChild(image);
@@ -114,14 +117,21 @@ function fileSize(size) {
  * @returns {number} valeurs input lng
  */
 function onMapClick(e) {
-  // Nettoyer les anciens marqueurs dans le layerGroup
-  layerGroup.clearLayers();
-  let marker = L.marker([e.latlng.lat, e.latlng.lng]);
-  layerGroup.addLayer(marker); // Ajouter le marqueur au layerGroup
-  map.addLayer(layerGroup);
-  lat.value = marker._latlng.lat;
-  lng.value = marker._latlng.lng;
-  getAdresse(marker._latlng.lat, marker._latlng.lng);
+  const latClicked = e.latlng.lat;
+  const lngClicked = e.latlng.lng;
+  // Vérifie à Tokyo avant de placer le marqueur
+  if (isInTokyo(latClicked, lngClicked)) {
+    layerGroup.clearLayers();
+    let marker = L.marker([latClicked, lngClicked]);
+    layerGroup.addLayer(marker);
+    map.addLayer(layerGroup);
+    lat.value = marker._latlng.lat;
+    lng.value = marker._latlng.lng;
+    getAdresse(marker._latlng.lat, marker._latlng.lng);
+  } else {
+    adress.innerHTML =
+      "⚠️ <b class='text-danger'>Veuillez cliquer sur une zone correspondant à Tokyo !</b>";
+  }
 }
 
 /**

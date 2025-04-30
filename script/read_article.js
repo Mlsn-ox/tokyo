@@ -37,6 +37,11 @@ if (favoriteBtn.dataset.token) {
   });
 }
 
+/**
+ * Récupération des données du bouton
+ * @param {HTMLElement} el - L'élément HTML contenant les données
+ * @returns {Object} - Un objet contenant les données à envoyer
+ */
 function getData(el) {
   let idPost = el.dataset.post;
   let idUser = el.dataset.user;
