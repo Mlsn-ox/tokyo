@@ -1,6 +1,6 @@
 <?php
 require_once "../config.php";
-if ($_SESSION['role'] != "admin" || $_GET["token"] != $_SESSION['token']){
+if (!isAdmin() || !isTokenValid($_GET['token'])) {
     echo json_encode([
         "status" => "Error",
         "message" => "Accès non autorise"

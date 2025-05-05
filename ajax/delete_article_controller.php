@@ -2,10 +2,8 @@
 require_once "../config.php";
 
 if (
-    empty($_SESSION['id']) || 
-    empty($_SESSION['token']) ||
-    $_POST['user_id'] != $_SESSION['id'] || 
-    $_POST['token'] != $_SESSION['token']
+    !isTokenValid($_POST['token']) ||
+    !isOwner($_POST['user_id'])
 ) {
     session_destroy();
     header("Location: ../view/login.php?message_code=connect_error&status=error");

@@ -1,10 +1,10 @@
 <?php
-    require_once "../config.php";
+require_once "../config.php";
 
-if ($_POST["user_id"] != $_SESSION['id'] || $_POST["token"] != $_SESSION['token']){
+if (!isTokenValid($_POST["token"]) || !isOwner($_POST["user_id"])) {
     echo json_encode([
         "status" => "Error",
-        "message" => "Accès non autorise"
+        "message" => "Acces non autorise"
     ]);
     exit();
 }
@@ -25,7 +25,8 @@ try {
         ]);
     } else {
         $today = date('Y-m-d');
-        $sql = "INSERT INTO favorite (fav_art_id, fav_user_id, fav_added_at) VALUES (?,?,?);";
+        $sql = "INSERT INTO favorite (fav_art_id, fav_user_id, fav_added_at) 
+                VALUES (?,?,?);";
         $stmt = $pdo->prepare($sql);
         $verif = $stmt->execute([
             $_POST["art_id"],
@@ -34,7 +35,7 @@ try {
         ]);
     }
     $message = $fav ? "Favori supprimé" : "Favori ajouté";
-    $added = $fav ? false : true ;
+    $added = $fav ? false : true;
     echo json_encode([
         "status" => "success",
         "message" => $message,

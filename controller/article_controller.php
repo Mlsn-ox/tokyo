@@ -3,7 +3,7 @@ require_once "../config.php";
 require_once "../controller/article_img_controller.php";
 try {
     if (
-        $_SESSION['bloked'] ||
+        $_SESSION['blocked'] ||
         !isConnected() ||
         !isTokenValid($_POST['token']) ||
         !isOwner($_POST['author'])

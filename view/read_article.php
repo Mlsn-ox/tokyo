@@ -96,7 +96,7 @@ try {
         </div>
         <div class="container-fluid d-md-flex justify-content-between pt-3">
             <div class="container-fluid col-12 col-md-6 fade-right pt-md-4 d-flex flex-column">
-                <article class="mb-2"><?= $article['art_content'] ?></article>
+                <article class="mb-2"><?= htmlspecialchars_decode($article['art_content']) ?></article>
                 <p>
                     Posté le <?= date("d/m/Y", strtotime($article['art_created_at'])) ?><?= $author ? ", par " : "" ?>
                     <a href="<?= $config['url'] ?>/view/read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">
@@ -154,7 +154,6 @@ try {
                     foreach ($comments as $comment) {
                         $btn = $class = "";
                         if (isset($comment['com_status']) && isConnected() && isAdmin()) {
-                            // Si l'utilisateur est admin, on affiche les boutons de modération
                             if ($comment["com_status"] === "pending") {
                                 $class = "bg-warning-subtle";
                                 $btn = '<a href="../controller/moderation.php?id=' . $comment['com_id'] .

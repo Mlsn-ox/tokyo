@@ -1,11 +1,12 @@
 import { mapping } from "./functions.js";
-const gps = document.querySelector("#map");
-let lat = gps.dataset.lat;
-let lng = gps.dataset.lng;
-const map = mapping(lat, lng);
-L.marker([lat, lng]).addTo(map);
 const favoriteBtn = document.querySelector("#favorite");
 const text = document.querySelector(".fav-text");
+const gps = document.querySelector("#map");
+
+let lat = gps.dataset.lat;
+let lng = gps.dataset.lng; // Récupération des coordonnées GPS
+const map = mapping(lat, lng);
+L.marker([lat, lng]).addTo(map);
 
 if (favoriteBtn.dataset.token) {
   // Vérifie que la session est bien active
@@ -20,7 +21,7 @@ if (favoriteBtn.dataset.token) {
         .then((res) => {
           text.innerHTML = res.message;
           text.classList.remove("disappear");
-          favoriteBtn.innerHTML = res.added
+          favoriteBtn.innerHTML = res.added // true si ajouté, false si retiré
             ? "<span class='heart'>❤️</span><span class='d-none d-lg-inline'>Retirer des favoris</span>"
             : "<span class='heart'>🤍</span><span class='d-none d-lg-inline'>Ajouter aux favoris</span>";
           // Applique la transition au nouveau coeur
@@ -28,7 +29,7 @@ if (favoriteBtn.dataset.token) {
           newHeart.style.opacity = "0";
           newHeart.style.transition = "opacity 0.3s ease";
           setTimeout(() => {
-            // petit délai pour laisser le temps au DOM d'ajouter l'élément
+            // délai d'ajout au DOM
             newHeart.style.opacity = "1";
             text.classList.add("disappear");
           }, 20);

@@ -7,10 +7,7 @@ function handleImageUpload($title, $articleId, $pdo)
     $fileName = $_FILES["image"]["name"];
     $tmpName = $_FILES["image"]["tmp_name"];
     $fileSize = $_FILES["image"]["size"];
-    if (!file_exists($tmpName) || $fileSize > 10485760) {
-        throw new Exception("img_error");
-    }
-    if (!getimagesize($tmpName)) {
+    if (!file_exists($tmpName) || $fileSize > 10485760 || !getimagesize($tmpName)) {
         throw new Exception("img_error");
     }
     $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));

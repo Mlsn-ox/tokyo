@@ -1,8 +1,8 @@
-import { escapeHTML } from "./functions.js";
+import { escapeHtml } from "./functions.js";
 const openWeather = document.getElementById("meteo-tokyo");
 const horaire = document.getElementById("heure-tokyo");
-const toast = document.querySelector('.toast');
-const acceptBtn = document.getElementById('accept-cookies');
+const toast = document.querySelector(".toast");
+const acceptBtn = document.getElementById("accept-cookies");
 let petalInterval;
 
 updateTime();
@@ -13,15 +13,15 @@ handlePetalEffect();
 
 if (!document.cookie.includes("cookies_accepted=true")) {
   const toastBootstrap = new bootstrap.Toast(toast, {
-    autohide: false
+    autohide: false,
   });
   toastBootstrap.show();
 }
 acceptBtn.addEventListener("click", () => {
-  document.cookie = "cookies_accepted=true; path=/; max-age=" + 60 * 60 * 24 * 30;
-  toast.classList.add('fade');
+  document.cookie = "cookies_accepted=true; path=/; max-age=" + 60 * 60; // 1 heure
+  toast.classList.add("fade");
   setTimeout(() => {
-    toast.classList.add('hide');
+    toast.classList.add("hide");
   }, 500);
 });
 
@@ -86,12 +86,12 @@ const urlOpenW = `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=
 fetch(urlOpenW)
   .then((response) => response.json())
   .then((data) => {
-    const temperature = escapeHTML(Math.round(data.main.temp));
-    let meteo = escapeHTML(data.weather[0].description);
-    let meteoCapital = escapeHTML(
+    const temperature = escapeHtml(Math.round(data.main.temp));
+    let meteo = escapeHtml(data.weather[0].description);
+    let meteoCapital = escapeHtml(
       meteo.charAt(0).toUpperCase() + meteo.slice(1)
     );
-    const iconCode = escapeHTML(data.weather[0].icon);
+    const iconCode = escapeHtml(data.weather[0].icon);
     let iconUrl = "";
     if (iconCode === "01n") {
       iconUrl = `../assets/logo_category/clear-night.png`;

@@ -1,13 +1,16 @@
 <?php
 require_once "../config.php";
 
-if ($_POST["id"] != $_SESSION['id'] || $_POST["token"] != $_SESSION['token']){
+if (
+    !isTokenValid($_POST['token']) ||
+    !isOwner($_POST['user_id'])
+) {
     session_destroy();
     header("Location: ../view/login.php?message_code=connect_error&status=error");
     exit();
 }
 try {
-    if (empty($_POST["profil"])){
+    if (empty($_POST["profil"])) {
         throw new Exception("Erreur lors du chargement de l'image");
     }
     $allowedImages = [

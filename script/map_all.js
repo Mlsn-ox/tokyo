@@ -32,7 +32,8 @@ function markerAll() {
             <h5>${article.art_title}</h5>
             <p class="categorie">${article.cat}</p>
             <div class="img-contain">
-              <img src="../assets/img_articles/${article.img}" class="text-center" alt="Photo de l'article">
+              <img src="../assets/img_articles/${article.img}" 
+                class="text-center" alt="Photo de l'article">
             </div>
             <p>${article.art_content}</p>
           </a>`
