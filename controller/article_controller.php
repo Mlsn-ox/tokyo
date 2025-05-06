@@ -12,7 +12,7 @@ try {
         header("Location: ../view/login.php?message_code=connect_error&status=error");
         exit();
     }
-    $author = $_SESSION['id'];
+    $author = filter_var($_POST['author'], FILTER_VALIDATE_INT);
     $role = $_SESSION['role'];
     $today = date('Y-m-d');
     $articleId = !empty($_POST['art_id']) ? filter_var($_POST['art_id'], FILTER_VALIDATE_INT) : null;
@@ -23,6 +23,7 @@ try {
     $category = filter_var($_POST['category'], FILTER_VALIDATE_INT);
     $lat = filter_var($_POST['lat'], FILTER_VALIDATE_FLOAT);
     $lng = filter_var($_POST['lng'], FILTER_VALIDATE_FLOAT);
+    // Remplissage des variables de session pour réinjection si nécessaire
     $_SESSION["temp_title"] = $title;
     $_SESSION["temp_cat"] = $category;
     $_SESSION["temp_content"] = $content;

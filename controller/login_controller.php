@@ -15,7 +15,7 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
         if (!$user) {
             throw new Exception("mail_error");
         }
-        if ($user['user_is_bloked']) {
+        if ($user['user_is_blocked']) {
             throw new Exception("unauthorized");
         }
         $checkPsw = password_verify($_POST["psw"], $user['user_psw']);
@@ -29,7 +29,6 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
             'today' => $today,
             'id' => $user['user_id']
         ]);
-        session_start();
         $_SESSION['id'] = $user['user_id'];
         $_SESSION['name'] = htmlspecialchars($user['user_name'], ENT_QUOTES, 'UTF-8');
         $_SESSION['mail'] = filter_var($user['user_mail'], FILTER_SANITIZE_EMAIL);

@@ -1,0 +1,16 @@
+# Activer la réécriture d'URL
+
+RewriteEngine On
+
+# Rediriger toutes les erreurs 4xx vers une page d'erreur unique
+
+ErrorDocument 400 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 401 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 403 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 404 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 405 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 408 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 415 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 422 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 429 https://formationalaji.devivv.com/melisiane/includes/error.php
+ErrorDocument 403 https://formationalaji.devivv.com/melisiane/includes/error.php

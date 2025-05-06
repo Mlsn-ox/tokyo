@@ -1,4 +1,5 @@
 import { escapeHtml } from "./functions.js";
+import { getEmojiCategory } from "./functions.js";
 const pendingContainer = document.querySelector("#pending");
 const pendingComContainer = document.querySelector("#pending-com");
 const statsContainer = document.querySelector("#stats-container");
@@ -9,11 +10,21 @@ const token = document.querySelector(".token").dataset.token;
 
 loadStats();
 
+/**
+ * Date format Y-M-D à D-M-Y
+ * @param {string} date
+ * @returns {string} Formatted date
+ */
 function formatDate(date) {
   const [year, month, day] = date.split("-");
   return `${day}-${month}-${year}`;
 }
 
+/**
+ * Calcul l'âge à partir de la date de naissance
+ * @param {string} birthdate
+ * @returns {number} Age
+ */
 function getAge(birthdate) {
   const today = new Date();
   const birth = new Date(birthdate);
@@ -24,21 +35,6 @@ function getAge(birthdate) {
     age--;
   }
   return age;
-}
-
-function getEmojiCategory(cat) {
-  switch (cat) {
-    case "gastronomie":
-      return "🍜";
-    case "loisir":
-      return "🎳";
-    case "shopping":
-      return "🛍";
-    case "panorama":
-      return "📷";
-    default:
-      return "🎎";
-  }
 }
 
 function loadStats() {
@@ -166,10 +162,8 @@ function loadStats() {
           <li class="list-group-item">🐥 Dernier inscrit : ${escapeHtml(
             userStats.newest_user
           )} (${escapeHtml(userStats.newest_user_date)})</li>
-
         </ul>
-      </div>
-    `;
+      </div>`;
       let artStats = data.articles_global;
       statsContainer.innerHTML += `
       <div class="card card-stats">

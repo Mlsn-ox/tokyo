@@ -30,6 +30,7 @@ if (isBlocked()) {
     $content = $_SESSION["temp_content"] ?? "";
     $lat = $_SESSION["temp_lat"] ?? "";
     $lng = $_SESSION["temp_lng"] ?? "";
+    $author = $_SESSION['id'];
     //echo "<script>console.log(" . json_encode($_SESSION) . ");</script>";
     ?>
     <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false"

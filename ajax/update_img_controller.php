@@ -3,7 +3,7 @@ require_once "../config.php";
 
 if (
     !isTokenValid($_POST['token']) ||
-    !isOwner($_POST['user_id'])
+    !isOwner($_POST['id'])
 ) {
     session_destroy();
     header("Location: ../view/login.php?message_code=connect_error&status=error");

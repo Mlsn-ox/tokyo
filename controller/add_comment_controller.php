@@ -2,7 +2,7 @@
 require_once "../config.php";
 try {
     if (
-        isTokenValid($_POST['token']) ||
+        !isTokenValid($_POST['token']) ||
         !$_POST['user_comment'] || !$_POST['art_id'] ||
         $_POST['user_comment'] != $_SESSION['id']
     ) {

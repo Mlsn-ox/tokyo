@@ -1,12 +1,12 @@
 <?php
 require_once "../config.php";
 try {
-    if (isset($_POST['g-recaptcha-response'])) {
-        $recaptcha = $_POST['g-recaptcha-response'];
-        $secret = "6LeBuBArAAAAAJCwjjPwIFQo43b-2XpYGNSPdmRe";
-        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$recaptcha");
+    if (isset($_POST['recaptcha_token'])) {
+        $recaptchaToken = $_POST['recaptcha_token'];
+        $secretKey = '6LeLsi4rAAAAAGHJC9zhBceTfmElHZ2yFLV3Tmcf';
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$recaptchaToken}");
         $responseData = json_decode($response);
-        if (!$responseData->success) {
+        if (!$responseData->success || $responseData->score < 0.5) {
             throw new Exception("captcha_invalid");
         }
     } else {
@@ -103,7 +103,6 @@ try {
     header("Location: ../view/login.php?message_code=user_added&status=success");
     exit();
 } catch (Exception $e) {
-    session_start();
     setcookie("temp_first", $_POST["firstname"] ?? "", time() + 600, "/");
     setcookie("temp_last", $_POST["lastname"] ?? "", time() + 600, "/");
     setcookie("temp_birth", $_POST["birthdate"] ?? "", time() + 600, "/");

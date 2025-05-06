@@ -134,13 +134,11 @@ try {
             <ul class="list-group list-group-flush rounded-4">
                 <?php
                 if (isConnected() && isAdmin()) {
-                    // Si l'utilisateur est admin, on affiche tous les commentaires
                     $sql = "SELECT comment.com_id, comment.com_content, comment.com_status, comment.com_posted_at, 
                     user.user_name AS commenter, user.user_id AS commenter_id FROM comment
                     LEFT JOIN user ON comment.com_fk_user_id = user.user_id 
                     WHERE comment.com_fk_art_id = :id";
                 } else {
-                    // Sinon, on affiche seulement les commentaires approuvés
                     $sql = "SELECT comment.com_id, comment.com_content, comment.com_posted_at, user.user_name AS commenter, user.user_id AS commenter_id 
                     FROM comment
                     LEFT JOIN user ON comment.com_fk_user_id = user.user_id 

@@ -1,5 +1,13 @@
 <?php
 require_once "../config.php";
+if (!isConnected()) {
+    header("Location: ../view/login.php?message_code=connect_error&status=error");
+    exit();
+}
+if (!isAdmin()) {
+    header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
+    exit();
+}
 $menu = "admin";
 ?>
 <!DOCTYPE html>
@@ -12,13 +20,7 @@ $menu = "admin";
 </head>
 
 <body>
-    <?php
-    if (!isAdmin()) {
-        header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
-        exit();
-    }
-    require_once "../includes/navbar.php";
-    ?>
+    <?php require_once "../includes/navbar.php" ?>
     <div class="section home col-12 col-xl-10 col-lg-11 p-0 mx-auto d-flex token" data-token="<?= $_SESSION["token"] ?>">
         <div class="container-fluid px-xl-4 p-sm-3 p-1 rounded-5 my-3 fading user">
             <ul class="nav nav-tabs" id="myTab" role="tablist">

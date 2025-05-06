@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $config = [
     'url' => 'https://formationalaji.devivv.com/melisiane',
@@ -8,6 +9,5 @@ $config = [
     'email' => 'contact.tokyospot@gmail.com',
 ];
 
-session_start();
 include_once 'includes/pdo.php';
 include_once "includes/functions.php";

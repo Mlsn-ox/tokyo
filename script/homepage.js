@@ -11,7 +11,7 @@ setInterval(updateTime, 1000);
 window.addEventListener("resize", handlePetalEffect);
 handlePetalEffect();
 
-if (!document.cookie.includes("cookies_accepted=true")) {
+if (document.cookie.includes("cookies_accepted=true")) {
   const toastBootstrap = new bootstrap.Toast(toast, {
     autohide: false,
   });

@@ -13,6 +13,11 @@ $buttonSubmit = "Enregistrer les modifications";
 $buttonPrevious = "Retour au profil";
 $href = "./read_user.php?id=" . $_SESSION['id'];
 $mode = "update";
+$author = $article['art_fk_user_id'];
+if ($author != $_SESSION['id'] && $_SESSION['role'] != 'admin') {
+    header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
+    exit();
+}
 if (!isConnected()) {
     header("Location: ../view/login.php?message_code=connect_error&status=success");
     exit();

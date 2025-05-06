@@ -7,7 +7,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
-<script async defer src="https://www.google.com/recaptcha/api.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LeLsi4rAAAAAK1h2keP6aHMpA_GKZYRoRDuEe1e"></script>
 <script defer src="<?= $config['url'] ?>/script/general.js">
 </script>
 <?php if (!empty($_SESSION['id'])) { ?>
