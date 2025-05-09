@@ -3,8 +3,8 @@ if (isset($_GET["message_code"]) && isset($_GET["status"])) {
   $message = getMessage($_GET["message_code"]);
   $status = $_GET["status"];
   echo "<div class='message-code'>
-            <h3 class='text-center rounded-5 home p-3 $status'>$message</h3>
-          </div>";
+          <h3 class='text-center rounded-5 home p-3 $status'>$message</h3>
+        </div>";
 }
 try {
   $sql = "SELECT COUNT(*) FROM article WHERE art_status = 'pending';";

@@ -152,7 +152,6 @@ body {
     font-size: 2.3rem;
     font-family: "Digits";
   }
-
 }
 
 .carousel-container {
@@ -173,22 +172,20 @@ body {
 // AFFICHAGE INDEX ARTICLES
 
 .drop-container {
-  .dropfilters{
+  .dropfilters {
     width: 200px;
     height: 2.5rem;
     background-color: transparent;
     border: none;
     transition: box-shadow 0.5s ease-in-out, color 0.4s ease-in-out;
   }
-  #collapseFilters{
+  #collapseFilters {
     max-width: 800px;
     #reset {
       min-width: 100px !important;
     }
   }
 }
-
-
 
 .article {
   background-position: center;
@@ -565,10 +562,13 @@ select.form-select {
 
 // ADMIN
 
-
 .blocked {
-  background: linear-gradient(270deg, var(--gray-100) 33%, var(--red) 100%) !important;
-  td{
+  background: linear-gradient(
+    270deg,
+    var(--gray-100) 33%,
+    var(--red) 100%
+  ) !important;
+  td {
     background: transparent !important;
   }
 }
@@ -587,7 +587,7 @@ select.form-select {
   a {
     text-decoration: none;
   }
-  &.comment{
+  &.comment {
     width: 500px;
     @include media(lt-sm) {
       width: 100%;
@@ -595,7 +595,7 @@ select.form-select {
   }
 }
 
-.card-stats{
+.card-stats {
   max-width: 300px;
 }
 
@@ -606,25 +606,25 @@ footer {
   background-color: #2a2a2ab6;
   color: #eee;
   box-shadow: -1px -1px 10px #111;
-  p{
+  p {
     font-size: 0.8rem;
   }
-  .to-top{
+  .to-top {
     font-size: 2rem;
   }
   img {
     height: 35px;
   }
-  .list-group-horizontal-md{
+  .list-group-horizontal-md {
     border-radius: 0;
     transition: border-color 0.3 ease;
     &:hover > :not(:hover) {
       border-color: transparent !important;
     }
-    @include media (lt-md){
+    @include media(lt-md) {
       width: 250px;
     }
-    .list-group-item{
+    .list-group-item {
       color: #ddd;
       font-size: 0.9rem;
       border-radius: 0 !important;
@@ -634,13 +634,13 @@ footer {
       border-color: #999;
       background-color: transparent;
       transition: all 0.3s ease;
-      &:hover{
+      &:hover {
         color: #fff;
         background: radial-gradient(circle, $primary 0%, transparent 100%);
       }
     }
   }
-  .active-footer{
+  .active-footer {
     background: radial-gradient(circle, $primary 0%, transparent 100%);
   }
 }

@@ -29,16 +29,14 @@ $mode = $mode ?? 'add';
                 $sql = "SELECT * FROM category;";
                 $stmt = $pdo->query($sql);
                 $cats = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $selected = '';
                 foreach ($cats as $cat) {
-                    if ($mode === "update") {
-                        $selected = ($article['art_fk_cat_id'] == $cat['cat_id']) ? 'selected' : '';
-                    } else if ($mode === "add") {
-                        $selected = (!empty($_SESSION['temp_cat']) && $_SESSION['temp_cat'] == $cat['cat_id']) ? 'selected' : '';
-                    } else {
-                        $selected = '';
+                    $isSelected = false;
+                    if ($mode === "update" && $article['art_fk_cat_id'] == $cat['cat_id']) {
+                        $isSelected = true;
+                    } elseif ($mode === "add" && !empty($_SESSION['temp_cat']) && $_SESSION['temp_cat'] == $cat['cat_id']) {
+                        $isSelected = true;
                     }
-                    echo "<option value='" . $cat['cat_id'] . "' $selected>" . ucfirst($cat['cat_name']) . "</option>";
+                    echo "<option value='" . $cat['cat_id'] . "'" . ($isSelected ? " selected" : "") . ">" . ucfirst($cat['cat_name']) . "</option>";
                 }
             } catch (PDOException $e) {
                 echo "<option disabled>Erreur lors du chargement des catégories</option>";

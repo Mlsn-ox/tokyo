@@ -13,4 +13,3 @@ ErrorDocument 408 https://formationalaji.devivv.com/melisiane/includes/error.php
 ErrorDocument 415 https://formationalaji.devivv.com/melisiane/includes/error.php
 ErrorDocument 422 https://formationalaji.devivv.com/melisiane/includes/error.php
 ErrorDocument 429 https://formationalaji.devivv.com/melisiane/includes/error.php
-ErrorDocument 403 https://formationalaji.devivv.com/melisiane/includes/error.php

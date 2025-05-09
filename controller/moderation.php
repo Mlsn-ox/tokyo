@@ -13,11 +13,17 @@ try {
     }
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
     $action = $_GET['action'];
+    // Vérification du param action
     $allowedActions = ['approved', 'rejected', 'pending'];
     if (!$id || !in_array($action, $allowedActions)) {
         throw new Exception("param_not_found");
     }
     $element = $_GET['element'];
+    // Vérification du param element
+    $allowedElements = ['article', 'comment'];
+    if (!in_array($element, $allowedElements)) {
+        throw new Exception('param_not_found');
+    }
     $articleId = $location = "";
     if ($element === "article") {
         $sql = "UPDATE article SET art_status = ? WHERE art_id = ?";

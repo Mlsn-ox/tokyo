@@ -5,18 +5,21 @@ try {
     if (
         $_SESSION['blocked'] ||
         !isConnected() ||
-        !isTokenValid($_POST['token']) ||
-        !isOwner($_POST['author'])
+        !isTokenValid($_POST['token'])
     ) {
         session_destroy();
         header("Location: ../view/login.php?message_code=connect_error&status=error");
+        exit();
+    }
+    if (!isOwner($_POST['author']) && !isAdmin()) {
+        header("Location: ../view/homepage.php?message_code=connect_error&status=error");
         exit();
     }
     $author = filter_var($_POST['author'], FILTER_VALIDATE_INT);
     $role = $_SESSION['role'];
     $today = date('Y-m-d');
     $articleId = !empty($_POST['art_id']) ? filter_var($_POST['art_id'], FILTER_VALIDATE_INT) : null;
-    $isUpdate = $articleId !== null;
+    $isUpdate = $articleId !== null; // True si $articleId == Int
     // Nettoyage des données
     $title = htmlspecialchars(ucfirst(trim($_POST['title'])), ENT_QUOTES, 'UTF-8');
     $content = htmlspecialchars(ucfirst(trim($_POST['content'])), ENT_QUOTES, 'UTF-8');
@@ -41,7 +44,7 @@ try {
     ) {
         throw new Exception("map_error");
     }
-    // Vérifie que l’article existe et appartient au bon utilisateur (sauf si admin)
+    // Vérifie que le mode update ou add
     if ($isUpdate) {
         $sql = "SELECT art_fk_user_id FROM article WHERE art_id = :articleId";
         $stmt = $pdo->prepare($sql);
@@ -51,15 +54,11 @@ try {
         if (!$article) {
             throw new Exception("article_not_found");
         }
-        if ($role === 'client' && $article['art_fk_user_id'] != $author) {
-            session_destroy();
-            header("Location: ../view/homepage.php?message_code=unauthorized&status=error");
-            exit();
-        }
+        // Requête UPDATE
         $sql = "UPDATE article 
-                    SET art_created_at = :today, art_title = :title, art_content = :content, art_lat = :lat, art_lng = :lng, 
-                        art_fk_cat_id = :category, art_fk_user_id = :author
-                    WHERE art_id = :articleId";
+                SET art_created_at = :today, art_title = :title, art_content = :content, art_lat = :lat, art_lng = :lng, 
+                    art_fk_cat_id = :category, art_fk_user_id = :author
+                WHERE art_id = :articleId";
     } else {
         // Requête INSERT
         $sql = "INSERT INTO article (art_created_at, art_title, art_content, art_lat, art_lng, art_fk_cat_id, art_fk_user_id)
@@ -81,7 +80,7 @@ try {
         throw new Exception("server_error");
     }
     if (!$isUpdate) {
-        $articleId = $pdo->lastInsertId(); // Récupère l'ID si c'était un insert
+        $articleId = $pdo->lastInsertId(); // Récupère l'ID si c'était ADD
     }
     if (
         isset($_FILES['image']) &&
