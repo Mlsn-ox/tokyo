@@ -17,12 +17,12 @@ $menu = "add_user";
         header("Location: ../view/homepage.php?message_code=redirect_error&status=error");
         exit();
     }
-    $firstname = $_COOKIE["temp_first"] ?? "";
-    $lastname = $_COOKIE["temp_last"] ?? "";
-    $birthdate = $_COOKIE["temp_birth"] ?? "";
-    $mail = $_COOKIE["temp_mail"] ?? "";
-    $name = $_COOKIE["temp_name"] ?? "";
-    $avatar = $_COOKIE["temp_avatar"] ?? "Sakura.png";
+    $firstname = htmlspecialchars($_COOKIE["temp_first"], ENT_QUOTES, 'UTF-8') ?? "";
+    $lastname = htmlspecialchars($_COOKIE["temp_last"], ENT_QUOTES, 'UTF-8') ?? "";
+    $birthdate = htmlspecialchars($_COOKIE["temp_birth"], ENT_QUOTES, 'UTF-8') ?? "";
+    $mail = htmlspecialchars($_COOKIE["temp_mail"], ENT_QUOTES, 'UTF-8') ?? "";
+    $name = htmlspecialchars($_COOKIE["temp_name"], ENT_QUOTES, 'UTF-8') ?? "";
+    $avatar = htmlspecialchars($_COOKIE["temp_avatar"], ENT_QUOTES, 'UTF-8') ?? "Sakura.png";
     ?>
     <div class="section container home mx-auto p-md-4 p-3">
         <div class="p-0 mx-auto fade-up redim">

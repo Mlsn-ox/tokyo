@@ -201,7 +201,9 @@ try {
                     <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                     <div class="my-3">
                         <textarea id="comment_content" class="form-control" name="comment_content" aria-label="Contenu du commentaire"
-                            aria-describedby="contentHelp" placeholder="Ajouter un commentaire" maxlength="300" rows="3" required></textarea>
+                            aria-describedby="contentHelp" placeholder="Ajouter un commentaire" maxlength="300" rows="3" required>
+                            <?= isset($_SESSION["temp_com"]) ? $_SESSION["temp_com"] : "" ?>
+                        </textarea>
                         <div id="contentHelp" class="form-text">300 caractères maximum.</div>
                         <p class="mt-2 fst-italic">
                             ⚠️ Merci de vous relire avant d’envoyer votre commentaire. Les messages haineux ou irrespectueux ne seront pas publiés.

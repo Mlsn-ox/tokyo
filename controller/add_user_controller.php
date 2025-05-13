@@ -61,7 +61,7 @@ try {
     if (!in_array($_POST["profil"], $allowedImages, true)) {
         throw new Exception("form_error");
     }
-    $profil = ($_POST["profil"]);
+    $profil = $_POST["profil"];
     if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{7,}$/', $_POST["password1"])) {
         throw new Exception("psw_invalid");
     }

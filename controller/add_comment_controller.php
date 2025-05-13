@@ -19,6 +19,7 @@ try {
     // Nettoyage des données
     $today = date('Y-m-d');
     $content = htmlspecialchars(ucfirst(trim($_POST['comment_content'])), ENT_QUOTES, 'UTF-8');
+    $_SESSION["temp_com"] = $content;
     $article = filter_var($_POST['art_id'], FILTER_VALIDATE_INT);
     $author = filter_var($_POST['user_comment'], FILTER_VALIDATE_INT);
     $sql = "INSERT INTO comment (com_posted_at, com_content, com_fk_art_id, com_fk_user_id) 
@@ -28,6 +29,7 @@ try {
     if (!$verif) {
         throw new Exception("server_error");
     }
+    unset($_SESSION["temp_com"]);
     header("Location: ../view/read_article.php?id=" . $article . "&message_code=comment_added&status=success");
     exit();
 } catch (Exception $e) {
