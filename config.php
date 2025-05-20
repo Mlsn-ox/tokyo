@@ -2,8 +2,8 @@
 session_start();
 
 $config = [
-    'url' => 'https://formationalaji.devivv.com/melisiane',
-    // 'url' => 'http://localhost/TokyoSpot/',
+    //'url' => 'https://formationalaji.devivv.com/melisiane',
+    'url' => 'http://localhost/TokyoSpot (local)',
     'title' => 'TokyoSpot',
     'alt_img' => 'TokyoSpot - Partagez vos bons plans à Tokyo !',
     'email' => 'contact.tokyospot@gmail.com',

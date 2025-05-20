@@ -48,8 +48,6 @@ try {
     if (!validateNames($firstname) || !validateNames($lastname)) {
         throw new Exception("identity_invalid");
     }
-    $firstname = htmlspecialchars($firstname, ENT_QUOTES, 'UTF-8');
-    $lastname = htmlspecialchars($lastname, ENT_QUOTES, 'UTF-8');
     $allowedImages = [
         'Godzilla.png',
         'Kanagawa.png',

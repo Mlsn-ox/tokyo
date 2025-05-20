@@ -17,41 +17,42 @@ $menu = "add_user";
         header("Location: ../view/homepage.php?message_code=redirect_error&status=error");
         exit();
     }
-    $firstname = htmlspecialchars($_COOKIE["temp_first"], ENT_QUOTES, 'UTF-8') ?? "";
-    $lastname = htmlspecialchars($_COOKIE["temp_last"], ENT_QUOTES, 'UTF-8') ?? "";
-    $birthdate = htmlspecialchars($_COOKIE["temp_birth"], ENT_QUOTES, 'UTF-8') ?? "";
-    $mail = htmlspecialchars($_COOKIE["temp_mail"], ENT_QUOTES, 'UTF-8') ?? "";
-    $name = htmlspecialchars($_COOKIE["temp_name"], ENT_QUOTES, 'UTF-8') ?? "";
-    $avatar = htmlspecialchars($_COOKIE["temp_avatar"], ENT_QUOTES, 'UTF-8') ?? "Sakura.png";
+    $firstname = $_COOKIE["temp_first"] ?? "";
+    $lastname = $_COOKIE["temp_last"] ?? "";
+    $birthdate = $_COOKIE["temp_birth"] ?? "";
+    $mail = $_COOKIE["temp_mail"] ?? "";
+    $name = $_COOKIE["temp_name"] ?? "";
+    $avatar = $_COOKIE["temp_avatar"] ?? "Sakura.png";
     ?>
     <div class="section container home mx-auto p-md-4 p-3">
         <div class="p-0 mx-auto fade-up redim">
             <h1 class="m-0">Rejoignez la communauté</h1>
             <div class="separator my-3 text-center"></div>
-            <form method="POST" class="mt-4 row g-3" action="../controller/add_user_controller.php" aria-label="Formulaire de création de compte utilisateur">
+            <form method="POST" class="mt-4 row g-3" action="../controller/add_user_controller.php"
+                aria-label="Formulaire de création de compte utilisateur">
                 <div class="col-lg-8 mb-3" aria-label="Nom complet">
                     <label for="completeName" class="form-label">Nom complet</label>
                     <div class="input-group">
                         <input type="text" aria-label="Prénom" name="firstname" class="form-control"
-                            placeholder="Prénom" value="<?= $firstname ?>" required>
+                            placeholder="Prénom" value="<?= htmlspecialchars($firstname) ?>" required>
                         <input type="text" aria-label="Nom" name="lastname" class="form-control"
-                            placeholder="Nom" value="<?= $lastname ?>" required>
+                            placeholder="Nom" value="<?= htmlspecialchars($lastname) ?>" required>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <label for="birthdate" class="form-label">Date de naissance</label>
                     <input type="date" class="form-control" id="birthdate" name="birthdate"
-                        aria-label="Date de naissance" value="<?= $birthdate ?>" required />
+                        aria-label="Date de naissance" value="<?= htmlspecialchars($birthdate) ?>" required />
                 </div>
                 <div class="col-lg-6">
                     <label for="mail" class="form-label">Email</label>
                     <input type="email" class="form-control" id="mail" name="mail" aria-label="Adresse email"
-                        placeholder="@email.com" value="<?= $mail ?>" required>
+                        placeholder="@email.com" value="<?= htmlspecialchars($mail) ?>" required>
                 </div>
                 <div class="col-lg-6">
                     <label for="name" class="form-label">Nom d'utilisateur</label>
                     <input type="text" class="form-control" id="name" data-bs-toggle="tooltip" data-bs-placement="top"
-                        pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+" name="name" aria-label="Nom d'utilisateur" value="<?= $name ?>"
+                        pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+" name="name" aria-label="Nom d'utilisateur" value="<?= htmlspecialchars($name) ?>"
                         data-bs-title="Lettres, chiffres et tirets uniquement." minlength="3" maxlength="20" required>
                     <div id="nameHelp" class="form-text">Entre 3 et 20 caractères. Pas de caractères spéciaux.</div>
                 </div>

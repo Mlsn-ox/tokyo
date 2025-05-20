@@ -3,7 +3,8 @@ const inputFiles = document.querySelector(".files");
 const imgLabel = document.querySelector(".img-label");
 const preview = document.querySelector(".preview");
 const datas = document.querySelector(".data-miner");
-const cat = document.querySelector(".category");
+const latData = datas.dataset.lat;
+const lngData = datas.dataset.lng;
 const mapContainer = document.querySelector(".leaflet-container");
 const lat = document.getElementById("lat");
 const lng = document.getElementById("lng");
@@ -20,21 +21,21 @@ const confirmBtn = document.getElementById("confirmSendBtn");
 let image = document.createElement("img");
 image.src = "";
 
-cat.options[0].selected = true; // Sélection de la première catégorie
-
 // Initialisation de la map
 const map = mapping(35.705, 139.74);
 let layerGroup = L.layerGroup().addTo(map);
 map.on("click", onMapClick);
 if (mode === "update") {
-  const latData = datas.dataset.lat;
-  const lngData = datas.dataset.lng;
-  let marker = L.marker([latData, lngData]).addTo(layerGroup);
+  L.marker([latData, lngData]).addTo(layerGroup);
   getAdresse(latData, lngData);
   map.setView([latData, lngData], 16); // Recentrer sur position
   image.src = "../assets/img_articles/" + datas.dataset.img; // Récupération de l'image
   image.alt = "Image de l'article";
   preview.appendChild(image);
+} else if (mode === "add" && latData && lngData) {
+  L.marker([latData, lngData]).addTo(layerGroup);
+  getAdresse(latData, lngData);
+  map.setView([latData, lngData], 16); // Recentrer sur position
 }
 
 // Vérification de la validité du formulaire

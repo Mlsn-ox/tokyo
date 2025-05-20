@@ -18,7 +18,7 @@ try {
     }
     // Nettoyage des données
     $today = date('Y-m-d');
-    $content = htmlspecialchars(ucfirst(trim($_POST['comment_content'])), ENT_QUOTES, 'UTF-8');
+    $content = ucfirst(trim($_POST['comment_content']));
     $_SESSION["temp_com"] = $content;
     $article = filter_var($_POST['art_id'], FILTER_VALIDATE_INT);
     $author = filter_var($_POST['user_comment'], FILTER_VALIDATE_INT);

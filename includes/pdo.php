@@ -9,6 +9,5 @@ $host = $_ENV['DB_HOST'];
 $name = $_ENV['DB_NAME'];
 $user = $_ENV['DB_USER'];
 $psw = $_ENV['DB_PSW'];
-$port = $_ENV['DB_PORT'];
-$pdo = new PDO("mysql:host=$host;port=$port;dbname=$name", $user, $psw);
+$pdo = new PDO("mysql:host=$host;dbname=$name", $user, $psw);
 $pdo->exec("SET NAMES 'utf8mb4'");

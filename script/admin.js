@@ -222,7 +222,6 @@ setTimeout(() => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === "Success") {
             const tr = link.closest("tr");
             if (status === "blocked") {

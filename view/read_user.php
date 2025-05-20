@@ -147,13 +147,13 @@ if (isset($_SESSION['id']) && $id_session == $id) {
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nom d'utilisateur</label>
                                 <input type="text" name="name" class="form-control form-control" id="name" required pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-]+"
-                                    aria-label="Nom d'utilisateur" aria-describedby="nameHelp" value="<?= htmlentities($user["user_name"]) ?>" maxlength="20">
+                                    aria-label="Nom d'utilisateur" aria-describedby="nameHelp" value="<?= htmlspecialchars($user["user_name"]) ?>" maxlength="20">
                                 <div id="nameHelp" class="form-text">Entre 3 et 20 caractères.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="mail" class="form-label">Adresse e-mail</label>
                                 <input type="email" name="mail" class="form-control form-control" id="mail" required
-                                    aria-label="Adresse e-mail" aria-describedby="mailHelp" value="<?= htmlentities($user["user_mail"]) ?>" maxlength="100">
+                                    aria-label="Adresse e-mail" aria-describedby="mailHelp" value="<?= htmlspecialchars($user["user_mail"]) ?>" maxlength="100">
                             </div>
                             <div class="mb-3">
                                 <label for="user_psw" class="form-label">Entrer votre mot de passe pour confirmer les modifications</label>
@@ -266,10 +266,10 @@ if (isset($_SESSION['id']) && $id_session == $id) {
                     <div class="d-flex flex-wrap flex-column flex-sm-row justify-content-around align-items-center">
                         <div class="container-text d-flex flex-column align-items-center order-2 order-md-1 mt-3 mt-md-0">
                             <h1 class="user-name">
-                                <?= htmlentities($user["user_name"]) ?>
+                                <?= htmlspecialchars($user["user_name"]) ?>
                             </h1>
                             <?php if (!empty($_SESSION['id']) && $id_session == $id) { ?>
-                                <p class="text-center border-top m-0 py-2"><?= htmlentities($user["user_mail"]) ?></p>
+                                <p class="text-center border-top m-0 py-2"><?= htmlspecialchars($user["user_mail"]) ?></p>
                                 <div class="btn-container d-flex flex-wrap justify-content-center gap-2">
                                     <button type="button" class="btn btn-outline-primary mb-2"
                                         data-bs-toggle="modal" data-bs-target="#userUpdateModal">
@@ -281,44 +281,44 @@ if (isset($_SESSION['id']) && $id_session == $id) {
                                     </button>
                                 </div>
                             <?php } else if (isAdmin()) { ?>
-                                <p class="text-center border-top m-0 py-2"><?= htmlentities($user["user_mail"]) ?></p>
+                                <p class="text-center border-top m-0 py-2"><?= htmlspecialchars($user["user_mail"]) ?></p>
                                 <p class="text-center border-top m-0 py-2">
-                                    <?= htmlentities($user["user_firstname"] . " "
+                                    <?= htmlspecialchars($user["user_firstname"] . " "
                                         . $user["user_lastname"]) . " (" . $age . " ans)" ?></p>
                             <?php } ?>
                             <ul class="list-group list-group-flush user-info">
                                 <li class="list-group-item">
-                                    Inscrit depuis le : <?= date("d/m/Y", strtotime(htmlentities($user['user_ins']))) ?>
+                                    Inscrit depuis le : <?= date("d/m/Y", strtotime(htmlspecialchars($user['user_ins']))) ?>
                                 </li>
                                 <li class="list-group-item">
-                                    Dernière connexion le : <?= date("d/m/Y", strtotime(htmlentities($user['user_log']))) ?>
+                                    Dernière connexion le : <?= date("d/m/Y", strtotime(htmlspecialchars($user['user_log']))) ?>
                                 </li>
                                 <li class="list-group-item">
-                                    Spots publiés : <?= htmlentities($user["total_articles"]) ?>
+                                    Spots publiés : <?= htmlspecialchars($user["total_articles"]) ?>
                                 </li>
                                 <?php if (intval($user["total_articles"]) > 0) { ?>
                                     <li class="list-group-item">
-                                        Dernière publication le : <?= date("d/m/Y", strtotime(htmlentities($user['last_article_date']))) ?>
+                                        Dernière publication le : <?= date("d/m/Y", strtotime(htmlspecialchars($user['last_article_date']))) ?>
                                     </li>
                                 <?php } ?>
                                 <li class="list-group-item">
-                                    Commentaires postés : <?= htmlentities($user["total_comments"]) ?>
+                                    Commentaires postés : <?= htmlspecialchars($user["total_comments"]) ?>
                                 </li>
                                 <li class="list-group-item">
-                                    Spots en favoris : <?= htmlentities($user["total_favorites"]) ?>
+                                    Spots en favoris : <?= htmlspecialchars($user["total_favorites"]) ?>
                                 </li>
                             </ul>
                         </div>
                         <?php if (!empty($_SESSION['id']) && $id_session == $id) { ?>
                             <div class="container-img bg-update order-1 order-md-2">
                                 <a data-bs-toggle="modal" data-bs-target="#imgUpdateModal" class="offcanvas-link">
-                                    <img src="<?= $config['url'] ?>/assets/img_profil/<?= htmlentities($user['user_image']) ?>" alt="Photo de profil"
+                                    <img src="<?= $config['url'] ?>/assets/img_profil/<?= htmlspecialchars($user['user_image']) ?>" alt="Photo de profil"
                                         class="rounded-circle fade-rotate profil-pic update-img">
                                 </a>
                             </div>
                         <?php } else { ?>
                             <div class="container-img order-1 order-md-2">
-                                <img src="<?= $config['url'] ?>/assets/img_profil/<?= htmlentities($user['user_image']) ?>" alt="Photo de profil"
+                                <img src="<?= $config['url'] ?>/assets/img_profil/<?= htmlspecialchars($user['user_image']) ?>" alt="Photo de profil"
                                     class="rounded-circle fade-rotate profil-pic mt-3">
                             </div>
                         <?php } ?>
@@ -336,8 +336,8 @@ if (isset($_SESSION['id']) && $id_session == $id) {
                                     <img src="<?= $config['url'] ?>/assets/img_articles/<?= $favorite["img_name"] ?>"
                                         class="card-img-top mx-auto" alt="Illustration de l'article">
                                     <div class="card-body d-flex flex-column justify-content-between align-items-center">
-                                        <h5 class="card-title text-center"><?= htmlentities($favorite["art_title"]) ?></h5>
-                                        <p class="fst-italic">Favoris ajouté le : <?= date("d/m/Y", strtotime(htmlentities($favorite['fav_added_at']))) ?></p>
+                                        <h5 class="card-title text-center"><?= htmlspecialchars($favorite["art_title"]) ?></h5>
+                                        <p class="fst-italic">Favoris ajouté le : <?= date("d/m/Y", strtotime(htmlspecialchars($favorite['fav_added_at']))) ?></p>
                                         <a href="<?= $config['url'] ?>/view/read_article.php?id=<?= $favorite['fav_art_id'] ?>"
                                             class="btn btn-outline-primary rounded-pill mb-2">Voir le spot</a>
                                     </div>
@@ -358,8 +358,8 @@ if (isset($_SESSION['id']) && $id_session == $id) {
                                     <img src="<?= $config['url'] ?>/assets/img_articles/<?= $approvedArticle["img_name"] ?>"
                                         class="card-img-top mx-auto" alt="Illustration de l'article">
                                     <div class="card-body d-flex flex-column justify-content-between align-items-center">
-                                        <h5 class="card-title text-center"><?= htmlentities($approvedArticle["art_title"]) ?></h5>
-                                        <p class="fst-italic">Spot créé le : <?= date("d/m/Y", strtotime(htmlentities($approvedArticle['art_created_at']))) ?></p>
+                                        <h5 class="card-title text-center"><?= htmlspecialchars($approvedArticle["art_title"]) ?></h5>
+                                        <p class="fst-italic">Spot créé le : <?= date("d/m/Y", strtotime(htmlspecialchars($approvedArticle['art_created_at']))) ?></p>
                                         <a href="<?= $config['url'] ?>/view/read_article.php?id=<?= $approvedArticle['art_id'] ?>"
                                             class="btn btn-outline-primary rounded-pill mb-2">Voir le spot</a>
                                     </div>
@@ -378,8 +378,8 @@ if (isset($_SESSION['id']) && $id_session == $id) {
                                         <img src="<?= $config['url'] ?>/assets/img_articles/<?= $pendingArticle["img_name"] ?>"
                                             class="card-img-top mx-auto" alt="Illustration de l'article">
                                         <div class="card-body d-flex flex-column justify-content-between align-items-center">
-                                            <h5 class="card-title text-center"><?= htmlentities($pendingArticle["art_title"]) ?></h5>
-                                            <p class="fst-italic">Spot créé le : <?= date("d/m/Y", strtotime(htmlentities($pendingArticle['art_created_at']))) ?></p>
+                                            <h5 class="card-title text-center"><?= htmlspecialchars($pendingArticle["art_title"]) ?></h5>
+                                            <p class="fst-italic">Spot créé le : <?= date("d/m/Y", strtotime(htmlspecialchars($pendingArticle['art_created_at']))) ?></p>
                                             <a href="<?= $config['url'] ?>/view/update_article.php?id=<?= $pendingArticle['art_id'] ?>"
                                                 class="btn btn-outline-success rounded-pill mb-2">Modifier le spot</a>
                                             <button type="button" class="btn btn-outline-danger rounded-pill mb-2 btn-delete-modal" data-id="<?= $pendingArticle["art_id"] ?>"

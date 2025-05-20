@@ -25,13 +25,12 @@ if (isBlocked()) {
     $buttonPrevious = "Retour à la page d'accueil";
     $href = "./homepage.php";
     $mode = "add";
-    $title = htmlspecialchars($_SESSION["temp_title"], ENT_QUOTES, 'UTF-8') ?? "";
-    $category = htmlspecialchars($_SESSION["temp_cat"], ENT_QUOTES, 'UTF-8') ?? "";
-    $content = htmlspecialchars($_SESSION["temp_content"], ENT_QUOTES, 'UTF-8') ?? "";
-    $lat = htmlspecialchars($_SESSION["temp_lat"], ENT_QUOTES, 'UTF-8') ?? "";
-    $lng = htmlspecialchars($_SESSION["temp_lng"], ENT_QUOTES, 'UTF-8') ?? "";
+    $title = $_SESSION["temp_title"] ?? "";
+    $category = $_SESSION["temp_cat"] ?? "";
+    $content = $_SESSION["temp_content"] ?? "";
+    $lat = $_SESSION["temp_lat"] ?? false;
+    $lng = $_SESSION["temp_lng"] ?? false;
     $author = intval($_SESSION['id']);
-    //echo "<script>console.log(" . json_encode($_SESSION) . ");</script>";
     ?>
     <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">

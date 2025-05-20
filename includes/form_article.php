@@ -5,6 +5,7 @@ $buttonSubmit = $buttonSubmit ?? 'Publier mon spot';
 $buttonPrevious = $buttonPrevious ?? 'Retour';
 $href = $href ?? './homepage.php';
 $mode = $mode ?? 'add';
+echo "<script>console.log(" . json_encode($_SESSION) . ");</script>";
 ?>
 
 <form method="POST" action="../controller/article_controller.php" enctype="multipart/form-data"
@@ -12,11 +13,11 @@ $mode = $mode ?? 'add';
     <input type="hidden" name="author" value="<?= $author ?? null ?>">
     <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? null ?>">
     <?php if ($mode === "update") { ?>
-        <input type="hidden" name="art_id" value="<?= htmlspecialchars_decode($article['art_id']) ?>">
+        <input type="hidden" name="art_id" value="<?= htmlspecialchars($article['art_id']) ?>">
     <?php } ?>
     <div class="mb-3">
         <input type="text" name="title" class="form-control form-control-lg"
-            value="<?= htmlspecialchars_decode($article['art_title'] ?? $title) ?>"
+            value="<?= htmlspecialchars($article['art_title'] ?? $title) ?>"
             placeholder="Titre" maxlength="40" required
             aria-label="Titre de l'article" aria-describedby="titleHelp">
     </div>
@@ -31,12 +32,13 @@ $mode = $mode ?? 'add';
                 $cats = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($cats as $cat) {
                     $isSelected = false;
+                    echo "<script>console.log(" . json_encode($cat) . ");</script>";
                     if ($mode === "update" && $article['art_fk_cat_id'] == $cat['cat_id']) {
                         $isSelected = true;
                     } elseif ($mode === "add" && !empty($_SESSION['temp_cat']) && $_SESSION['temp_cat'] == $cat['cat_id']) {
                         $isSelected = true;
                     }
-                    echo "<option value='" . $cat['cat_id'] . "'" . ($isSelected ? " selected" : "") . ">" . ucfirst($cat['cat_name']) . "</option>";
+                    echo "<option value='" . $cat['cat_id'] . "'" . ($isSelected ? "selected" : "") . ">" . ucfirst($cat['cat_name']) . "</option>";
                 }
             } catch (PDOException $e) {
                 echo "<option disabled>Erreur lors du chargement des catégories</option>";
@@ -48,9 +50,7 @@ $mode = $mode ?? 'add';
         <label for="content" class="form-label">Description du lieu</label>
         <textarea id="content" name="content" class="form-control" rows="3" maxlength="300" required
             placeholder="Décrivez le lieu en quelques mots"
-            aria-label="Contenu de l'article" aria-describedby="contentHelp">
-            <?= htmlspecialchars_decode($article['art_content'] ?? $content) ?>
-        </textarea>
+            aria-label="Contenu de l'article" aria-describedby="contentHelp"><?= htmlspecialchars($article['art_content'] ?? $content) ?></textarea>
         <div id="contentHelp" class="form-text">300 caractères maximum.</div>
     </div>
     <div class="mb-4">
@@ -67,9 +67,9 @@ $mode = $mode ?? 'add';
             aria-label="Carte interactive pour sélectionner un emplacement"></div>
         <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-2">
             <input class="form-control text-primary" type="text" id="lat" name="lat"
-                value="<?= htmlspecialchars_decode($article['art_lat'] ?? $lat) ?>" hidden required>
+                value="<?= htmlspecialchars($article['art_lat'] ?? $lat) ?>" hidden required>
             <input class="form-control text-success" type="text" id="lng" name="lng"
-                value="<?= htmlspecialchars_decode($article['art_lng'] ?? $lng) ?>" hidden required>
+                value="<?= htmlspecialchars($article['art_lng'] ?? $lng) ?>" hidden required>
         </div>
         <div class="container-fluid d-flex flex-column justify-content-center">
             <p class="adress text-center">ou</p>

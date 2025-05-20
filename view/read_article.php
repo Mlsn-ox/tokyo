@@ -96,26 +96,25 @@ try {
         </div>
         <div class="container-fluid d-md-flex justify-content-between pt-3">
             <div class="container-fluid col-12 col-md-6 fade-right pt-md-4 d-flex flex-column">
-                <article class="mb-2"><?= htmlspecialchars_decode($article['art_content']) ?></article>
+                <article class="mb-2"><?= htmlspecialchars($article['art_content']) ?></article>
                 <p>
                     Posté le <?= date("d/m/Y", strtotime($article['art_created_at'])) ?><?= $author ? ", par " : "" ?>
-                    <a href="<?= $config['url'] ?>/view/read_user.php?id=<?= $article['ide'] ?>" class="fst-italic">
+                    <a href="<?= $config['url'] ?>/view/read_user.php?id=<?= intval($article['ide'])  ?>" class="fst-italic">
                         <?= $author ?>
                     </a>
                 </p>
             </div>
             <div class="container-fluid col-12 col-md-6 fade-left img-clickable-container p-2">
-                <img src="<?= $config['url'] ?>/assets/img_articles/<?= $article['img'] ?>" alt="<?= $config['alt_img'] ?>"
+                <img src="<?= $config['url'] ?>/assets/img_articles/<?= htmlspecialchars($article['img']) ?>" alt="<?= $config['alt_img'] ?>"
                     class="rounded-4 img-clickable" data-bs-toggle="modal" data-bs-target="#imageModal" />
             </div>
         </div>
         <div class="container-fluid mx-auto my-4 mb-2">
-            <div id="map" data-lat="<?= $article['art_lat'] ?>" data-lng="<?= $article['art_lng'] ?>"
+            <div id="map" data-lat="<?= htmlspecialchars($article['art_lat']) ?>" data-lng="<?= htmlspecialchars($article['art_lng']) ?>"
                 class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom fade-up">
             </div>
         </div>
         <?php if (isConnected() && isAdmin()) { ?>
-            // Si l'utilisateur est admin, on affiche les boutons de modération
             <div class="container moderation mt-4 d-flex flex-column flex-sm-row justify-content-center align-items-center flex-wrap gap-2 gap-md-5">
                 <?php if ($article["art_status"] === "pending") { ?>
                     <a href="<?= $config['url'] ?>/controller/moderation.php?id=<?= $article['art_id'] ?>&action=approved&element=article&token=<?= $_SESSION['token'] ?>"
@@ -181,9 +180,9 @@ try {
                             $href = $config['url'] . '/view/read_user.php?id=' . $comment['commenter_id'] . '"';
                         } ?>
                         <li class="list-group-item py-3 d-flex flex-column <?= $class ?>">
-                            <span><?= htmlentities(htmlspecialchars_decode($comment['com_content'])) ?></span>
+                            <span><?= htmlspecialchars($comment['com_content']) ?></span>
                             <span class="fst-italic">
-                                <a class="text-decoration-none" href="<?= $href ?>"><?= $comment['commenter'] ?></a>,
+                                <a class="text-decoration-none" href="<?= $href ?>"><?= htmlspecialchars($comment['commenter']) ?></a>,
                                 le <?= $comment['com_posted_at'] ?>
                             </span>
                             <div class="d-flex align-items-center my-1"><?= $btn ?></div>
@@ -197,13 +196,11 @@ try {
                 <form method="POST" action="<?= $config['url'] ?>/controller/add_comment_controller.php"
                     aria-label="Formulaire d'ajout d'un commentaire">
                     <input type="hidden" name="user_comment" value="<?= $_SESSION['id'] ?>">
-                    <input type="hidden" name="art_id" value="<?= $article['art_id'] ?>">
+                    <input type="hidden" name="art_id" value="<?= intval($article['art_id']) ?>">
                     <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                     <div class="my-3">
                         <textarea id="comment_content" class="form-control" name="comment_content" aria-label="Contenu du commentaire"
-                            aria-describedby="contentHelp" placeholder="Ajouter un commentaire" maxlength="300" rows="3" required>
-                            <?= isset($_SESSION["temp_com"]) ? $_SESSION["temp_com"] : "" ?>
-                        </textarea>
+                            aria-describedby="contentHelp" placeholder="Ajouter un commentaire" maxlength="300" rows="3" required><?= isset($_SESSION["temp_com"]) ? $_SESSION["temp_com"] : "" ?></textarea>
                         <div id="contentHelp" class="form-text">300 caractères maximum.</div>
                         <p class="mt-2 fst-italic">
                             ⚠️ Merci de vous relire avant d’envoyer votre commentaire. Les messages haineux ou irrespectueux ne seront pas publiés.

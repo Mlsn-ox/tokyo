@@ -3,6 +3,7 @@ const openWeather = document.getElementById("meteo-tokyo");
 const horaire = document.getElementById("heure-tokyo");
 const toast = document.querySelector(".toast");
 const acceptBtn = document.getElementById("accept-cookies");
+const apiKeyOpenW = "e1edbd55f7fda615ba1c2906bf6454e9";
 let petalInterval;
 
 updateTime();
@@ -81,7 +82,6 @@ function updateTime() {
  * - Affiche la description météo (capitalisée)
  * - Affiche une icône correspondante
  */
-const apiKeyOpenW = "e1edbd55f7fda615ba1c2906bf6454e9";
 const urlOpenW = `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=${apiKeyOpenW}&units=metric&lang=fr`;
 fetch(urlOpenW)
   .then((response) => response.json())

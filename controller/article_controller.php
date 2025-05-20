@@ -1,6 +1,5 @@
 <?php
 require_once "../config.php";
-require_once "../controller/article_img_controller.php";
 try {
     if (
         $_SESSION['blocked'] ||
@@ -21,8 +20,8 @@ try {
     $articleId = !empty($_POST['art_id']) ? filter_var($_POST['art_id'], FILTER_VALIDATE_INT) : null;
     $isUpdate = $articleId !== null; // True si $articleId == Int
     // Nettoyage des données
-    $title = htmlspecialchars(ucfirst(trim($_POST['title'])), ENT_QUOTES, 'UTF-8');
-    $content = htmlspecialchars(ucfirst(trim($_POST['content'])), ENT_QUOTES, 'UTF-8');
+    $title = ucfirst(trim($_POST['title']));
+    $content = ucfirst(trim($_POST['content']));
     $category = filter_var($_POST['category'], FILTER_VALIDATE_INT);
     $lat = filter_var($_POST['lat'], FILTER_VALIDATE_FLOAT);
     $lng = filter_var($_POST['lng'], FILTER_VALIDATE_FLOAT);
@@ -44,7 +43,36 @@ try {
     ) {
         throw new Exception("map_error");
     }
-    // Vérifie que le mode update ou add
+    if (
+        isset($_FILES['image']) &&
+        $_FILES['image']['error'] === UPLOAD_ERR_OK
+    ) {
+        $fileName = $_FILES["image"]["name"];
+        $tmpName = $_FILES["image"]["tmp_name"];
+        $fileSize = $_FILES["image"]["size"];
+        if (!file_exists($tmpName) || $fileSize > 10485760 || !getimagesize($tmpName)) {
+            throw new Exception("img_error");
+        }
+        // Vérification du type MIME
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mime = $finfo->file($tmpName);
+        $allowedMime = ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/tiff'];
+        if (!in_array($mime, $allowedMime)) {
+            throw new Exception("img_wrong_ext");
+        }
+        $mimeToExt = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/webp' => 'webp',
+            'image/avif' => 'avif',
+            'image/tiff' => 'tiff'
+        ];
+        $ext = $mimeToExt[$mime] ?? null;
+        if (!$ext) {
+            throw new Exception("img_wrong_ext");
+        }
+    }
+    // Vérifie le mode update ou add
     if ($isUpdate) {
         $sql = "SELECT art_fk_user_id FROM article WHERE art_id = :articleId";
         $stmt = $pdo->prepare($sql);
@@ -80,15 +108,33 @@ try {
         throw new Exception("server_error");
     }
     if (!$isUpdate) {
-        $articleId = $pdo->lastInsertId(); // Récupère l'ID si c'était ADD
+        $articleId = $pdo->lastInsertId(); // Récupère l'ID si c'était Add
     }
     if (
         isset($_FILES['image']) &&
         $_FILES['image']['error'] === UPLOAD_ERR_OK
     ) {
-        handleImageUpload($title, $articleId, $pdo);
+        $safeTitle = preg_replace('/[^a-zA-Z0-9-_]/', '_', $title);
+        $newName = $safeTitle . '_' . uniqid() . '.' . $ext;
+        $uploadDir = "../assets/img_articles/";
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+        if (!move_uploaded_file($tmpName, $uploadDir . $newName)) {
+            throw new Exception("img_error");
+        }
+        $sql = "SELECT img_id FROM image WHERE img_fk_art_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$articleId]);
+        if ($stmt->fetch()) {
+            $sql = "UPDATE image SET img_name = ? WHERE img_fk_art_id = ?";
+        } else {
+            $sql = "INSERT INTO image (img_name, img_fk_art_id) VALUES (?, ?)";
+        }
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$newName, $articleId]);
     }
-    unset($_SESSION["temp_title"], $_SESSION["temp_content"], $_SESSION["temp_image"], $_SESSION["temp_lat"], $_SESSION["temp_lng"]);
+    unset($_SESSION["temp_title"], $_SESSION["temp_content"], $_SESSION["temp_cat"], $_SESSION["temp_lat"], $_SESSION["temp_lng"]);
     $message = $isUpdate ? "article_updated" : "article_added";
     header("Location: ../view/read_user.php?id=$author&message_code=$message&status=success");
     exit();
