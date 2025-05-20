@@ -30,7 +30,7 @@ if (!empty($_POST['mail']) && !empty($_POST['psw'])) {
             'id' => $user['user_id']
         ]);
         $_SESSION['id'] = filter_var($user['user_id'], FILTER_VALIDATE_INT);
-        $_SESSION['name'] = htmlspecialchars_decode($user['user_name']);
+        $_SESSION['name'] = htmlspecialchars($user['user_name']);
         $_SESSION['mail'] = filter_var($user['user_mail'], FILTER_SANITIZE_EMAIL);
         $_SESSION['role'] = $user['user_role']; // 'client' ou 'admin'
         $_SESSION['img'] = $user['user_image'];
